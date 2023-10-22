@@ -5,6 +5,7 @@ use App\Models\Customer;
 use App\Models\User;
 use Inertia\Testing\Assert;
 use function Pest\Laravel\post;
+use function Pest\Laravel\put;
 
 beforeEach(function () {
     $this->logAsNewUser();
@@ -49,4 +50,17 @@ test('i can add customer linked to company', function () {
     expect($response->status())->toBe(201)
         ->and(Customer::count())->toBe(1)
         ->and(Customer::first()->company->name)->toBe('m2i');
+});
+
+
+test('i can edit customers', function () {
+    $customer = Customer::factory()->create();
+    $customer_array = $customer->toArray();
+    $customer_array['first_name'] = "toto";
+
+    $response = put(route("customers.edit", $customer->id), $customer_array);
+
+    expect($response->status())->toBe(200)
+        ->and(Customer::first()->first_name)->toBe($customer_array['first_name']);
+
 });

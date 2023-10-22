@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CustomerEditRequest;
 use App\Http\Requests\CustomerStoreRequest;
 use App\Models\Company;
 use App\Models\Customer;
@@ -24,4 +25,9 @@ class CustomerController extends Controller
         return new JsonResource($customer);
     }
 
+    public function edit(Customer $customer, CustomerEditRequest $request)
+    {
+        $customer->update( $request->validated());
+        return new JsonResource( $customer );
+    }
 }

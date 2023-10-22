@@ -6,7 +6,6 @@ import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import { Link } from '@inertiajs/vue3';
-import VueBasicAlert from "vue-basic-alert";
 
 const showingNavigationDropdown = ref(false);
 </script>
@@ -32,6 +31,10 @@ const showingNavigationDropdown = ref(false);
                             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                                 <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
                                     Dashboard
+                                </NavLink>
+
+                                <NavLink :href="route('customers.index')" :active="route().current('customers.index')">
+                                    Clients
                                 </NavLink>
                             </div>
                         </div>
@@ -115,6 +118,12 @@ const showingNavigationDropdown = ref(false);
                     <div class="pt-2 pb-3 space-y-1">
                         <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
                             Dashboard
+                        </ResponsiveNavLink>
+                    </div>
+
+                    <div class="pt-2 pb-3 space-y-1">
+                        <ResponsiveNavLink :href="route('customers.index')" :active="route().current('clients')">
+                            Clients
                         </ResponsiveNavLink>
                     </div>
 

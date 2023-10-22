@@ -1,6 +1,8 @@
 <script setup>
     import VueBasicAlert from 'vue-basic-alert'
 
+    // use : <copy-to-clip-board-button class="pl-2" :text="customer.email"/>
+
     let props = defineProps({
         text : String,
     });

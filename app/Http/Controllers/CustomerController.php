@@ -12,10 +12,22 @@ use Illuminate\Http\Request;
 
 class CustomerController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         return Inertia::render('Customer/Index', [
-            'companies' => Company::with('customers')->get()
+            'customers' => Customer::with('company')
+                ->when($request->input('search'), function ($query, $search) {
+                    $query->tokenizedSearch($search, [
+                        'first_name',
+                        'last_name',
+                        'role',
+                        'phone',
+                        'email',
+                        'city',
+                    ]);
+                })
+                ->get(),
+            'filters' => $request->only(['search'])
         ]);
     }
 
@@ -29,5 +41,10 @@ class CustomerController extends Controller
     {
         $customer->update( $request->validated());
         return new JsonResource( $customer );
+    }
+
+    public function destroy(Customer $customer)
+    {
+        $customer->delete();
     }
 }

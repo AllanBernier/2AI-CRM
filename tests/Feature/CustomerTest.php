@@ -4,6 +4,7 @@ use App\Models\Company;
 use App\Models\Customer;
 use App\Models\User;
 use Inertia\Testing\Assert;
+use function Pest\Laravel\delete;
 use function Pest\Laravel\post;
 use function Pest\Laravel\put;
 
@@ -62,5 +63,13 @@ test('i can edit customers', function () {
 
     expect($response->status())->toBe(200)
         ->and(Customer::first()->first_name)->toBe($customer_array['first_name']);
+});
 
+test('i can delete customers', function () {
+    $customer = Customer::factory()->create();
+    $customers = Customer::factory(5)->create();
+
+    $response = delete(route("customers.destroy", $customer->id));
+
+    expect(Customer::count())->toBe(5);
 });

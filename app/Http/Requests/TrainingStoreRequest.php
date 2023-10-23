@@ -22,7 +22,18 @@ class TrainingStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'status' => '',
+            'product_id' => '',
+            'client_id' => '' ,
+            'subcontractor_id' => '',
+            'tjm_client' => '',
+            'tjm_subcontractor' => '',
+            'duree' => '',
+            'start_date' => '',
+            'end_date' => '',
+            'num_session' => '',
+            'num_bdc' => '',
+            'travelling_expenses' => '',
         ];
     }
 }

@@ -31,6 +31,7 @@ Route::put('/customer/{customer}', [CustomerController::class, 'edit'])->name('c
 Route::delete('/customer/{customer}', [CustomerController::class, 'destroy'])->name('customers.destroy');
 
 Route::post('/product', [ProductController::class, 'store'])->name('products.store');
+Route::post('/product/search', [ProductController::class, 'search'])->name('products.search');
 Route::put('/product/{product}', [ProductController::class, 'edit'])->name('products.edit');
 Route::delete('/product/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
 
@@ -41,6 +42,7 @@ Route::delete('/subcontractor/{subcontractor}', [SubcontractorController::class,
 Route::put('/tjm/edit/{subcontractor}/{tjm_type}', [TjmTypeController::class, 'edit'])->name('tjms.edit');
 
 Route::post('/training', [TrainingController::class, 'store'])->name('trainings.store');
+Route::put('/training/{training}', [TrainingController::class, 'edit'])->name('trainings.edit');
 
 Route::middleware('auth')->group(function () {
 

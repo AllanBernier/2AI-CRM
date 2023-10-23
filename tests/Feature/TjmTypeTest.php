@@ -31,4 +31,4 @@ test('i can edit subcontractor tjm_type value', function () {
     expect($response->status())->toBe(200)
         ->and($contractor->tjms->count())->toBe(6)
         ->and($contractor->tjms()->find($tjm_poe->id)->pivot->price)->toBe(500);
-})->only();
+});

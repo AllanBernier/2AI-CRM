@@ -209,5 +209,6 @@ class DatabaseSeeder extends Seeder
         Subcontractor::create(['first_name' => 'Nehemie', 'last_name' => 'BALUKIDI', 'email_perso' => 'christian.lisangola@gmail.com', 'phone' => '', 'email_company' => 'n.balukidi@2aiconcept.com', 'company_name' => 'LISANGOLA','city' => '']);
         Subcontractor::create(['first_name' => 'Balogun', 'last_name' => 'OLA-DAVIES', 'email_perso' => 'boladavies@gmail.com', 'phone' => '668153658', 'email_company' => 'b.oladavies@2aiconcept.com', 'company_name' => 'OLA-DAVIES','city' => 'Paris / France']);
         Subcontractor::create(['first_name' => 'Samuel', 'last_name' => 'NEVEU', 'email_perso' => 'samuel.neveugall@gmail.com', 'phone' => '33782216779', 'email_company' => '', 'company_name' => '','city' => 'Rennes / France']);
+
     }
 }

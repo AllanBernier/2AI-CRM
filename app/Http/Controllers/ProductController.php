@@ -48,4 +48,15 @@ class ProductController extends Controller
         $product->delete();
         return new JsonResource($product);
     }
+
+    public function search(Request $request)
+    {
+        return Product::with('company', 'tjm_type')
+            ->when($request->input('search'), function ($query, $search) {
+                $query->tokenizedSearch($search, [
+                    'code', 'url', 'description', 'tjm', 'duree'
+                ]);
+            })
+            ->paginate(10);
+    }
 }

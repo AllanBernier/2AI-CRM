@@ -12,7 +12,19 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('trainings', function (Blueprint $table) {
-            $table->id();
+            $table->ulid('id');
+            $table->string('status')->nullable();
+            $table->string('product_id')->nullable();
+            $table->string('client_id' )->nullable();
+            $table->string('subcontractor_id')->nullable();
+            $table->integer('tjm_client')->nullable();
+            $table->integer('tjm_subcontractor')->nullable();
+            $table->float('duree',3,1)->nullable();
+            $table->string('start_date')->nullable();
+            $table->string('end_date')->nullable();
+            $table->string('num_session')->nullable();
+            $table->string('num_bdc')->nullable();
+            $table->integer('travelling_expenses')->nullable();
             $table->timestamps();
         });
     }

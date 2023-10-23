@@ -66,3 +66,18 @@ test('i can edit tjm_type on product', function () {
     expect($response->status())->toBe(200)
         ->and(Product::first()->tjm_type->name)->toBe('TJM POE');
 });
+
+
+test('i can search paginated products with tokenized search', function () {
+    Product::factory(5)->create();
+    Product::factory(6)->create(['code' => 'tttt']);
+    Product::factory(6)->create(['description' => 'tttt']);
+
+    $response = post(route('products.search'), ['search' => 'tttt']);
+
+
+    expect($response->status())->toBe(200)
+        ->and(count($response->json('data')))->toBe(10)
+        ->and($response->json('total'))->toBe(12);
+
+})->only();

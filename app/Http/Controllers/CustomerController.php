@@ -26,6 +26,7 @@ class CustomerController extends Controller
                         'city',
                     ]);
                 })
+                ->orderBy('company_id')
                 ->get(),
             'filters' => $request->only(['search']),
             'companies' => Company::all()

@@ -16,12 +16,13 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         return Inertia::render('Product/Index', [
-            'product' => Product::with('company')
+            'products' => Product::with('company')
                 ->when($request->input('search'), function ($query, $search) {
                     $query->tokenizedSearch($search, [
-
+                        'code', 'url', 'description', 'tjm', 'duree'
                     ]);
                 })
+                ->orderBy('company_id')
                 ->get(),
             'filters' => $request->only(['search']),
             'companies' => Company::all()

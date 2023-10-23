@@ -6,21 +6,23 @@ use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Company extends Model
+class Product extends Model
 {
     use HasFactory, HasUlids;
 
     protected $fillable = [
-        'name'
+        'code',
+        'description',
+        'url',
+        'tjm',
+        'duree',
+        'company_id'
     ];
 
-    public function customers()
+
+    public function company()
     {
-        return $this->hasMany(Customer::class);
+        return $this->belongsTo(Company::class);
     }
 
-    public function products()
-    {
-        return $this->hasMany(Product::class);
-    }
 }

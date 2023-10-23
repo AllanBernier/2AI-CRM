@@ -1,0 +1,54 @@
+<?php
+
+use App\Models\Company;
+use App\Models\Product;
+use function Pest\Laravel\delete;
+use function Pest\Laravel\post;
+use function Pest\Laravel\put;
+
+test('i can create products', function () {
+    $product_data = Product::factory()->make()->toArray();
+    $product_data['company_id'] = Company::factory()->create()->id;
+
+    $response = post(route('products.store'), $product_data );
+
+    $product = Product::first();
+    expect($response->status())->toBe(201)
+        ->and(Product::count())->toBe(1)
+        ->and($product_data['code'])->toBe($product->code)
+        ->and($product_data['description'])->toBe($product->description)
+        ->and($product_data['url'])->toBe($product->url)
+        ->and($product_data['tjm'])->toBe($product->tjm)
+        ->and($product_data['duree'])->toBe($product->duree)
+        ->and($product_data['company_id'])->toBe($product->company_id);
+});
+
+test('i can edit products', function () {
+    $product_data = Product::factory()->create()->toArray();
+    $product_data['description'] = "Description du produit";
+
+    $response = put(route('products.edit', ['product' => $product_data['id']]), $product_data );
+
+    $product = Product::first();
+    expect($response->status())->toBe(200)
+        ->and(Product::count())->toBe(1)
+        ->and($product->description)->toBe($product_data['description']);
+});
+
+test('i can delete products', function () {
+    Product::factory(5)->create();
+    $to_delete = Product::factory()->create();
+
+    $response = delete(route('products.destroy', ['product' => $to_delete->id]));
+
+    expect($response->status())->toBe(200)
+        ->and(Product::count())->toBe(5);
+});
+
+test('Product can be linked to company', function () {
+    $m2i = Company::factory()->create(['name' => 'm2i']);
+    $products = Product::factory(5)->create(['company_id' => $m2i->id]);
+
+    expect($m2i->products->count())->toBe(5)
+        ->and($products[0]->company->name)->toBe('m2i');
+});

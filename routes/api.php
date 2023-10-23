@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,6 +26,10 @@ Route::get('/company', [CompanyController::class, 'index'])->name('companies.ind
 Route::post('/customer', [CustomerController::class, 'store'])->name('customers.store');
 Route::put('/customer/{customer}', [CustomerController::class, 'edit'])->name('customers.edit');
 Route::delete('/customer/{customer}', [CustomerController::class, 'destroy'])->name('customers.destroy');
+
+Route::post('/product', [ProductController::class, 'store'])->name('products.store');
+Route::put('/product/{product}', [ProductController::class, 'edit'])->name('products.edit');
+Route::delete('/product/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
 
 Route::middleware('auth')->group(function () {
 

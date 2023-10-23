@@ -1,7 +1,6 @@
 <script setup>
-import CopyToClipBoardButton from "@/Components/CopyToClipBoardButton.vue";
 import CustomerStore from "@/Pages/Customer/CustomerStore.vue";
-import SelectCompanyModal from "@/Pages/Customer/SelectCompanyModal.vue";
+import SelectCompanyModal from "@/Components/SelectCompanyModal.vue";
 import {ref} from "vue";
 
 let props = defineProps({

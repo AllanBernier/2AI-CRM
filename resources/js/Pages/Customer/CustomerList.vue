@@ -1,9 +1,12 @@
 <script setup>
 import CopyToClipBoardButton from "@/Components/CopyToClipBoardButton.vue";
 import CustomerStore from "@/Pages/Customer/CustomerStore.vue";
+import SelectCompanyModal from "@/Pages/Customer/SelectCompanyModal.vue";
+import {ref} from "vue";
 
 let props = defineProps({
     customers : Object,
+    companies : Object,
 });
 
 let updateCol = (e, customer, col) =>{
@@ -13,6 +16,19 @@ let updateCol = (e, customer, col) =>{
     })
 
 }
+
+
+let showModal = ref(false)
+let selected_customer_modal = ref({})
+let updateCompany = (company) => {
+    selected_customer_modal.value.company_id = company.id;
+    console.log(route('customers.edit', {customer : selected_customer_modal.value.id}))
+    axios.put(route('customers.edit', {customer : selected_customer_modal.value.id}), selected_customer_modal.value).then( (res) => {
+        selected_customer_modal.value.company = company;
+        showModal.value = false
+    })
+}
+
 
 let destroy = (customer) => {
     axios.delete(route('customers.destroy', customer.id)).then( (res) => {
@@ -57,6 +73,7 @@ let destroy = (customer) => {
                                 </th>
                             </tr>
                         </thead>
+                        <select-company-modal :companies="companies" v-if="showModal" @close="showModal = false" @company="updateCompany"/>
 
                         <tbody>
                             <customer-store class="sticky top-8" :customers="customers"/>
@@ -68,9 +85,7 @@ let destroy = (customer) => {
                                     <p v-html="customer.last_name" contenteditable @blur="updateCol($event, customer, 'last_name')"></p>
                                 </td>
                                 <td class="border-r px-2">
-                                    <div v-if="customer.company">
-                                        <p v-html="customer.company.name" contenteditable @blur="updateCol($event, customer, 'role')"></p>
-                                    </div>
+                                        <button id="show-modal" @click="showModal = true; selected_customer_modal = customer">{{customer.company == null ? '+ (Société)' : customer.company.name}}</button>
                                 </td>
                                 <td class="border-r px-2">
                                     <p v-html="customer.role" contenteditable @blur="updateCol($event, customer, 'role')"></p>

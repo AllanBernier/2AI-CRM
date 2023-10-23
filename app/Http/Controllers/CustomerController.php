@@ -27,7 +27,8 @@ class CustomerController extends Controller
                     ]);
                 })
                 ->get(),
-            'filters' => $request->only(['search'])
+            'filters' => $request->only(['search']),
+            'companies' => Company::all()
         ]);
     }
 

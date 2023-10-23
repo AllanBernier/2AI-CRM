@@ -7,7 +7,8 @@ import {router} from "@inertiajs/vue3";
 
 let props = defineProps({
     customers : Object,
-    filters : Object
+    filters : Object,
+    companies : Object
 });
 
 let search = ref(props.filters.search);
@@ -37,7 +38,7 @@ watch(search, debounce(function (value) {
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <customer-list :customers="customers"/>
+                    <customer-list :companies="companies" :customers="customers"/>
                 </div>
             </div>
         </div>

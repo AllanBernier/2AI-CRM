@@ -4,6 +4,7 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SubcontractorController;
+use App\Http\Controllers\TjmTypeController;
 use App\Http\Controllers\TrainingController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -36,6 +37,8 @@ Route::delete('/product/{product}', [ProductController::class, 'destroy'])->name
 Route::post('/subcontractor', [SubcontractorController::class, 'store'])->name('subcontractors.store');
 Route::put('/subcontractor/{subcontractor}', [SubcontractorController::class, 'edit'])->name('subcontractors.edit');
 Route::delete('/subcontractor/{subcontractor}', [SubcontractorController::class, 'destroy'])->name('subcontractors.destroy');
+
+Route::put('/tjm/edit/{subcontractor}/{tjm_type}', [TjmTypeController::class, 'edit'])->name('tjms.edit');
 
 Route::post('/training', [TrainingController::class, 'store'])->name('trainings.store');
 

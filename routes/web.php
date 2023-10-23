@@ -35,6 +35,7 @@ Route::get('/dashboard', function () {
 Route::middleware('auth')->group(function () {
     Route::get('/customer', [CustomerController::class, 'index'])->name('customers.index');
     Route::get('/product', [ProductController::class, 'index'])->name('products.index');
+    Route::get('/subcontractor/{subcontractor}', [SubcontractorController::class, 'show'])->name('subcontractors.show');
     Route::get('/subcontractor', [SubcontractorController::class, 'index'])->name('subcontractors.index');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

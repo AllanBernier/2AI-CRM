@@ -2,64 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Subcontractor;
 use App\Models\TjmType;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 class TjmTypeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function edit(Subcontractor $subcontractor, TjmType $tjmType, Request $request)
     {
-        //
-    }
+        if (!$request->has('price')){
+            abort(403);
+        }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+        $subcontractor->tjms()->updateExistingPivot($tjmType->id, ['price' => $request->price]);
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(TjmType $tjm)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(TjmType $tjm)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, TjmType $tjm)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(TjmType $tjm)
-    {
-        //
+        return new JsonResource($subcontractor->tjms);
     }
 }

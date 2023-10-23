@@ -50,4 +50,4 @@ test('when creating new subcontractor, also create link to each tjm_types and de
     $subcontractor = Subcontractor::factory()->create();
     expect($subcontractor->tjms->count())->toBe(3)
         ->and($subcontractor->tjms->first()->pivot->price)->toBe(0);
-})->only();
+});

@@ -25,12 +25,19 @@ class SubcontractorController extends Controller
                         'phone'
                     ]);
                 })
-                ->orderBy('company_name')
+                ->orderBy('first_name')
                 ->get(),
             'filters' => $request->only(['search']),
         ]);
     }
 
+    public function show(Subcontractor $subcontractor)
+    {
+        $subcontractor->load('tjms');
+        return Inertia::render('Subcontractor/Show', [
+            'subcontractor' => $subcontractor,
+        ]);
+    }
     public function store(SubcontractorStoreRequest $request)
     {
         $subcontractor = Subcontractor::create($request->validated());

@@ -13,7 +13,6 @@ let updateCol = (e, customer, col) =>{
     axios.put(route('customers.edit', customer.id), customer).then( (res) => {
         console.log(res)
     })
-
 }
 
 

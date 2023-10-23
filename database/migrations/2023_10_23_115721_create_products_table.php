@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('tjm')->nullable();
             $table->integer('duree')->nullable();
             $table->ulid('company_id')->nullable();
+            $table->ulid('tjm_type_id')->nullable();
 
             $table->timestamps();
         });

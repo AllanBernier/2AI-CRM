@@ -9,7 +9,8 @@ import ProductList from "@/Pages/Product/ProductList.vue";
 let props = defineProps({
     products : Object,
     filters : Object,
-    companies : Object
+    companies : Object,
+    tjm_types : Object
 });
 
 let search = ref(props.filters.search);
@@ -38,7 +39,7 @@ watch(search, debounce(function (value) {
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <product-list :companies="companies" :products="products"/>
+                    <product-list :tjm_types="tjm_types" :companies="companies" :products="products"/>
                 </div>
             </div>
         </div>

@@ -3,10 +3,12 @@ import CustomerStore from "@/Pages/Customer/CustomerStore.vue";
 import SelectCompanyModal from "@/Components/SelectCompanyModal.vue";
 import {ref} from "vue";
 import ProductStore from "@/Pages/Product/ProductStore.vue";
+import SelectTjmModal from "@/Components/SelectTjmModal.vue";
 
 let props = defineProps({
     products : Object,
     companies : Object,
+    tjm_types : Object,
 });
 
 let updateCol = (e, customer, col) =>{
@@ -18,17 +20,26 @@ let updateCol = (e, customer, col) =>{
 }
 
 
-let showModal = ref(false)
+let companyModal = ref(false)
+let tjmModal = ref(false)
 let selected_product_modal = ref({})
 let updateCompany = (company) => {
     selected_product_modal.value.company_id = company.id;
     console.log(route('products.edit', {product : selected_product_modal.value.id}))
     axios.put(route('products.edit', {product : selected_product_modal.value.id}), selected_product_modal.value).then( (res) => {
         selected_product_modal.value.company = company;
-        showModal.value = false
+        companyModal.value = false
     })
 }
 
+let updateTjmType = (tjm_type) => {
+    selected_product_modal.value.tjm_type_id = tjm_type.id;
+    console.log(route('products.edit', {product : selected_product_modal.value.id}))
+    axios.put(route('products.edit', {product : selected_product_modal.value.id}), selected_product_modal.value).then( (res) => {
+        selected_product_modal.value.tjm_type = tjm_type;
+        tjmModal.value = false
+    })
+}
 
 let destroy = (product) => {
     axios.delete(route('products.destroy', product.id)).then( (res) => {
@@ -63,6 +74,9 @@ let destroy = (product) => {
                                 TJM
                             </th>
                             <th scope="col" class="px-6 py-3">
+                                niveau
+                            </th>
+                            <th scope="col" class="px-6 py-3">
                                 Société
                             </th>
                             <th scope="col" class="px-6 py-3">
@@ -70,7 +84,8 @@ let destroy = (product) => {
                             </th>
                         </tr>
                         </thead>
-                        <select-company-modal :companies="companies" v-if="showModal" @close="showModal = false" @company="updateCompany"/>
+                        <select-company-modal :companies="companies" v-if="companyModal" @close="companyModal = false" @company="updateCompany"/>
+                        <select-tjm-modal :tjm_types="tjm_types" v-if="tjmModal" @close="tjmModal = false" @tjm="updateTjmType"/>
 
                         <tbody>
                         <product-store class="sticky top-10" :products="products"/>
@@ -92,7 +107,10 @@ let destroy = (product) => {
                                 <span v-html="product.tjm" contenteditable @blur="updateCol($event, product, 'tjm')"></span> €
                             </td>
                             <td class="border-r px-2">
-                                <button id="show-modal" @click="showModal = true; selected_product_modal = product">{{product.company == null ? '+ (Société)' : product.company.name}}</button>
+                                <button id="show-modal" @click="tjmModal = true; selected_product_modal = product">{{product.tjm_type == null ? '+ (Niveau)' : product.tjm_type.name}}</button>
+                            </td>
+                            <td class="border-r px-2">
+                                <button id="show-modal" @click="companyModal = true; selected_product_modal = product">{{product.company == null ? '+ (Société)' : product.company.name}}</button>
                             </td>
                             <td class="border-r flex gap-1">
                                 <button @click="destroy(product)" class="bg-red-600 p-1 rounded-md dark:text-red-500 hover:underline">

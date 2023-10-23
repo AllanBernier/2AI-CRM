@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProductStoreRequest;
 use App\Models\Company;
-use App\Models\Customer;
 use App\Models\Product;
+use App\Models\TjmType;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Inertia\Inertia;
@@ -16,7 +16,7 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         return Inertia::render('Product/Index', [
-            'products' => Product::with('company')
+            'products' => Product::with('company', 'tjm_type')
                 ->when($request->input('search'), function ($query, $search) {
                     $query->tokenizedSearch($search, [
                         'code', 'url', 'description', 'tjm', 'duree'
@@ -25,7 +25,8 @@ class ProductController extends Controller
                 ->orderBy('company_id')
                 ->get(),
             'filters' => $request->only(['search']),
-            'companies' => Company::all()
+            'companies' => Company::all(),
+            'tjm_types' => TjmType::all(),
         ]);
     }
 
@@ -37,6 +38,7 @@ class ProductController extends Controller
 
     public function edit(Product $product, ProductStoreRequest $request)
     {
+
         $product->update($request->validated());
         return new JsonResource($product);
     }

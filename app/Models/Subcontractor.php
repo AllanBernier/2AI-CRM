@@ -21,4 +21,18 @@ class Subcontractor extends Model
         'city',
     ];
 
+
+    public function tjms()
+    {
+        return $this->belongsToMany(TjmType::class)
+            ->withPivot('price')
+            ->withTimestamps();
+    }
+
+    protected static function booted(): void
+    {
+        static::created(function (Subcontractor $subcontractor) {
+            $subcontractor->tjms()->attach(TjmType::all());
+        });
+    }
 }

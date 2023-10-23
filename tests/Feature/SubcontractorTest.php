@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Subcontractor;
+use App\Models\TjmType;
 use function Pest\Laravel\delete;
 use function Pest\Laravel\post;
 use function Pest\Laravel\put;
@@ -42,3 +43,11 @@ test('i can delete subcontractors', function () {
     expect($response->status())->toBe(200)
         ->and(Subcontractor::count())->toBe(5);
 });
+
+
+test('when creating new subcontractor, also create link to each tjm_types and default value to 0', function () {
+    TjmType::factory(3)->create();
+    $subcontractor = Subcontractor::factory()->create();
+    expect($subcontractor->tjms->count())->toBe(3)
+        ->and($subcontractor->tjms->first()->pivot->price)->toBe(0);
+})->only();

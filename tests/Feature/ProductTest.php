@@ -2,6 +2,7 @@
 
 use App\Models\Company;
 use App\Models\Product;
+use App\Models\TjmType;
 use function Pest\Laravel\delete;
 use function Pest\Laravel\post;
 use function Pest\Laravel\put;
@@ -51,4 +52,17 @@ test('Product can be linked to company', function () {
 
     expect($m2i->products->count())->toBe(5)
         ->and($products[0]->company->name)->toBe('m2i');
+});
+
+
+test('i can edit tjm_type on product', function () {
+    $tjm_poe = TjmType::factory()->create(['name'=> 'TJM POE']);
+    $poe_java = Product::factory()->create();
+    $poe_java_data = $poe_java->toArray();
+    $poe_java_data['tjm_type_id'] = $tjm_poe->id;
+
+    $response = put(route('products.edit', ['product' => $poe_java_data['id']]), $poe_java_data );
+
+    expect($response->status())->toBe(200)
+        ->and(Product::first()->tjm_type->name)->toBe('TJM POE');
 });

@@ -7,6 +7,7 @@ use App\Models\Company;
 use App\Models\Customer;
 use App\Models\Product;
 use App\Models\Subcontractor;
+use App\Models\TjmType;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -30,6 +31,10 @@ class DatabaseSeeder extends Seeder
         $orsys = Company::factory()->create(['name' => 'orsys']);
         $ib = Company::factory()->create(['name' => 'ib']);
 
+        TjmType::create(['name' => 'POE']);
+        TjmType::create(['name' => 'INIT']);
+        TjmType::create(['name' => 'PERF']);
+        TjmType::create(['name' => 'AVC']);
 
        // JAV-DW	Java EE - Développement Web et d'applications d'entreprise	675	5
 

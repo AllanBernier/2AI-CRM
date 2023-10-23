@@ -17,13 +17,19 @@ class Product extends Model
         'url',
         'tjm',
         'duree',
-        'company_id'
+        'company_id',
+        'tjm_type_id'
     ];
 
 
     public function company()
     {
         return $this->belongsTo(Company::class);
+    }
+
+    public function tjm_type()
+    {
+        return $this->belongsTo(TjmType::class);
     }
 
 }

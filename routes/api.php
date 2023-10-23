@@ -3,6 +3,7 @@
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SubcontractorController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -30,6 +31,10 @@ Route::delete('/customer/{customer}', [CustomerController::class, 'destroy'])->n
 Route::post('/product', [ProductController::class, 'store'])->name('products.store');
 Route::put('/product/{product}', [ProductController::class, 'edit'])->name('products.edit');
 Route::delete('/product/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
+
+Route::post('/subcontractor', [SubcontractorController::class, 'store'])->name('subcontractors.store');
+Route::put('/subcontractor/{subcontractor}', [SubcontractorController::class, 'edit'])->name('subcontractors.edit');
+Route::delete('/subcontractor/{subcontractor}', [SubcontractorController::class, 'destroy'])->name('subcontractors.destroy');
 
 Route::middleware('auth')->group(function () {
 

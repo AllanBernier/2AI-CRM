@@ -21,7 +21,7 @@ class ProductFactory extends Factory
             'code' => fake()->languageCode,
             'description' => fake()->text,
             'url' => fake()->url,
-            'tjm' => 400 + fake()->numberBetween(0,8),
+            'tjm' => 400 + fake()->numberBetween(0,8) * 25,
             'duree' => fake()->numberBetween(2,10),
         ];
     }

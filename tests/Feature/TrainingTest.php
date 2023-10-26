@@ -106,7 +106,7 @@ test('when create training with product, only set duree & client fields if produ
 });
 
 
-test('When edit training also edit training tjm_subcontractor with product tjm_type and subcontractor tjm_tjm', function () {
+test('When edit training also edit training tjm_subcontractor with product tjm_type and subcontractor tjm_type', function () {
 
     $init_tjm = TjmType::create(['name' => 'INIT']);
     $product = Product::create(['code' => 'toto','tjm_type_id' => $init_tjm->id]);

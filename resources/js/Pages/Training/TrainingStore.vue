@@ -1,21 +1,35 @@
 <script setup>
 
 import {ref} from "vue";
-import Dropdown from "@/Components/Dropdown.vue";
-import DropdownLink from "@/Components/DropdownLink.vue";
+import InputDropDown from "@/Components/InputDropDown.vue";
 
 let props = defineProps({
+    products : Object
 });
-const showingNavigationDropdown = ref(false);
+
+
+
+let createProductAndTraining = (productName) => {
+    console.log("Create product and create training : " + productName)
+}
+
+let createTraining = (idProduct) => {
+    console.log("Create training with product id: " + idProduct)
+}
+
+
 </script>
 
 <template>
-    <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-
-        <th scope="row" class="border-r font-medium text-gray-900 whitespace-nowrap dark:text-white">
-
+        <th scope="row" class="text-left ">
+            <input-drop-down
+                placeholder="+ Ajouter formation"
+                :values="[{name:'JVS-ANGU, m2i', id: 1 },{name:'JVS-REA, m2i', id: 2 },{name:'LI249, ib', id: 3 }]"
+                :can-add="true"
+                @create="createProductAndTraining"
+                @select="createTraining"
+            />
         </th>
-    </tr>
 </template>
 
 <style scoped>

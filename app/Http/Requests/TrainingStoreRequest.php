@@ -24,7 +24,7 @@ class TrainingStoreRequest extends FormRequest
         return [
             'status' => '',
             'product_id' => '',
-            'client_id' => '' ,
+            'customer_id' => '' ,
             'subcontractor_id' => '',
             'tjm_client' => '',
             'tjm_subcontractor' => '',
@@ -34,6 +34,7 @@ class TrainingStoreRequest extends FormRequest
             'num_session' => '',
             'num_bdc' => '',
             'travelling_expenses' => '',
+            'location' => '',
         ];
     }
 }

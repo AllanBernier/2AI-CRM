@@ -80,4 +80,4 @@ test('i can search paginated products with tokenized search', function () {
         ->and(count($response->json('data')))->toBe(10)
         ->and($response->json('total'))->toBe(12);
 
-})->only();
+});

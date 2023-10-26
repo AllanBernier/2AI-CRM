@@ -15,7 +15,7 @@ return new class extends Migration
             $table->ulid('id');
             $table->string('status')->nullable();
             $table->string('product_id')->nullable();
-            $table->string('client_id' )->nullable();
+            $table->string('customer_id' )->nullable();
             $table->string('subcontractor_id')->nullable();
             $table->integer('tjm_client')->nullable();
             $table->integer('tjm_subcontractor')->nullable();
@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('end_date')->nullable();
             $table->string('num_session')->nullable();
             $table->string('num_bdc')->nullable();
+            $table->string('location')->nullable();
             $table->integer('travelling_expenses')->nullable();
             $table->timestamps();
         });

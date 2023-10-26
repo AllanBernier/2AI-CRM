@@ -14,7 +14,7 @@ class Training extends Model
     protected $fillable = [
         'status',
         'product_id',
-        'client_id' ,
+        'customer_id' ,
         'subcontractor_id',
         'tjm_client',
         'tjm_subcontractor',
@@ -24,5 +24,22 @@ class Training extends Model
         'num_session',
         'num_bdc',
         'travelling_expenses',
+        'location'
     ];
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
+
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class);
+    }
+
+    public function subcontractor()
+    {
+        return $this->belongsTo(Subcontractor::class);
+    }
+
 }

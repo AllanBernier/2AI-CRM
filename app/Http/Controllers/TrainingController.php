@@ -14,9 +14,9 @@ use Inertia\Inertia;
 class TrainingController extends Controller
 {
 
-
     public function index(Request $request)
     {
+
         return Inertia::render('Training/Index', [
             'trainings' => Training::query()
                 ->when($request->input('search'), function ($query, $search) {
@@ -24,7 +24,10 @@ class TrainingController extends Controller
                         'duree'
                     ]);
                 })
+                ->with('product', 'customer', 'customer.company', 'subcontractor')
+                ->orderBy('start_date')
                 ->get(),
+            'products' => Product::with('company')->get(),
             'filters' => $request->only(['search']),
         ]);
     }

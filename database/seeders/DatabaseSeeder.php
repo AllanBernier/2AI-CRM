@@ -8,6 +8,7 @@ use App\Models\Customer;
 use App\Models\Product;
 use App\Models\Subcontractor;
 use App\Models\TjmType;
+use App\Models\Training;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -209,6 +210,29 @@ class DatabaseSeeder extends Seeder
         Subcontractor::create(['first_name' => 'Nehemie', 'last_name' => 'BALUKIDI', 'email_perso' => 'christian.lisangola@gmail.com', 'phone' => '', 'email_company' => 'n.balukidi@2aiconcept.com', 'company_name' => 'LISANGOLA','city' => '']);
         Subcontractor::create(['first_name' => 'Balogun', 'last_name' => 'OLA-DAVIES', 'email_perso' => 'boladavies@gmail.com', 'phone' => '668153658', 'email_company' => 'b.oladavies@2aiconcept.com', 'company_name' => 'OLA-DAVIES','city' => 'Paris / France']);
         Subcontractor::create(['first_name' => 'Samuel', 'last_name' => 'NEVEU', 'email_perso' => 'samuel.neveugall@gmail.com', 'phone' => '33782216779', 'email_company' => '', 'company_name' => '','city' => 'Rennes / France']);
+
+
+        for($i=0;$i<100;$i++){
+            $product = Product::select('id', 'company_id' ,)->inRandomOrder()->first();
+
+            Training::create([
+                'status' => fake()->randomElement(['nouveau', 'confirmé', 'option', 'archivé']),
+                'product_id' => $product->id,
+                'customer_id' => Customer::query()->where('company_id', $product->company_id)->inRandomOrder()->first()->id,
+                'subcontractor_id' => Subcontractor::inRandomOrder()->first()->id,
+                'tjm_client' => fake()->numberBetween(500,600),
+                'tjm_subcontractor' => fake()->numberBetween(600,700),
+                'duree' => fake()->randomFloat(1,1,20),
+                'start_date' => fake()->dateTimeThisMonth()->format('Y-m-d'),
+                'end_date' => fake()->dateTimeThisMonth()->format('Y-m-d'),
+                'num_session' => fake()->postcode,
+                'num_bdc' => fake()->postcode,
+                'travelling_expenses' => 0,
+                'location' => fake()->city,
+
+            ]);
+        }
+
 
     }
 }

@@ -25,7 +25,7 @@ class TrainingFactory extends Factory
         return [
             'status' => fake()->randomElement(['nouveau', 'confirmé', 'option', 'archivé']),
             'product_id' => Product::factory()->create(['company_id' => $company->id]),
-            'client_id' => Customer::factory()->create(['company_id' => $company->id]),
+            'customer_id' => Customer::factory()->create(['company_id' => $company->id]),
             'subcontractor_id' => Subcontractor::factory()->create(),
             'tjm_client' => fake()->numberBetween(500,600),
             'tjm_subcontractor' => fake()->numberBetween(600,700),
@@ -34,6 +34,7 @@ class TrainingFactory extends Factory
             'end_date' => fake()->dateTimeThisMonth()->format('Y-m-d'),
             'num_session' => fake()->postcode,
             'num_bdc' => fake()->postcode,
+            'location' => fake()->city,
             'travelling_expenses' => 0,
         ];
     }

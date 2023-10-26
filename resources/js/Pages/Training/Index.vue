@@ -11,6 +11,7 @@ import TrainingList from "@/Pages/Training/TrainingList.vue";
 let props = defineProps({
     trainings : Object,
     filters : Object,
+    products : Object,
 });
 
 let search = ref(props.filters.search);
@@ -35,10 +36,10 @@ watch(search, debounce(function (value) {
             </div>
         </template>
 
-        <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="py-2">
+            <div class="w-full mx-auto">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <training-list :trainings="trainings"/>
+                    <training-list :trainings="trainings" :products="products"/>
                 </div>
             </div>
         </div>

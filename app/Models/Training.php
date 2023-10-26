@@ -42,4 +42,26 @@ class Training extends Model
         return $this->belongsTo(Subcontractor::class);
     }
 
+    protected static function booted(): void
+    {
+        static::creating(function (Training $training) {
+            if ( isset($training->product_id) ){
+                if (!isset($training->duree)){
+                    $training->duree = $training->product->duree;
+                }
+                if (!isset($training->tjm_client)){
+                    $training->tjm_client = $training->product->tjm;
+                }
+            }
+        });
+
+        static::updating(function (Training $training) {
+            if (isset($training->product_id) && isset($training->subcontractor_id)){
+                $product_tjm_type = $training->product->tjm_type;
+                if (isset($product_tjm_type->id)){
+                    $training->tjm_subcontractor = $training->subcontractor->tjms()->find($product_tjm_type->id)->pivot->price;
+                }
+            }
+        });
+    }
 }

@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('trainings', function (Blueprint $table) {
             $table->ulid('id');
-            $table->string('status')->nullable();
+            $table->string('status')->default('nouveau');
             $table->string('product_id')->nullable();
             $table->string('customer_id' )->nullable();
             $table->string('subcontractor_id')->nullable();
-            $table->integer('tjm_client')->nullable();
-            $table->integer('tjm_subcontractor')->nullable();
+            $table->integer('tjm_client')->default(0)->nullable();
+            $table->integer('tjm_subcontractor')->default(0)->nullable();
             $table->float('duree',3,1)->nullable();
             $table->string('start_date')->nullable();
             $table->string('end_date')->nullable();

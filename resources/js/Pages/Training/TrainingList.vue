@@ -231,7 +231,10 @@ let bgColorClass = (training) => {
                                 <th scope="row" class="border-r px-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     {{margeEur(training)}} €
                                 </th>
-                                <th scope="row" class="border-r px-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <th scope="row"
+                                    class="border-r px-2 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                                    :class="totalPercent(training) > 30 ? 'text-green-500' : 'text-red-500'">
+
                                     {{ totalPercent(training) }} %
                                 </th>
                                 <th scope="row" class="border-r px-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">

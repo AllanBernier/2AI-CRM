@@ -3,6 +3,7 @@
 use App\Models\Customer;
 use App\Models\Product;
 use App\Models\Subcontractor;
+use App\Models\TjmType;
 use App\Models\Training;
 use function Pest\Laravel\post;
 use function Pest\Laravel\put;
@@ -33,6 +34,9 @@ test('it can create training', function () {
 
 
 test('i can edit training', function () {
+
+    \Pest\Laravel\withoutExceptionHandling();
+
     $training_data = Training::factory()->create()->toArray();
     $training_data['duree'] = 48.0;
 
@@ -64,6 +68,114 @@ test('trainings are linked with subcontractor', function () {
 });
 
 
+test('When create training with product, set default duree, status, tjm_client , ', function () {
+    $product = Product::factory()->create(['tjm' => 650, 'duree' => 6]);
+    $training = Training::create(['product_id' => $product->id]);
+    $training->refresh();
+    expect($training->status)->toBe('nouveau')
+        ->and($training->duree)->toBe(6.0)
+        ->and($training->tjm_client)->toBe(650);
+});
 
 
+test('when create training with product, do not set duree or tjm_client if not null', function () {
+    $product = Product::factory()->create(['tjm' => 650, 'duree' => 6]);
+    $training = Training::create([
+        'product_id' => $product->id,
+        'duree' => 5,
+        'tjm_client' => 600
+    ]);
+    $training->refresh();
 
+    expect($training->status)->toBe('nouveau')
+        ->and($training->duree)->toBe(5.0)
+        ->and($training->tjm_client)->toBe(600);
+});
+
+
+test('when create training with product, only set duree & client fields if product has associated fields set', function () {
+    $product = Product::create(['code' => 'toto']);
+    $training = Training::create([
+        'product_id' => $product->id,
+    ]);
+    $training->refresh();
+
+    expect($training->status)->toBe('nouveau')
+        ->and($training->duree)->toBe(null)
+        ->and($training->tjm_client)->toBe(null);
+});
+
+
+test('When edit training also edit training tjm_subcontractor with product tjm_type and subcontractor tjm_tjm', function () {
+
+    $init_tjm = TjmType::create(['name' => 'INIT']);
+    $product = Product::create(['code' => 'toto','tjm_type_id' => $init_tjm->id]);
+    $subcontractor = Subcontractor::factory()->create();
+    $subcontractor->tjms()->updateExistingPivot($init_tjm->id, ['price' => 500]);
+    $training = Training::create(['product_id' => $product->id]);
+    $training_data = [
+        'id' => $training->id,
+        'subcontractor_id' => $subcontractor->id
+    ];
+
+    $response = put(route('trainings.edit', ['training' => $training_data['id'] ]), $training_data);
+    $training->refresh();
+
+    expect($training->tjm_subcontractor)->toBe(500);
+});
+
+
+test('when create training set duree && tjm_client only if product is set', function () {
+    $training = Training::create(['num_bdc' => 'SE23-065694']);
+
+    expect($training->duree)->toBe(null);
+    expect($training->tjm_client)->toBe(null);
+});
+
+
+test('When edit training edit training subcontractor s tjm only if product is set', function () {
+
+    $init_tjm = TjmType::create(['name' => 'INIT']);
+    $subcontractor = Subcontractor::factory()->create();
+    $subcontractor->tjms()->updateExistingPivot($init_tjm->id, ['price' => 500]);
+
+    $training = Training::create();
+    $training_data = [
+        'id' => $training->id,
+        'subcontractor_id' => $subcontractor->id
+    ];
+
+    $response = put(route('trainings.edit', ['training' => $training_data['id'] ]), $training_data);
+    $training->refresh();
+
+    expect($response->status())->toBe(200)
+        ->and($training->tjm_subcontractor)->toBe(0);
+});
+
+test('when edit training edit training subcontractor tjm only if subcontractor is set', function () {
+    $init_tjm = TjmType::create(['name' => 'INIT']);
+    $product = Product::create(['code' => 'toto','tjm_type_id' => $init_tjm->id]);
+
+    $training = Training::create(['product_id' => $product->id]);
+    $training_data = [
+        'id' => $training->id,
+        'status' => 'option'
+    ];
+
+    $response = put(route('trainings.edit', ['training' => $training_data['id'] ]), $training_data);
+    $training->refresh();
+
+    expect($response->status())->toBe(200)
+        ->and($training->tjm_subcontractor)->toBe(0);
+});
+
+
+test('default training tjm_subcontractor && tjm_client is 0', function () {
+    $training = Training::create(['status' => 'nouveau']);
+
+    $training->refresh();
+
+    expect($training->tjm_client)->toBe(0)
+        ->and($training->tjm_subcontractor)->toBe(0);
+
+});

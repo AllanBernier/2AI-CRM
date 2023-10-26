@@ -13,6 +13,11 @@ let props = defineProps({
     products : Object
 });
 
+
+let updateCol = () => {
+    return
+}
+
 // Change status
 let statusModal = ref(false)
 let selected_training_modal = ref({})
@@ -146,7 +151,7 @@ let bgColorClass = (training) => {
                                     {{training.product.code}}
                                 </th>
                                 <th scope="row" class="border-r px-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    {{training.customer.company.name}}
+                                    {{training.customer ? training.customer.company.name || 'N/A' : 'N/A'}}
                                 </th>
                                 <th scope="row" class="border-r px-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     <span v-html="training.num_session" contenteditable @blur="updateCol($event, training, 'num_session')"></span>
@@ -181,16 +186,14 @@ let bgColorClass = (training) => {
                                 </th>
                                 <th scope="row" class="border-r px-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     <input-drop-down
-                                        placeholder="+ Ajouter formation"
+                                        placeholder="+ Ajouter formateur"
                                         :values="[{name:'JVS-ANGU, m2i', id: 1 },{name:'JVS-REA, m2i', id: 2 },{name:'LI249, ib', id: 3 }]"
-                                        @create="createProductAndTraining"
-                                        @select="createTraining"
-                                        :default-input="training.subcontractor.first_name +' '+training.subcontractor.last_name"
+                                        :default-input="training.subcontractor ? training.subcontractor.first_name +' '+training.subcontractor.last_name : ''"
                                     />
 
                                 </th>
                                 <th scope="row" class="border-r px-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    {{training.subcontractor.first_name}} {{training.subcontractor.last_name}}
+                                    {{training.subcontractor ? training.subcontractor.first_name : ''}} {{training.subcontractor ? training.subcontractor.last_name : ''}}
                                 </th>
                                 <th scope="row" class="border-r px-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     <button id="show-modal" @click="statusModal = true; selected_training_modal = training">{{training.status == null ? '+ (Status)' : training.status}}</button>
@@ -203,11 +206,9 @@ let bgColorClass = (training) => {
                                 </th>
                                 <th scope="row" class="border-r px-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     <input-drop-down
-                                        placeholder="+ Ajouter formation"
+                                        placeholder="+ Ajouter client"
                                         :values="[{name:'JVS-ANGU, m2i', id: 1 },{name:'JVS-REA, m2i', id: 2 },{name:'LI249, ib', id: 3 }]"
-                                        @create="createProductAndTraining"
-                                        @select="createTraining"
-                                        :default-input="training.customer.first_name +' '+training.customer.last_name"
+                                        :default-input="training.customer ? training.customer.first_name +' '+training.customer.last_name : ''"
                                     />
                                 </th>
                                 <th scope="row" class="border-r px-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">

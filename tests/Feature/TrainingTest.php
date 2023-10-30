@@ -36,8 +36,6 @@ test('it can create training', function () {
 
 test('i can edit training', function () {
 
-    \Pest\Laravel\withoutExceptionHandling();
-
     $training_data = Training::factory()->create()->toArray();
     $training_data['duree'] = 48.0;
 
@@ -195,4 +193,18 @@ test('get all trainings with product, customer, customer.company, subcontractor'
         ->and(count($response->json('data.0.customer.company')))->not->toBe(null)
         ->and(count($response->json('data.0.subcontractor')))->not->toBe(null)
         ->and(count($response->json('data.0.product')))->not->toBe(null);
+});
+
+
+test('training have text, action_customer and action_subcontractor field ', function () {
+    $training_data = Training::factory()->make()->toArray();
+
+    $response = post(route('trainings.store'), $training_data);
+
+    $training = Training::first();
+    expect($response->status())->toBe(201)
+        ->and(Training::count())->toBe(1)
+        ->and($training_data['text'])->toBe($training->text)
+        ->and($training_data['action_customer'])->toBe($training->action_customer)
+        ->and($training_data['action_subcontractor'])->toBe($training->action_subcontractor);
 });

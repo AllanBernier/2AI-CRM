@@ -82,5 +82,5 @@ test('get all customers', function () {
 
     expect($response->status())->toBe(200)
         ->and(count($response->json('data')))->toBe(4);
-})->only();
+});
 

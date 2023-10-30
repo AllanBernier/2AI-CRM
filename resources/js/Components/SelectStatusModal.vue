@@ -18,9 +18,11 @@
                             Confirmé
                         </button>
                         <button class="bg-red-800 hover:bg-red-900 text-white font-bold py-2 px-4 rounded" @click="$emit('status', 'archivé')" >
+                            Annuler
+                        </button>
+                        <button class="bg-blue-800 hover:bg-blue-900 text-white font-bold py-2 px-4 rounded" @click="$emit('status', 'archivé')" >
                             Archivé
                         </button>
-
                         <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" @click="$emit('close')">
                             Fermer
                         </button>

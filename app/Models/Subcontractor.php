@@ -19,6 +19,7 @@ class Subcontractor extends Model
         'phone',
         'company_name',
         'city',
+        'subcontractor_id'
     ];
 
 
@@ -28,6 +29,13 @@ class Subcontractor extends Model
             ->withPivot('price')
             ->withTimestamps();
     }
+
+
+    public function leader()
+    {
+        return $this->belongsTo(Subcontractor::class,'subcontractor_id');
+    }
+
 
     protected static function booted(): void
     {

@@ -32,6 +32,7 @@ class SubcontractorController extends Controller
                         'phone'
                     ]);
                 })
+                ->with('leader')
                 ->orderBy('first_name')
                 ->get(),
             'filters' => $request->only(['search']),

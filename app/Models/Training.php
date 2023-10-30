@@ -24,7 +24,10 @@ class Training extends Model
         'num_session',
         'num_bdc',
         'travelling_expenses',
-        'location'
+        'location',
+        'text',
+        'action_customer',
+        'action_subcontractor',
     ];
 
     public function product()

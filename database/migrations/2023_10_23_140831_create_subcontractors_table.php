@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('phone')->nullable();
             $table->string('company_name')->nullable();
             $table->string('city')->nullable();
+            $table->ulid('subcontractor_id')->nullable();
             $table->timestamps();
         });
     }

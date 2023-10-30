@@ -1,4 +1,4 @@
-# company name does not change when update customer (on view)
+# company name & subcontractor name does not change when update customer (on view)
 
 
 

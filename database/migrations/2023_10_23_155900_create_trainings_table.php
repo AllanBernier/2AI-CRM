@@ -26,6 +26,9 @@ return new class extends Migration
             $table->string('num_bdc')->nullable();
             $table->string('location')->nullable();
             $table->integer('travelling_expenses')->nullable();
+            $table->string('text')->nullable();
+            $table->string('action_customer')->nullable();
+            $table->string('action_subcontractor')->nullable();
             $table->timestamps();
         });
     }

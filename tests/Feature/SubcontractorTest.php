@@ -63,3 +63,21 @@ test('get all subcontractors', function () {
     expect($response->status())->toBe(200)
         ->and(count($response->json('data')))->toBe(4);
 });
+
+
+test('subcontractor can have subcontractor', function () {
+
+    $mechety = Subcontractor::factory()->create();
+
+    $subcontractor_data = Subcontractor::factory()->make()->toArray();
+    $subcontractor_data['subcontractor_id'] = $mechety->id;
+
+    $response = post(route('subcontractors.store'), $subcontractor_data );
+
+    $subcontractor = Subcontractor::query()->whereFirstName($subcontractor_data['first_name'])->first();
+    expect($response->status())->toBe(201)
+        ->and(Subcontractor::count())->toBe(2)
+        ->and($subcontractor_data['subcontractor_id'])->toBe($subcontractor->subcontractor_id)
+        ->and($subcontractor->leader->first_name)->toBe($mechety->first_name);
+
+});

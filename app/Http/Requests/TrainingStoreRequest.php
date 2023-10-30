@@ -35,6 +35,9 @@ class TrainingStoreRequest extends FormRequest
             'num_bdc' => '',
             'travelling_expenses' => '',
             'location' => '',
+            'text' => '',
+            'action_customer' => '',
+            'action_subcontractor' => '',
         ];
     }
 }

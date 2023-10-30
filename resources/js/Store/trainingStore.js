@@ -50,6 +50,52 @@ export const useTrainingStore = defineStore({
                     return "bg-red"
             }
         },
+        bgColorActionCustomer (action) {
+            switch (action){
+                case "AR Nouveau":
+                    return "bg-purple-600"
+                case "Envoyé Intervenant":
+                    return "bg-amber-600"
+                case "Relance Option":
+                    return "bg-lime-600"
+                case "AR BDC":
+                    return "bg-red-600"
+                case "AR Annulation":
+                    return "bg-red-600"
+                case "Envoyé changement sur option":
+                    return "bg-red-600"
+                case "Envoyé changement sur confirmation":
+                    return "bg-red-600"
+                case "Envoyé refus":
+                    return "bg-red-600"
+                case "":
+                    return "bg-gray-600"
+                default:
+                    return "bg-red"
+            }
+        },
+        bgColorActionSubcontractor (action) {
+            switch (action){
+                case "Solliciter":
+                    return "bg-gray-600"
+                case "Solliciter dates":
+                    return "bg-amber-600"
+                case "Envoyé bon d'option":
+                    return "bg-lime-600"
+                case "Envoyé BDC":
+                    return "bg-red-600"
+                case "Bon pour accord":
+                    return "bg-red-600"
+                case "Annuler une option":
+                    return "bg-red-600"
+                case "Annuler une confirmation":
+                    return "bg-red-600"
+                case "":
+                    return "bg-gray-600"
+                default:
+                    return "bg-red"
+            }
+        },
         formatDate(training){
             if ( !dayjs(training.start_date).isValid() || !dayjs(training.end_date).isValid()){
                 return '-'

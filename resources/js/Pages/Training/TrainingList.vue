@@ -1,6 +1,5 @@
 <script setup>
 
-import TrainingStore from "@/Pages/Training/Create.vue";
 import {onMounted, ref, watch} from "vue";
 import SelectStatusModal from "@/Components/SelectStatusModal.vue";
 import VueTailwindDatepicker from "vue-tailwind-datepicker";
@@ -10,6 +9,8 @@ import { useTrainingStore } from "@/Store/trainingStore.js";
 import { useCustomerStore } from "@/Store/customerStore.js";
 import { useSubcontractorStore } from "@/Store/subcontractorStore.js";
 import Create from "@/Pages/Training/Create.vue";
+import SelectCustomerActionModal from "@/Pages/Training/SelectCustomerActionModal.vue";
+import SelectSubcontractorActionModal from "@/Pages/Training/SelectSubcontractorActionModal.vue";
 
 
 let trainingStore = useTrainingStore();
@@ -22,16 +23,15 @@ onMounted( ()=> {
     subcontractorStore.getSubcontractorsIfNotLoaded();
 })
 
-let props = defineProps({
-    products : Object
-});
-
 let updateCol = (e, training, col) =>{
     trainingStore.updateCol(e.target.innerHTML, col, training)
 }
 
 // Change status
 const statusModal = ref(false)
+const subcontractorModal = ref(false)
+const customerModal = ref(false)
+
 const dateValue = ref([])
 const selected_training_modal = ref({})
 const updateStatus = (status) => {
@@ -40,15 +40,21 @@ const updateStatus = (status) => {
         statusModal.value = false;
     })
 }
+const updateSubcontractorAction = (action) => {
+    trainingStore.updateCol(action, 'action_subcontractor', selected_training_modal.value)
+    subcontractorModal.value = false
+}
+const updateCustomerAction = (action) => {
+    console.log(action)
+    trainingStore.updateCol(action, 'action_customer', selected_training_modal.value)
+    customerModal.value = false
+}
+
 // Change date
 watch(dateValue, debounce(function (value) {
     trainingStore.updateDate(value[0], value[1], selected_training_modal.value)
 }, 100));
 
-
-const editSubcontractor = () => {
-
-}
 
 </script>
 
@@ -60,7 +66,7 @@ const editSubcontractor = () => {
                     <table class="table-auto w-full text-sm text-left text-gray-500 dark:text-gray-400 max-h-">
                         <thead class="z-10 sticky top-0 text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
-                            <create class="" :products="products"/>
+                            <create />
 
                             <th scope="col" class="px-6 py-3 px-6 py-3">
                                 Société
@@ -127,6 +133,8 @@ const editSubcontractor = () => {
                         </tr>
                         </thead>
                         <select-status-modal v-if="statusModal" @close="statusModal = false" @status="updateStatus"/>
+                        <select-customer-action-modal v-if="customerModal" @close="customerModal = false" @action="updateCustomerAction"/>
+                        <select-subcontractor-action-modal v-if="subcontractorModal" @close="subcontractorModal = false" @action="updateSubcontractorAction"/>
 
                         <tbody>
                             <tr class="border-b dark:bg-gray-900 dark:border-gray-700" v-for="training in trainingStore.trainings" :key="training.id" :class="trainingStore.bgColorClass(training)">
@@ -180,14 +188,22 @@ const editSubcontractor = () => {
                                 <th scope="row" class="border-r px-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     {{training.subcontractor ? training.subcontractor.first_name : ''}} {{training.subcontractor ? training.subcontractor.last_name : ''}}
                                 </th>
-                                <th scope="row" class="border-r px-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    <button id="show-modal" @click="statusModal = true; selected_training_modal = training">{{training.status}}</button>
+                                <th scope="row" class="border-r px-2 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                                    @click="statusModal = true; selected_training_modal = training">
+                                    <button class="w-full h-full" id="show-modal" @click="statusModal = true; selected_training_modal = training">{{training.status}}</button>
                                 </th>
-                                <th scope="row" class="border-r px-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    <button id="show-modal" @click="statusModal = true; selected_training_modal = training">{{training.status}}</button>
+                                <th scope="row"
+                                        @click="customerModal = true; selected_training_modal = training"
+                                        class="border-r px-2 font-medium text-gray-900 whitespace-nowrap text-white"
+                                        :class="trainingStore.bgColorActionCustomer(training.action_customer)">
+                                    <button class="w-full h-full" id="show-modal" @click="customerModal = true; selected_training_modal = training">{{training.action_customer}}</button>
                                 </th>
-                                <th scope="row" class="border-r px-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    <button id="show-modal" @click="statusModal = true; selected_training_modal = training">{{training.status}}</button>
+                                <th scope="row"
+                                    @click="subcontractorModal = true; selected_training_modal = training"
+                                    class="border-r px-2 font-medium text-gray-900 whitespace-nowrap text-white w-full"
+                                    :class="trainingStore.bgColorActionSubcontractor(training.action_subcontractor)">
+
+                                    <button class="w-full h-full" id="show-modal" @click="subcontractorModal = true; selected_training_modal = training">{{training.action_subcontractor}}</button>
                                 </th>
                                 <th scope="row" class="border-r px-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     <input-drop-down
@@ -209,7 +225,7 @@ const editSubcontractor = () => {
                                     <span v-html="training.tjm_client" contenteditable @blur="updateCol($event, training, 'tjm_client')"></span> €
                                 </th>
                                 <th scope="row" class="border-r px-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-
+                                    <span v-html="training.text" contenteditable @blur="updateCol($event, training, 'text')"></span>
                                 </th>
                                 <th scope="row" class="border-r px-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     {{ trainingStore.totalHT(training) }} €

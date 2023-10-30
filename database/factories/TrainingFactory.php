@@ -37,8 +37,8 @@ class TrainingFactory extends Factory
             'location' => fake()->city,
             'travelling_expenses' => 0,
             'text' => fake()->text(20),
-            'action_customer' =>  fake()->randomElement(['AR Nouveau', 'Envoyé Intervenant', 'Relance Option', 'AR BDC', 'Envoyé changement sur option', 'Envoyé changement sur confirmation', 'Envoyé refus', '' ]),
-            'action_subcontractor' =>  fake()->randomElement(['Solliciter', 'Solliciter dates', 'Envoyé bon d\'option', 'Bon pour accord', 'Annuler une option', 'Annuler une confirmation', '']),
+            'action_customer' =>  fake()->randomElement(['AR Nouveau', 'Envoyé Intervenant', 'Relance Option', 'AR BDC', 'Envoyé changement sur option', 'Envoyé changement sur confirmation', 'Envoyé refus']),
+            'action_subcontractor' =>  fake()->randomElement(['Solliciter', 'Solliciter dates', 'Envoyé bon d\'option', 'Bon pour accord', 'Annuler une option', 'Annuler une confirmation']),
         ];
     }
 }

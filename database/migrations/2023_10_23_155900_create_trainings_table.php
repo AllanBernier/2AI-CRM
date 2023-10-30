@@ -29,6 +29,8 @@ return new class extends Migration
             $table->string('text')->nullable();
             $table->string('action_customer')->nullable();
             $table->string('action_subcontractor')->nullable();
+            $table->string('name')->nullable();
+            $table->ulid('cursus_id')->nullable();
             $table->timestamps();
         });
     }

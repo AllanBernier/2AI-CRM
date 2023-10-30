@@ -6,6 +6,7 @@ use App\Traits\HasTokenizedSearch;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use const http\Client\Curl\Versions\CURL;
 
 class Training extends Model
 {
@@ -28,18 +29,21 @@ class Training extends Model
         'text',
         'action_customer',
         'action_subcontractor',
+        'name'
     ];
 
-    public function product()
+    public function cursus()
     {
-        return $this->belongsTo(Product::class);
+        return $this->belongsTo(Cursus::class);
     }
-
     public function customer()
     {
         return $this->belongsTo(Customer::class);
     }
-
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
     public function subcontractor()
     {
         return $this->belongsTo(Subcontractor::class);
@@ -49,6 +53,7 @@ class Training extends Model
     {
         static::creating(function (Training $training) {
             if ( isset($training->product_id) ){
+                $training->name = $training->product->code;
                 if (!isset($training->duree)){
                     $training->duree = $training->product->duree;
                 }

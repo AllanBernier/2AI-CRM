@@ -32,7 +32,7 @@ let select = () => {
 let filtedValue = () => {
     if (input.value === '')
         return props.values
-    return props.values.filter( (value) => value['name'].includes(input.value) )
+    return props.values.filter( (value) => value['name'].toLowerCase().includes(input.value.toLowerCase()) )
 }
 
 let openDropDown = () => {

@@ -1,15 +1,15 @@
 <script setup>
-    import VueBasicAlert from 'vue-basic-alert'
+import VueBasicAlert from 'vue-basic-alert'
 
-    // use : <copy-to-clip-board-button class="pl-2" :text="customer.email"/>
+// use : <copy-to-clip-board-button class="pl-2" :text="customer.email"/>
 
-    let props = defineProps({
-        text : String,
-    });
+let props = defineProps({
+    text : String,
+});
 
-    let copyMe = () =>{
-        navigator.clipboard.writeText(props.text);
-    }
+let copyMe = () =>{
+    navigator.clipboard.writeText(props.text);
+}
 
 </script>
 

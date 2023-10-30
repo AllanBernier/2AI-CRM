@@ -1,8 +1,6 @@
 <script setup>
-
 import {ref} from "vue";
 import {router} from "@inertiajs/vue3";
-
 const name = ref('')
 
 let store = () =>{
@@ -29,6 +27,8 @@ let store = () =>{
             <input v-model="name" class="outline-none appearance-none" type="text" placeholder="+ Ajouter Sous-traitant"  @keyup.enter="store" @focusout="store">
         </th>
         <td class="px-2 border-r">
+        </td>
+        <td class="border-r px-2">
         </td>
         <td class="border-r px-2">
         </td>

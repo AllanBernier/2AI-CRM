@@ -1,11 +1,19 @@
 <script setup>
 import {Link} from "@inertiajs/vue3";
-import SubcontractorStore from "@/Pages/Subcontractor/SubcontractorStore.vue";
+import InputDropDown from "@/Components/InputDropDown.vue";
+import { useSubcontractorStore } from "@/Store/subcontractorStore.js";
+import {onMounted} from "vue";
+import Create from "@/Pages/Subcontractor/Create.vue";
+let subcontractorStore = useSubcontractorStore();
 
 let props = defineProps({
     subcontractors : Object,
 });
 
+
+onMounted( ()=> {
+    subcontractorStore.getSubcontractorsIfNotLoaded();
+})
 let destroy = (subcontractor) => {
     axios.delete(route('subcontractors.destroy', subcontractor.id)).then( (res) => {
         var subcontractor_index = props.subcontractors.indexOf(subcontractor);
@@ -20,6 +28,8 @@ let updateCol = (e, subcontractor, col) =>{
     })
 }
 
+
+
 </script>
 
 <template>
@@ -28,7 +38,7 @@ let updateCol = (e, subcontractor, col) =>{
             <div class="py-2 inline-block w-full sm:px-6 lg:px-8">
                 <div class="table-wrp block max-h-[65vh]	">
                     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400 max-h-">
-                        <thead class="sticky top-0 text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <thead class="z-10 sticky top-0 text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
                             <th scope="col" class="px-6 py-3 px-6 py-3">
                                 Nom
@@ -40,8 +50,11 @@ let updateCol = (e, subcontractor, col) =>{
                                 Email
                             </th>
                             <th scope="col" class="px-6 py-3">
-                                Telephone
+                                Sous-Traitant
                             </th>
+                            <th scope="col" class="px-6 py-3">
+                                Telephone
+                           </th>
                             <th scope="col" class="px-6 py-3">
                                 Localisation
                             </th>
@@ -52,7 +65,7 @@ let updateCol = (e, subcontractor, col) =>{
                         </thead>
 
                         <tbody>
-                            <subcontractor-store class="sticky top-10"/>
+                            <create class="sticky top-10 z-40"/>
                             <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700" v-for="subcontractor in subcontractors" :key="subcontractor.id">
                                 <th scope="row" class="border-r px-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     <p v-html="subcontractor.first_name" contenteditable @blur="updateCol($event, subcontractor, 'first_name')"></p>
@@ -62,6 +75,17 @@ let updateCol = (e, subcontractor, col) =>{
                                 </td>
                                 <td class="border-r px-2">
                                     <p v-html="subcontractor.email_perso" contenteditable @blur="updateCol($event, subcontractor, 'email_perso')"></p>
+                                </td>
+                                <td class="border-r px-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    <input-drop-down
+                                        placeholder="+ Ajouter formateur"
+                                        :values="subcontractorStore.subcontractors"
+                                        :can-add="false"
+                                        :fill-on-select="true"
+                                        :default-input="subcontractor.leader ? subcontractor.leader.first_name +' '+ subcontractor.leader.last_name : subcontractor.first_name + ' ' + subcontractor.last_name"
+                                        @select="(id) => subcontractorStore.updateCol(id,'subcontractor_id', subcontractor)"
+                                    />
+
                                 </td>
                                 <td class="border-r px-2">
                                     <p v-html="subcontractor.phone" contenteditable @blur="updateCol($event, subcontractor, 'phone')"></p>

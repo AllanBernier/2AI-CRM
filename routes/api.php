@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\CursusController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SubcontractorController;
@@ -25,6 +26,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/company', [CompanyController::class, 'index'])->name('companies.index');
+
+Route::post('/cursus', [CursusController::class, 'store'])->name('cursuses.store');
+Route::put('/cursus/{cursus}', [CursusController::class, 'edit'])->name('cursuses.edit');
+
 
 Route::get('/customer', [CustomerController::class, 'all'])->name('customers.all');
 Route::post('/customer', [CustomerController::class, 'store'])->name('customers.store');

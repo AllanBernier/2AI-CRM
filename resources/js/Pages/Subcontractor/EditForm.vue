@@ -32,7 +32,7 @@ let updateCol = (e, customer, col) =>{
                 Phone
             </th>
             <th scope="col" class="px-6 py-3">
-                company_name
+                Société
             </th>
             <th scope="col" class="px-6 py-3">
                 city

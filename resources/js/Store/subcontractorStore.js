@@ -19,5 +19,9 @@ export const useSubcontractorStore = defineStore({
                 })
             }
         },
+        updateCol(value, col, subcontractor){
+            subcontractor[col] = value
+            axios.put(route('subcontractors.edit', subcontractor.id), subcontractor)
+        }
     }
 })

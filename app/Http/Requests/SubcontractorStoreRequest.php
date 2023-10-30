@@ -29,7 +29,7 @@ class SubcontractorStoreRequest extends FormRequest
             'phone' => '',
             'company_name' => '',
             'city' => '',
-            'subcontractor_id' => 'exists:App\Models\Subcontractor,id',
+            'subcontractor_id' => '',
         ];
     }
 }

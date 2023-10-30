@@ -139,7 +139,8 @@ watch(dateValue, debounce(function (value) {
                         <tbody>
                             <tr class="border-b dark:bg-gray-900 dark:border-gray-700" v-for="training in trainingStore.trainings" :key="training.id" :class="trainingStore.bgColorClass(training)">
                                 <th scope="row" class="border-r px-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    {{training.product && training.product.code? training.product.code : 'N/A'}}
+                                    <span v-html="training.name" contenteditable @blur="updateCol($event, training, 'name')"></span>
+
                                 </th>
                                 <th scope="row" class="border-r px-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     {{training.customer ? training.customer.company.name || 'N/A' : 'N/A'}}
@@ -186,7 +187,7 @@ watch(dateValue, debounce(function (value) {
 
                                 </th>
                                 <th scope="row" class="border-r px-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    {{training.subcontractor ? training.subcontractor.first_name : ''}} {{training.subcontractor ? training.subcontractor.last_name : ''}}
+                                    {{training.subcontractor ? training.subcontractor.leader ? training.subcontractor.leader.first_name + ' ' + training.subcontractor.leader.last_name : training.subcontractor.first_name + ' ' + training.subcontractor.last_name : ''}}
                                 </th>
                                 <th scope="row" class="border-r px-2 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                                     @click="statusModal = true; selected_training_modal = training">

@@ -208,3 +208,18 @@ test('training have text, action_customer and action_subcontractor field ', func
         ->and($training_data['action_customer'])->toBe($training->action_customer)
         ->and($training_data['action_subcontractor'])->toBe($training->action_subcontractor);
 });
+
+
+test('When creating training, also set training name equals to product code', function () {
+    $jvs = Product::factory()->create(['code'=>'JVS-ANGU']);
+    $training_data = [
+        'product_id' => $jvs->id
+    ];
+
+    $response = post(route('trainings.store'), $training_data);
+
+    expect($response->status())->toBe(201)
+        ->and(Training::count())->toBe(1)
+        ->and(Training::first()->name)->toBe($jvs->code);
+
+});

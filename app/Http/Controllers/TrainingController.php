@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\TrainingStoreRequest;
 use App\Models\Company;
+use App\Models\Cursus;
 use App\Models\Product;
 use App\Models\Subcontractor;
 use App\Models\TjmType;
@@ -20,7 +21,7 @@ class TrainingController extends Controller
     {
         return new JsonResource(
             Training::
-            with('product', 'customer', 'customer.company', 'subcontractor')
+            with('product', 'customer', 'customer.company', 'subcontractor', 'subcontractor.leader')
                 ->orderBy('start_date')
                 ->get()
         );
@@ -37,8 +38,22 @@ class TrainingController extends Controller
 
     public function store(TrainingStoreRequest $request)
     {
+        $training_data = $request->validated();
+        $training = null;
 
-        $training = Training::create($request->validated());
+        if (isset($training_data['cursus_id'])){
+            $cursus = Cursus::find($training_data['cursus_id']);
+
+            if (!isset($cursus->product_id) || !isset($cursus->customer_id)){
+                abort(403);
+            } else {
+                $training_data['customer_id'] = $cursus->customer_id;
+                $training_data['product_id'] = $cursus->product_id;
+            }
+
+        }
+
+        $training = Training::create($training_data);
         return new JsonResource($training);
     }
 

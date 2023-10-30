@@ -5,6 +5,7 @@ use App\Models\Customer;
 use App\Models\User;
 use Inertia\Testing\Assert;
 use function Pest\Laravel\delete;
+use function Pest\Laravel\get;
 use function Pest\Laravel\post;
 use function Pest\Laravel\put;
 
@@ -67,10 +68,19 @@ test('i can edit customers', function () {
 
 test('i can delete customers', function () {
     $customer = Customer::factory()->create();
-    $customers = Customer::factory(5)->create();
+    Customer::factory(5)->create();
 
-    $response = delete(route("customers.destroy", $customer->id));
+    delete(route("customers.destroy", $customer->id));
 
     expect(Customer::count())->toBe(5);
 });
+
+test('get all customers', function () {
+    Customer::factory(4)->create();
+
+    $response = get(route('customers.all'));
+
+    expect($response->status())->toBe(200)
+        ->and(count($response->json('data')))->toBe(4);
+})->only();
 

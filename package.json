@@ -20,6 +20,7 @@
     "dependencies": {
         "dayjs": "^1.11.10",
         "lodash": "^4.17.21",
+        "pinia": "^2.1.7",
         "vue-basic-alert": "^1.1.0",
         "vue-tailwind-datepicker": "^1.6.1"
     }

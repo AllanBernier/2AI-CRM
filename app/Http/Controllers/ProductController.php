@@ -13,6 +13,11 @@ use Inertia\Inertia;
 class ProductController extends Controller
 {
 
+
+    public function all()
+    {
+        return new JsonResource(Product::all());
+    }
     public function index(Request $request)
     {
         return Inertia::render('Product/Index', [

@@ -1,8 +1,12 @@
 <script setup>
 import InputDropDown from "@/Components/InputDropDown.vue";
 import {onMounted} from "vue";
+import { useTrainingStore } from "@/Store/trainingStore.js";
 
-let props = defineProps({
+let trainingStore = useTrainingStore();
+
+
+const props = defineProps({
     products : Object
 });
 
@@ -12,24 +16,6 @@ onMounted(()=> {
     })
 })
 
-
-let createProductAndTraining = (productName) => {
-    console.log("Create product and create training : " + productName)
-}
-
-let createTraining = (idProduct) => {
-
-    let training_data = {
-        product_id : idProduct
-    }
-
-    axios.post(route('trainings.store'), training_data )
-        .then( (res) => {
-            console.log('new product')
-        })
-}
-
-
 </script>
 
 <template>
@@ -37,9 +23,8 @@ let createTraining = (idProduct) => {
             <input-drop-down
                 placeholder="+ Ajouter formation"
                 :values="products"
-                :can-add="true"
-                @create="createProductAndTraining"
-                @select="createTraining"
+                :can-add="false"
+                @select="trainingStore.createTrainingByIdProduct"
             />
         </th>
 </template>

@@ -5,6 +5,7 @@ use App\Models\Product;
 use App\Models\Subcontractor;
 use App\Models\TjmType;
 use App\Models\Training;
+use function Pest\Laravel\get;
 use function Pest\Laravel\post;
 use function Pest\Laravel\put;
 
@@ -178,4 +179,20 @@ test('default training tjm_subcontractor && tjm_client is 0', function () {
     expect($training->tjm_client)->toBe(0)
         ->and($training->tjm_subcontractor)->toBe(0);
 
+});
+
+
+test('get all trainings with product, customer, customer.company, subcontractor', function () {
+    Training::factory(5)->create();
+
+
+    $response = get(route('trainings.all'));
+
+
+    expect($response->status())->toBe(200)
+        ->and(count($response->json('data')))->toBe(5)
+        ->and(count($response->json('data.0.customer')))->not->toBe(null)
+        ->and(count($response->json('data.0.customer.company')))->not->toBe(null)
+        ->and(count($response->json('data.0.subcontractor')))->not->toBe(null)
+        ->and(count($response->json('data.0.product')))->not->toBe(null);
 });

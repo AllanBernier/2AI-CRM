@@ -4,6 +4,7 @@ use App\Models\Company;
 use App\Models\Product;
 use App\Models\TjmType;
 use function Pest\Laravel\delete;
+use function Pest\Laravel\get;
 use function Pest\Laravel\post;
 use function Pest\Laravel\put;
 
@@ -80,4 +81,13 @@ test('i can search paginated products with tokenized search', function () {
         ->and(count($response->json('data')))->toBe(10)
         ->and($response->json('total'))->toBe(12);
 
+});
+
+test('get all products', function () {
+    Product::factory(4)->create();
+
+    $response = get(route('products.all'));
+
+    expect($response->status())->toBe(200)
+        ->and(count($response->json('data')))->toBe(4);
 });

@@ -11,6 +11,13 @@ use Inertia\Inertia;
 
 class SubcontractorController extends Controller
 {
+
+
+    public function all()
+    {
+        return new JsonResource(Subcontractor::all());
+    }
+
     public function index(Request $request)
     {
         return Inertia::render('Subcontractor/Index', [

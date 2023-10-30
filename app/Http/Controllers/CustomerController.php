@@ -12,6 +12,11 @@ use Illuminate\Http\Request;
 
 class CustomerController extends Controller
 {
+
+    public function all()
+    {
+        return new JsonResource(Customer::all());
+    }
     public function index(Request $request)
     {
         return Inertia::render('Customer/Index', [

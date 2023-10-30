@@ -12,6 +12,7 @@ let props = defineProps({
     trainings : Object,
     filters : Object,
     products : Object,
+    subcontractors : Object
 });
 
 let search = ref(props.filters.search);

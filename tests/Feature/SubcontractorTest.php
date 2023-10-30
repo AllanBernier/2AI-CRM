@@ -3,6 +3,7 @@
 use App\Models\Subcontractor;
 use App\Models\TjmType;
 use function Pest\Laravel\delete;
+use function Pest\Laravel\get;
 use function Pest\Laravel\post;
 use function Pest\Laravel\put;
 
@@ -50,4 +51,15 @@ test('when creating new subcontractor, also create link to each tjm_types and de
     $subcontractor = Subcontractor::factory()->create();
     expect($subcontractor->tjms->count())->toBe(3)
         ->and($subcontractor->tjms->first()->pivot->price)->toBe(0);
+});
+
+
+
+test('get all subcontractors', function () {
+    Subcontractor::factory(4)->create();
+
+    $response = get(route('subcontractors.all'));
+
+    expect($response->status())->toBe(200)
+        ->and(count($response->json('data')))->toBe(4);
 });

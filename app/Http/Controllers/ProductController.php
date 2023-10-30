@@ -16,7 +16,7 @@ class ProductController extends Controller
 
     public function all()
     {
-        return new JsonResource(Product::all());
+        return new JsonResource(Product::with('company')->get());
     }
     public function index(Request $request)
     {

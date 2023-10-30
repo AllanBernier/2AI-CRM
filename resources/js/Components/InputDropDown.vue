@@ -10,6 +10,10 @@ let props = defineProps({
         type: Boolean,
         default: false
     },
+    fillOnSelect : {
+        type: Boolean,
+        default: false
+    },
     values: {
         type: Object,
     },
@@ -21,7 +25,9 @@ let props = defineProps({
 let input = ref('')
 let open = ref(false)
 
+let select = () => {
 
+}
 
 let filtedValue = () => {
     if (input.value === '')
@@ -50,6 +56,7 @@ onMounted(() => {
     }
 })
 
+
 </script>
 
 <template>
@@ -59,9 +66,9 @@ onMounted(() => {
                    class="p-3 flex items-center outline-none">
 
             <div v-if="open" class="absolute w-full z-10 left-0 mt-12 right-0 w-full mt-12 bg-white border-t border-gray-300">
-                <button v-for="value in filtedValue()" @click.prevent="$emit('select',value.id); input = ''" class="block p-3 w-full text-left border-b border-gray-300 hover:bg-gray-100">{{value.name}}</button>
+                <button v-for="value in filtedValue()" @click.prevent="$emit('select',value.id); input = fillOnSelect ? value.name : ''" class="block p-3 w-full text-left border-b border-gray-300 hover:bg-gray-100">{{value.name}}</button>
 
-                <button v-if="canAdd" @click.prevent="$emit('create', input); input = ''" class="block p-3 w-full text-left border-b border-gray-300 hover:bg-gray-100">
+                <button v-if="canAdd" @click.prevent="$emit('create', input); input = fillOnSelect ? input :''" class="block p-3 w-full text-left border-b border-gray-300 hover:bg-gray-100">
                     Créer : {{input}}
                 </button>
 

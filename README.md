@@ -1,3 +1,7 @@
+# company name does not change when update customer (on view)
+
+
+
 CRM Formation
 
 Compte formateur :

@@ -7,13 +7,19 @@ import VueTailwindDatepicker from "vue-tailwind-datepicker";
 import InputDropDown from "@/Components/InputDropDown.vue";
 import {debounce} from "lodash";
 import { useTrainingStore } from "@/Store/trainingStore.js";
+import { useCustomerStore } from "@/Store/customerStore.js";
+import { useSubcontractorStore } from "@/Store/subcontractorStore.js";
 import Create from "@/Pages/Training/Create.vue";
 
 
 let trainingStore = useTrainingStore();
+let customerStore = useCustomerStore();
+let subcontractorStore = useSubcontractorStore();
 
 onMounted( ()=> {
     trainingStore.getTrainingsIfNotLoaded();
+    customerStore.getCustomersIfNotLoaded();
+    subcontractorStore.getSubcontractorsIfNotLoaded();
 })
 
 let props = defineProps({
@@ -39,6 +45,10 @@ watch(dateValue, debounce(function (value) {
     trainingStore.updateDate(value[0], value[1], selected_training_modal.value)
 }, 100));
 
+
+const editSubcontractor = () => {
+
+}
 
 </script>
 
@@ -159,8 +169,11 @@ watch(dateValue, debounce(function (value) {
                                 <th scope="row" class="border-r px-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     <input-drop-down
                                         placeholder="+ Ajouter formateur"
-                                        :values="[{name:'JVS-ANGU, m2i', id: 1 },{name:'JVS-REA, m2i', id: 2 },{name:'LI249, ib', id: 3 }]"
+                                        :values="subcontractorStore.subcontractors"
+                                        :can-add="false"
+                                        :fill-on-select="true"
                                         :default-input="training.subcontractor ? training.subcontractor.first_name +' '+training.subcontractor.last_name : ''"
+                                        @select="(id) => trainingStore.updateCol(id,'subcontractor_id', training)"
                                     />
 
                                 </th>
@@ -179,8 +192,11 @@ watch(dateValue, debounce(function (value) {
                                 <th scope="row" class="border-r px-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     <input-drop-down
                                         placeholder="+ Ajouter client"
-                                        :values="[{name:'JVS-ANGU, m2i', id: 1 },{name:'JVS-REA, m2i', id: 2 },{name:'LI249, ib', id: 3 }]"
+                                        :values="customerStore.customers"
+                                        :can-add="false"
+                                        :fill-on-select="true"
                                         :default-input="training.customer ? training.customer.first_name +' '+training.customer.last_name : ''"
+                                        @select="(id) => trainingStore.updateCol(id,'customer_id', training)"
                                     />
                                 </th>
                                 <th scope="row" class="border-r px-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">

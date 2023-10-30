@@ -2,18 +2,15 @@
 import InputDropDown from "@/Components/InputDropDown.vue";
 import {onMounted} from "vue";
 import { useTrainingStore } from "@/Store/trainingStore.js";
+import { useProductStore } from "@/Store/productStore.js";
 
 let trainingStore = useTrainingStore();
+let productStore = useProductStore();
 
 
-const props = defineProps({
-    products : Object
-});
 
 onMounted(()=> {
-    props.products.forEach( (product) => {
-        product.name = product.code + ", "+ product.company.name
-    })
+    productStore.getProductsIfNotLoaded();
 })
 
 </script>
@@ -22,13 +19,9 @@ onMounted(()=> {
         <th scope="row" class="text-left ">
             <input-drop-down
                 placeholder="+ Ajouter formation"
-                :values="products"
+                :values="productStore.products"
                 :can-add="false"
                 @select="trainingStore.createTrainingByIdProduct"
             />
         </th>
 </template>
-
-<style scoped>
-
-</style>

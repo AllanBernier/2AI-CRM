@@ -69,6 +69,5 @@ export const useTrainingStore = defineStore({
                     this.trainings.unshift(res.data.data)
                 })
         }
-
     }
 })

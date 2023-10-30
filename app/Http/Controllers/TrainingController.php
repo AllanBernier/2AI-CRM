@@ -45,6 +45,8 @@ class TrainingController extends Controller
     public function edit(Training $training, TrainingStoreRequest $request)
     {
         $training->update($request->validated());
+        $training->load('product', 'customer', 'customer.company', 'subcontractor');
+
         return new  JsonResource($training);
     }
 }

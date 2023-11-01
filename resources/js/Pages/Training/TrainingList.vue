@@ -45,7 +45,6 @@ const updateSubcontractorAction = (action) => {
     subcontractorModal.value = false
 }
 const updateCustomerAction = (action) => {
-    console.log(action)
     trainingStore.updateCol(action, 'action_customer', selected_training_modal.value)
     customerModal.value = false
 }

@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Company;
+use App\Models\Cursus;
 use App\Models\Customer;
 use App\Models\Product;
 use App\Models\Subcontractor;
@@ -212,7 +213,7 @@ class DatabaseSeeder extends Seeder
         Subcontractor::create(['first_name' => 'Samuel', 'last_name' => 'NEVEU', 'email_perso' => 'samuel.neveugall@gmail.com', 'phone' => '33782216779', 'email_company' => '', 'company_name' => '','city' => 'Rennes / France']);
 
 
-        for($i=0;$i<100;$i++){
+        for($i=0;$i<50;$i++){
             $product = Product::select('id', 'company_id' ,)->inRandomOrder()->first();
 
             Training::create([
@@ -234,6 +235,59 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
+        $cda = Cursus::factory()->create(['name' => 'CDA BORDEAUX 2024']);
+
+        for($i=0;$i<10;$i++){
+            $product = Product::select('id', 'company_id' ,)->inRandomOrder()->first();
+
+            Training::create([
+                'name' => 'CDA BORDEAUX 2024',
+                'text' => fake()->text(20),
+                'status' => fake()->randomElement(['nouveau', 'confirmé', 'option', 'archivé']),
+                'product_id' => $product->id,
+                'customer_id' => Customer::query()->where('company_id', $product->company_id)->inRandomOrder()->first()->id,
+                'subcontractor_id' => Subcontractor::inRandomOrder()->first()->id,
+                'tjm_client' => 600 + fake()->numberBetween(0,4) * 25,
+                'tjm_subcontractor' => 300 + fake()->numberBetween(0,8) * 25,
+                'duree' => fake()->randomFloat(1,1,5),
+                'start_date' => fake()->dateTimeThisYear()->format('Y-m-d'),
+                'end_date' => fake()->dateTimeThisYear()->format('Y-m-d'),
+                'num_session' => fake()->postcode,
+                'num_bdc' => fake()->postcode,
+                'travelling_expenses' => 0,
+                'location' => fake()->city,
+                'action_customer' =>  fake()->randomElement(['AR Nouveau', 'Envoyé Intervenant', 'Relance Option', 'AR BDC', 'Envoyé changement sur option', 'Envoyé changement sur confirmation', 'Envoyé refus', '' ]),
+                'action_subcontractor' =>  fake()->randomElement(['Solliciter', 'Solliciter dates', 'Envoyé bon d\'option', 'Bon pour accord', 'Annuler une option', 'Annuler une confirmation', '']),
+                'cursus_id' => $cda->id
+            ]);
+        }
+
+        $poe = Cursus::factory()->create(['name' => 'POE JAVA 4 DEC']);
+
+        for($i=0;$i<10;$i++){
+            $product = Product::select('id', 'company_id' ,)->inRandomOrder()->first();
+
+            Training::create([
+                'name' => 'POE JAVA 4 DEC',
+                'text' => fake()->text(20),
+                'status' => fake()->randomElement(['nouveau', 'confirmé', 'option', 'archivé']),
+                'product_id' => $product->id,
+                'customer_id' => Customer::query()->where('company_id', $product->company_id)->inRandomOrder()->first()->id,
+                'subcontractor_id' => Subcontractor::inRandomOrder()->first()->id,
+                'tjm_client' => 600 + fake()->numberBetween(0,4) * 25,
+                'tjm_subcontractor' => 300 + fake()->numberBetween(0,8) * 25,
+                'duree' => fake()->randomFloat(1,1,5),
+                'start_date' => fake()->dateTimeThisYear()->format('Y-m-d'),
+                'end_date' => fake()->dateTimeThisYear()->format('Y-m-d'),
+                'num_session' => fake()->postcode,
+                'num_bdc' => fake()->postcode,
+                'travelling_expenses' => 0,
+                'location' => fake()->city,
+                'action_customer' =>  fake()->randomElement(['AR Nouveau', 'Envoyé Intervenant', 'Relance Option', 'AR BDC', 'Envoyé changement sur option', 'Envoyé changement sur confirmation', 'Envoyé refus', '' ]),
+                'action_subcontractor' =>  fake()->randomElement(['Solliciter', 'Solliciter dates', 'Envoyé bon d\'option', 'Bon pour accord', 'Annuler une option', 'Annuler une confirmation', '']),
+                'cursus_id' => $poe->id
+            ]);
+        }
 
     }
 }

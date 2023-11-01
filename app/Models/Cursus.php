@@ -19,12 +19,22 @@ class Cursus extends Model
         'location',
         'status',
         'send_to_customer',
-        'send_to_subcontractors'
+        'send_to_subcontractors',
     ];
 
     public function trainings()
     {
         return $this->hasMany(Training::class);
     }
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class);
+    }
+
 }
 

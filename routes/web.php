@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CursusController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CustomerController;
@@ -34,6 +35,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+    Route::get('/cursus', [CursusController::class, 'index'])->name('cursuses.index');
     Route::get('/customer', [CustomerController::class, 'index'])->name('customers.index');
     Route::get('/product', [ProductController::class, 'index'])->name('products.index');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

@@ -5,6 +5,7 @@ use App\Models\Product;
 use App\Models\Subcontractor;
 use App\Models\TjmType;
 use App\Models\Training;
+use function Pest\Laravel\delete;
 use function Pest\Laravel\get;
 use function Pest\Laravel\post;
 use function Pest\Laravel\put;
@@ -221,5 +222,24 @@ test('When creating training, also set training name equals to product code', fu
     expect($response->status())->toBe(201)
         ->and(Training::count())->toBe(1)
         ->and(Training::first()->name)->toBe($jvs->code);
-
 });
+
+
+test('default training value', function () {
+    $training = Training::create(['name' => 'default']);
+    $training->refresh();
+
+    expect($training->tjm_client )->toBe(0);
+    expect($training->tjm_subcontractor )->toBe(0);
+    expect($training->duree )->toBe(0.0);
+    expect($training->travelling_expenses )->toBe(0);
+});
+
+test('i can delete training', function () {
+    $to_delete = Training::factory()->create();
+
+    $response = delete(route('trainings.destroy', $to_delete->id));
+
+    expect($response->status())->toBe(200)
+        ->and(Training::count())->toBe(0);
+})->only();

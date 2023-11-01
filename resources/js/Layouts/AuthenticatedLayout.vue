@@ -1,13 +1,29 @@
 <script setup>
-import { ref } from 'vue';
+import {onMounted, ref} from 'vue';
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import { Link } from '@inertiajs/vue3';
+import {useTrainingStore} from "@/Store/trainingStore.js";
+import {useCustomerStore} from "@/Store/customerStore.js";
+import {useSubcontractorStore} from "@/Store/subcontractorStore.js";
+import {useProductStore} from "@/Store/productStore.js";
 
 const showingNavigationDropdown = ref(false);
+
+let trainingStore = useTrainingStore();
+let customerStore = useCustomerStore();
+let subcontractorStore = useSubcontractorStore();
+let productStore = useProductStore();
+
+onMounted( ()=> {
+    trainingStore.getTrainingsIfNotLoaded();
+    customerStore.getCustomersIfNotLoaded();
+    subcontractorStore.getSubcontractorsIfNotLoaded();
+    productStore.getProductsIfNotLoaded()
+})
 </script>
 
 <template>
@@ -38,11 +54,14 @@ const showingNavigationDropdown = ref(false);
                                 <NavLink :href="route('customers.index')" :active="route().current('customers.index')">
                                     Clients
                                 </NavLink>
-                                <NavLink :href="route('subcontractors.index')" :active="route().current('subcontractors.index')">
+                                <NavLink :href="route('subcontractors.index')" :active="route().current('subcontractors.index') || route().current('subcontractors.show')">
                                     Sous-traitants
                                 </NavLink>
                                 <NavLink :href="route('trainings.index')" :active="route().current('trainings.index')">
                                     Formations
+                                </NavLink>
+                                <NavLink :href="route('cursuses.index')" :active="route().current('cursuses.index')">
+                                    Cursus
                                 </NavLink>
                             </div>
                         </div>
@@ -149,7 +168,11 @@ const showingNavigationDropdown = ref(false);
                             Formations
                         </ResponsiveNavLink>
                     </div>
-
+                    <div class="pt-2 pb-3 space-y-1">
+                        <ResponsiveNavLink :href="route('cursuses.index')" :active="route().current('cursuses.index')">
+                            Cursus
+                        </ResponsiveNavLink>
+                    </div>
                     <!-- Responsive Settings Options -->
                     <div class="pt-4 pb-1 border-t border-gray-200">
                         <div class="px-4">

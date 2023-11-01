@@ -16,10 +16,10 @@ return new class extends Migration
             $table->string('name');
             $table->string('send_to_subcontractors')->nullable();
             $table->string('send_to_customer')->nullable();
-            $table->string('status')->nullable();
+            $table->string('status')->default('Nouveau')->nullable();
             $table->string('location')->nullable();
-            $table->integer('tjm')->nullable();
-            $table->integer('travelling_expenses')->nullable();
+            $table->integer('tjm')->default(0)->nullable();
+            $table->integer('travelling_expenses')->default(0)->nullable();
             $table->ulid('product_id')->nullable();
             $table->ulid('customer_id')->nullable();
             $table->timestamps();

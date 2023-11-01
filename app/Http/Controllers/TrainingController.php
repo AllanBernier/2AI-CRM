@@ -64,4 +64,10 @@ class TrainingController extends Controller
 
         return new  JsonResource($training);
     }
+
+    public function destroy(Training $training)
+    {
+        $training->delete();
+        return new JsonResource($training);
+    }
 }

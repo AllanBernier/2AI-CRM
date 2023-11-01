@@ -1,5 +1,6 @@
 import { defineStore} from "pinia";
 import dayjs from "dayjs";
+import axios from "axios";
 
 export const useTrainingStore = defineStore({
     id: 'training',
@@ -96,6 +97,9 @@ export const useTrainingStore = defineStore({
                     return "bg-red"
             }
         },
+        formatSingleDate(date){
+            return dayjs(date).isValid() ? dayjs(date).format('D MMM') : '-';
+        },
         formatDate(training){
             if ( !dayjs(training.start_date).isValid() || !dayjs(training.end_date).isValid()){
                 return '-'
@@ -114,6 +118,19 @@ export const useTrainingStore = defineStore({
                 .then( (res) => {
                     this.trainings.unshift(res.data.data)
                 })
+        },
+        async createTraining(training_data) {
+
+            console.log(training_data)
+
+            return axios.post(route('trainings.store'), training_data )
+            .then( (res) => {
+                this.trainings.unshift(res.data.data)
+                return res.data.data;
+            })
+        },
+        destroy(training) {
+            axios.delete(route('trainings.destroy',training.id) );
         }
     }
 })

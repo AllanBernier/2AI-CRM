@@ -95,3 +95,28 @@ test('when create training from cursus also set product_id and customer_id ', fu
         ->and($training->product_id)->toBe($cursus->product_id);
 
 });
+
+
+test('default cursus value', function () {
+    $curses = Cursus::create(['name' => 'default']);
+    $curses->refresh();
+
+    expect($curses->tjm )->toBe(0);
+    expect($curses->travelling_expenses )->toBe(0);
+    expect($curses->status )->toBe('Nouveau');
+});
+
+test('cursuses can be linked to product & customer', function () {
+    $poe = Product::factory()->create();
+    $barbara = Customer::factory()->create();
+
+    $cursus = Cursus::factory()->create([
+        'name' => 'POE JAVA',
+        'product_id' => $poe->id,
+        'customer_id' => $barbara->id,
+    ]);
+
+    expect($cursus->product->code)->toBe($poe->code)
+        ->and($cursus->customer->first_name)->toBe($barbara->first_name);
+
+});

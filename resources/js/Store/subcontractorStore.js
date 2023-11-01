@@ -8,14 +8,12 @@ export const useSubcontractorStore = defineStore({
     getters: {},
     actions: {
         getSubcontractorsIfNotLoaded(){
-            console.log("here")
             if (this.subcontractors === "not defined") {
                 axios.get(route('subcontractors.all')).then( (res) => {
                     this.subcontractors = res.data.data;
                     this.subcontractors.forEach( (p) => {
                         p.name = p.first_name + " "+ p.last_name
                     })
-                    console.log(this.subcontractors)
                 })
             }
         },

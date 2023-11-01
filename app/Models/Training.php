@@ -15,7 +15,7 @@ class Training extends Model
     protected $fillable = [
         'status',
         'product_id',
-        'customer_id' ,
+        'customer_id',
         'subcontractor_id',
         'tjm_client',
         'tjm_subcontractor',
@@ -29,7 +29,8 @@ class Training extends Model
         'text',
         'action_customer',
         'action_subcontractor',
-        'name'
+        'name',
+        'cursus_id'
     ];
 
     public function cursus()

@@ -19,13 +19,13 @@ return new class extends Migration
             $table->string('subcontractor_id')->nullable();
             $table->integer('tjm_client')->default(0)->nullable();
             $table->integer('tjm_subcontractor')->default(0)->nullable();
-            $table->float('duree',3,1)->nullable();
+            $table->float('duree',3,1)->default(0)->nullable();
             $table->string('start_date')->nullable();
             $table->string('end_date')->nullable();
             $table->string('num_session')->nullable();
             $table->string('num_bdc')->nullable();
             $table->string('location')->nullable();
-            $table->integer('travelling_expenses')->nullable();
+            $table->integer('travelling_expenses')->default(0)->nullable();
             $table->string('text')->nullable();
             $table->string('action_customer')->nullable();
             $table->string('action_subcontractor')->nullable();

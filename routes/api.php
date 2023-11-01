@@ -51,6 +51,7 @@ Route::put('/tjm/edit/{subcontractor}/{tjm_type}', [TjmTypeController::class, 'e
 
 Route::get('/training', [TrainingController::class, 'all'])->name('trainings.all');
 Route::post('/training', [TrainingController::class, 'store'])->name('trainings.store');
+Route::delete('/training/{training}', [TrainingController::class, 'destroy'])->name('trainings.destroy');
 Route::put('/training/{training}', [TrainingController::class, 'edit'])->name('trainings.edit');
 
 Route::middleware('auth')->group(function () {

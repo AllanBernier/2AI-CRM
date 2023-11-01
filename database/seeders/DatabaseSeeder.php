@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'allan',
             'email' => 'allan.bernier1@gmail.com',
             'password' => Hash::make('00000000'),
+            'admin' => true
         ]);
 
         $m2i = Company::factory()->create(['name' => 'm2i']);
@@ -288,6 +289,38 @@ class DatabaseSeeder extends Seeder
                 'cursus_id' => $poe->id
             ]);
         }
+
+        $chri_sub = Subcontractor::create(['first_name' => 'Christophe', 'last_name' => 'GUEROULT', 'email_perso' => 'c.gueroult@2aiconcept.com', 'phone' => '', 'email_company' => 'c.gueroult@2aiconcept.com', 'company_name' => '2AI CONCEPT LTD','city' => 'Paris / France']);
+        $chru_user = User::create([
+            'name' => $chri_sub->first_name . ' ' . $chri_sub->last_name,
+            'email' => 'c.gueroult@2aiconcept.com',
+            'password' => Hash::make('00000000'),
+            'subcontractor_id' => $chri_sub->id
+        ]);
+
+        for($i=0;$i<25;$i++){
+            $product = Product::select('id', 'company_id' ,)->inRandomOrder()->first();
+
+            Training::create([
+                'status' => fake()->randomElement(['nouveau', 'confirmé', 'option', 'annulé']),
+                'product_id' => $product->id,
+                'customer_id' => Customer::query()->where('company_id', $product->company_id)->inRandomOrder()->first()->id,
+                'subcontractor_id' => $chri_sub->id,
+                'tjm_client' => 600 + fake()->numberBetween(0,4) * 25,
+                'tjm_subcontractor' => 300 + fake()->numberBetween(0,8) * 25,
+                'duree' => fake()->randomFloat(0,1,5),
+                'start_date' => fake()->dateTimeThisMonth()->format('Y-m-d'),
+                'end_date' => fake()->dateTimeThisMonth()->format('Y-m-d'),
+                'num_session' => fake()->postcode,
+                'num_bdc' => fake()->postcode,
+                'travelling_expenses' => 0,
+                'location' => fake()->city,
+                'action_customer' =>  fake()->randomElement(['AR Nouveau', 'Envoyé Intervenant', 'Relance Option', 'AR BDC', 'Envoyé refus', '' ]),
+                'action_subcontractor' =>  fake()->randomElement(['Solliciter', 'Solliciter dates', 'Envoyé bon d\'option', 'Bon pour accord', 'Envoyer BDC']),
+            ]);
+        }
+        Training::factory(2)->create(['subcontractor_id' => $chri_sub->id ,'status' => 'option', 'action_subcontractor' => 'Envoyer BDC']);
+
 
     }
 }

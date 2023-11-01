@@ -242,4 +242,4 @@ test('i can delete training', function () {
 
     expect($response->status())->toBe(200)
         ->and(Training::count())->toBe(0);
-})->only();
+});

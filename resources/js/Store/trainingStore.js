@@ -131,6 +131,24 @@ export const useTrainingStore = defineStore({
         },
         destroy(training) {
             axios.delete(route('trainings.destroy',training.id) );
+        },
+        totalTrainingsSubcontractor(trainings){
+            return Object.values(trainings).reduce((accumulator, training) => {
+                return  parseFloat(accumulator) + parseFloat(this.totalSubcontractor(training));
+            }, 0);
+
+        },
+        async arbdc(training){
+            return axios.post(route('subcontractors.trainings.arbdc', training.id) )
+                .then( (res) => {
+                    return "done";
+                })
+        },
+        async confirmSollicitation(training, action){
+            return axios.post(route('subcontractors.trainings.confirm', training.id), {action : action} )
+                .then( (res) => {
+                    return "done";
+                })
         }
     }
 })

@@ -1,5 +1,6 @@
 <script setup>
 import {useTrainingStore} from "@/Store/trainingStore.js";
+import VueBasicAlert from "vue-basic-alert";
 
 let trainingStore = useTrainingStore()
 
@@ -7,6 +8,11 @@ const props = defineProps({
     trainings : Object
 })
 
+const confirmSollicitation = async (training, action) => {
+    await trainingStore.confirmSollicitation(training, action)
+    props.trainings.splice(props.trainings.findIndex(t => t.id === training.id) , 1)
+
+}
 </script>
 
 <template>
@@ -14,6 +20,13 @@ const props = defineProps({
         <div class="flex items-center font-semibold w-full bg-gray-800 p-2 text-white uppercase">
             Nouvelles demandes de formation
         </div>
+
+        <vue-basic-alert
+            class="relative"
+            :duration="200"
+            :closeIn="2000"
+            ref="alert" />
+
         <table class="table-auto w-full">
             <thead>
             <tr>
@@ -49,10 +62,14 @@ const props = defineProps({
             <tbody>
             <tr v-for="training in trainings" :key="training.id" class="text-center border-2 border-gray-800 p-2">
                 <td class="w-64 border-2 border-gray-800 md:grid-cols-2 grid">
-                    <button class="w-full bg-green-600 hover:bg-green-700 text-white">
+                    <button class="w-full bg-green-600 hover:bg-green-700 text-white"
+                            @click="confirmSollicitation(training, true); this.$refs.alert.showAlert('info','Vous avez accepté la demande', 'Formation confirmé',{ iconSize: 25, iconType: 'solid',position: 'top right' })"
+                    >
                         Accepter
                     </button>
-                    <button class="w-full bg-red-600 hover:bg-red-700 text-white">
+                    <button class="w-full bg-red-600 hover:bg-red-700 text-white"
+                            @click="confirmSollicitation(training, false); this.$refs.alert.showAlert('info','Vous avez refusé la demande', 'Formation confirmé',{ iconSize: 25, iconType: 'solid',position: 'top right' })"
+                    >
                         Refuser
                     </button>
                 </td>

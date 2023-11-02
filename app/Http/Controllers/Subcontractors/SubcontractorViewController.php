@@ -12,4 +12,9 @@ class SubcontractorViewController extends Controller
         return Inertia::render('SubcontractorView/Index', [
         ]);
     }
+
+    public function invoice()
+    {
+        return Inertia::render('SubcontractorView/Invoice');
+    }
 }

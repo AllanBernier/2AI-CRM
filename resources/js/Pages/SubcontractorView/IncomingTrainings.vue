@@ -6,6 +6,7 @@ let trainingStore = useTrainingStore()
 const props = defineProps({
     trainings : Object
 })
+
 </script>
 
 <template>
@@ -13,6 +14,7 @@ const props = defineProps({
         <div class="flex items-center font-semibold w-full bg-gray-800 p-2 text-white uppercase">
             Formations à venir
         </div>
+
         <table class="table-auto w-full">
             <thead>
             <tr>

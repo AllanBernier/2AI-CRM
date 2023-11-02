@@ -45,10 +45,19 @@ onMounted( ()=> {
 
                             <!-- Navigation Links -->
                             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
+                                <NavLink :href="route('subcontractorsview.index')" :active="route().current('subcontractorsview.index')">
                                     Dashboard
                                 </NavLink>
                             </div>
+                            <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                                <NavLink :href="route('subcontractorsview.invoice')" :active="route().current('subcontractorsview.invoice')">
+                                    Facturation
+                                </NavLink>
+                            </div>
+
+
+
+
                         </div>
 
                         <div class="hidden sm:flex sm:items-center sm:ml-6">

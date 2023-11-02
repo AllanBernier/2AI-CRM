@@ -35,7 +35,7 @@ class SubcontractorTrainingController extends Controller
         );
     }
 
-    public function new(Request $request)
+    public function new()
     {
         $sub_id = Auth::user()->subcontractor->id;
 
@@ -43,19 +43,26 @@ class SubcontractorTrainingController extends Controller
             Training::query()
                 ->where('subcontractor_id', $sub_id)
                 ->where('action_subcontractor', 'solliciter')
-                ->where('status','nouveau')->get()
+                ->where(function($query) {
+                    $query->where('status', 'option');
+                    $query->orWhere('status', 'nouveau');
+                })->get()
         );
     }
 
-    public function month(TrainingDateRequest $request)
+    public function month(Request $request)
     {
-        $data = $request->validated();
+        if (!isset($request['month'])){
+            abort(403);
+        }
 
+        $date = Carbon::now()->month($request['month'])->day(1);
         $sub_id = Auth::user()->subcontractor->id;
         $query = Training::query();
         $query->where('subcontractor_id', $sub_id);
-        $query->whereMonth('start_date',$data['month']);
-        $query->whereYear('start_date',$data['year']);
+        $query->where('status','option');
+        $query->whereDate('end_date', '>=', $date->format('Y-m-d'));
+        $query->whereDate('end_date', '<', $date->addMonth(1)->format('Y-m-d'));
         $query->orderBy('start_date');
 
         return new JsonResource(
@@ -68,7 +75,7 @@ class SubcontractorTrainingController extends Controller
         $sub_id = Auth::user()->subcontractor->id;
         $query = Training::query();
         $query->where('subcontractor_id', $sub_id);
-        $query->where('status', 'option');
+        $query->where('status', 'confirmé');
         $query->where('action_subcontractor', 'Envoyer BDC');
         $query->orderBy('start_date');
 
@@ -95,5 +102,36 @@ class SubcontractorTrainingController extends Controller
         );
     }
 
+    public function arbdc(Training $training)
+    {
+
+        if ($training->action_subcontractor = "Envoyer BDC"){
+            $training->action_subcontractor = "AR BDC";
+            $training->save();
+        }
+
+        return new JsonResource($training);
+    }
+
+    public function confirm(Training $training, Request $request)
+    {
+        if (!isset($request['action'])){
+            abort(403);
+        }
+
+        if ($training->action_subcontractor = "Solliciter"){
+            if ($request['action'] == true){
+                $training->action_subcontractor = "Accepte Solicitation";
+            }
+
+            if ($request['action'] == false){
+                $training->action_subcontractor = "Refuse Solicitation";
+            }
+            $training->save();
+
+        }
+
+        return new JsonResource($training);
+    }
 
 }

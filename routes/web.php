@@ -76,11 +76,13 @@ Route::middleware('auth')->group(function () {
 
 
     Route::get('/sub/trainings', [SubcontractorTrainingController::class, 'index'])->name('subcontractors.trainings.index');
-    Route::get('/sub/trainings/toconfirm', [SubcontractorTrainingController::class, 'toconfirm'])->name('subcontractors.trainings.toconfirm');
-    Route::get('/sub/trainings/option', [SubcontractorTrainingController::class, 'options'])->name('subcontractors.trainings.options');
-    Route::get('/sub/trainings/new', [SubcontractorTrainingController::class, 'new'])->name('subcontractors.trainings.new');
-    Route::post('/sub/trainings/month', [SubcontractorTrainingController::class, 'month'])->name('subcontractors.trainings.month');
+    Route::post('/sub/trainings/arcbd/{training}', [SubcontractorTrainingController::class, 'arbdc'])->name('subcontractors.trainings.arbdc');
+    Route::post('/sub/trainings/confirm/{training}', [SubcontractorTrainingController::class, 'confirm'])->name('subcontractors.trainings.confirm');
     Route::get('/sub/trainings/incoming', [SubcontractorTrainingController::class, 'incoming'])->name('subcontractors.trainings.incoming');
+    Route::post('/sub/trainings/month', [SubcontractorTrainingController::class, 'month'])->name('subcontractors.trainings.month');
+    Route::get('/sub/trainings/new', [SubcontractorTrainingController::class, 'new'])->name('subcontractors.trainings.new');
+    Route::get('/sub/trainings/option', [SubcontractorTrainingController::class, 'options'])->name('subcontractors.trainings.options');
+    Route::get('/sub/trainings/toconfirm', [SubcontractorTrainingController::class, 'toconfirm'])->name('subcontractors.trainings.toconfirm');
 });
 
 
@@ -96,6 +98,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/subcontractor', [SubcontractorController::class, 'index'])->name('subcontractors.index');
     Route::get('/training', [TrainingController::class, 'index'])->name('trainings.index');
     Route::get('/profile/dashboard', [SubcontractorViewController::class, 'index'])->name('subcontractorsview.index');
+    Route::get('/profile/facturation', [SubcontractorViewController::class, 'invoice'])->name('subcontractorsview.invoice');
 });
 
 require __DIR__.'/auth.php';

@@ -1,11 +1,18 @@
 <script setup>
 import {useTrainingStore} from "@/Store/trainingStore.js";
+import VueBasicAlert from "vue-basic-alert";
 
 let trainingStore = useTrainingStore()
 
 const props = defineProps({
     trainings : Object
 })
+
+const arbdc = async (training) => {
+    await trainingStore.arbdc(training)
+    props.trainings.splice(props.trainings.findIndex(t => t.id === training.id) , 1)
+}
+
 </script>
 
 <template>
@@ -13,6 +20,13 @@ const props = defineProps({
         <div class="flex items-center font-semibold w-full bg-gray-800 p-2 text-white uppercase">
             Accusé réception bon de commande
         </div>
+
+        <vue-basic-alert
+            class="relative"
+            :duration="200"
+            :closeIn="1000"
+            ref="alert" />
+
         <table class="table-auto w-full">
             <thead>
             <tr>
@@ -48,7 +62,7 @@ const props = defineProps({
             <tbody>
             <tr v-for="training in trainings" :key="training.id" class="text-center border-2 border-gray-800 p-2">
                 <td class="border-2 border-gray-800 w-64">
-                    <button class=" w-full bg-blue-600 hover:bg-blue-700 text-white">
+                    <button class=" w-full bg-blue-600 hover:bg-blue-700 text-white" @click="arbdc(training); this.$refs.alert.showAlert('info','', 'Formation confirmé',{ iconSize: 25, iconType: 'solid',position: 'top right' })">
                         Accepter
                     </button>
                 </td>

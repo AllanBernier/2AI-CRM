@@ -30,6 +30,10 @@ class Subcontractor extends Model
             ->withTimestamps();
     }
 
+    public function trainings()
+    {
+        return $this->hasMany(Training::class);
+    }
 
     public function leader()
     {

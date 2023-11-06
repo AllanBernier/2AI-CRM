@@ -11,6 +11,7 @@ use App\Models\Subcontractor;
 use App\Models\TjmType;
 use App\Models\Training;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -320,6 +321,13 @@ class DatabaseSeeder extends Seeder
             ]);
         }
         Training::factory(2)->create(['subcontractor_id' => $chri_sub->id ,'status' => 'option', 'action_subcontractor' => 'Envoyer BDC']);
+
+
+        $s1 = Subcontractor::factory()->create();
+        $s2 = Subcontractor::factory()->create();
+
+        Training::factory(1)->create(['subcontractor_id'=>$s1->id, 'end_date' => Carbon::now()->format('Y-m-d')]);
+        Training::factory(2)->create(['subcontractor_id'=>$s2->id, 'end_date' => Carbon::now()->format('Y-m-d')]);
 
 
     }

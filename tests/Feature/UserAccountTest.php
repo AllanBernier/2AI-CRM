@@ -4,6 +4,7 @@ use App\Models\Subcontractor;
 use App\Models\Training;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 use function Pest\Laravel\get;
 use function Pest\Laravel\post;
@@ -143,7 +144,7 @@ test('as subcontractor i can accept solicitation', function () {
 
     expect($response->status())->toBe(200)
         ->and($to_confirm->action_subcontractor)->toBe('Accepte Solicitation');
-})->only();
+});
 
 test('as subcontractor i can refuse solicitation', function () {
     $user = logAsNewSubcontractor();
@@ -157,4 +158,4 @@ test('as subcontractor i can refuse solicitation', function () {
 
     expect($response->status())->toBe(200)
         ->and($to_confirm->action_subcontractor)->toBe('Refuse Solicitation');
-})->only();
+});

@@ -63,6 +63,9 @@ onMounted( ()=> {
                                 <NavLink :href="route('cursuses.index')" :active="route().current('cursuses.index')">
                                     Cursus
                                 </NavLink>
+                                <NavLink :href="route('invoices.index')" :active="route().current('invoices.index')">
+                                    Facturation
+                                </NavLink>
                             </div>
                         </div>
 

@@ -17,12 +17,6 @@ let trainingStore = useTrainingStore();
 let customerStore = useCustomerStore();
 let subcontractorStore = useSubcontractorStore();
 
-onMounted( ()=> {
-    trainingStore.getTrainingsIfNotLoaded();
-    customerStore.getCustomersIfNotLoaded();
-    subcontractorStore.getSubcontractorsIfNotLoaded();
-})
-
 let updateCol = (e, training, col) =>{
     trainingStore.updateCol(e.target.innerHTML, col, training)
 }
@@ -63,9 +57,9 @@ watch(dateValue, debounce(function (value) {
             <div class="py-2 inline-block w-full sm:px-6 lg:px-8">
                 <div class="table-wrp block max-h-[65vh]	">
                     <table class="table-auto w-full text-sm text-left text-gray-500 dark:text-gray-400 max-h-">
-                        <thead class="z-10 sticky top-0 text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <thead class="z-20 sticky top-0 text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
-                            <create />
+                            <create class="sticky z-40 left-0"/>
 
                             <th scope="col" class="px-6 py-3 px-6 py-3">
                                 Société
@@ -137,7 +131,8 @@ watch(dateValue, debounce(function (value) {
 
                         <tbody>
                             <tr class="border-b dark:bg-gray-900 dark:border-gray-700" v-for="training in trainingStore.trainings" :key="training.id" :class="trainingStore.bgColorClass(training)">
-                                <th scope="row" class="border-r px-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <th scope="row" class="md:left-10 left-0 shadow-inner z-10 sticky border-r px-2 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                                    :class="trainingStore.bgColorClass(training)">
                                     <span v-html="training.name" contenteditable @blur="updateCol($event, training, 'name')"></span>
 
                                 </th>
@@ -148,25 +143,25 @@ watch(dateValue, debounce(function (value) {
                                     <span v-html="training.num_session" contenteditable @blur="updateCol($event, training, 'num_session')"></span>
                                 </th>
                                 <th scope="row" class="border-r px-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    <vue-tailwind-datepicker
-                                        v-slot="{ value, placeholder, clear }"
-                                        v-model="dateValue"
-                                        @click-prev="onClickSomething($event)"
-                                        :formatter=" {
-                                            date: 'YYYY-MM-DD',
-                                            month: 'MMM'
-                                          }"
-                                        :shortcuts="false"
-                                    >
-                                        <button
-                                            type="button"
-                                            class="bg-gray-700 text-white rounded-full p-1 w-full"
-                                            @click="selected_training_modal = training">
-                                                    <span class="">
-                                                        {{trainingStore.formatDate(training)}}
-                                                    </span>
-                                        </button>
-                                    </vue-tailwind-datepicker>
+<!--                                    <vue-tailwind-datepicker-->
+<!--                                        v-slot="{ value, placeholder, clear }"-->
+<!--                                        v-model="dateValue"-->
+<!--                                        @click-prev="onClickSomething($event)"-->
+<!--                                        :formatter=" {-->
+<!--                                            date: 'YYYY-MM-DD',-->
+<!--                                            month: 'MMM'-->
+<!--                                          }"-->
+<!--                                        :shortcuts="false"-->
+<!--                                    >-->
+<!--                                        <button-->
+<!--                                            type="button"-->
+<!--                                            class="bg-gray-700 text-white rounded-full p-1 w-full"-->
+<!--                                            @click="selected_training_modal = training">-->
+<!--                                                    <span class="">-->
+<!--                                                        {{trainingStore.formatDate(training)}}-->
+<!--                                                    </span>-->
+<!--                                        </button>-->
+<!--                                    </vue-tailwind-datepicker>-->
                                 </th>
                                 <th scope="row" class="border-r px-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     <span v-html="training.duree" contenteditable @blur="updateCol($event, training, 'duree')"></span> J

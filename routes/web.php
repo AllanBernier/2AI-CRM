@@ -3,6 +3,7 @@
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\CursusController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\GanttController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
@@ -95,6 +96,7 @@ Route::get('/sub/trainings/toconfirm', [SubcontractorTrainingController::class, 
 Route::middleware('auth')->group(function () {
     Route::get('/cursus', [CursusController::class, 'index'])->name('cursuses.index');
     Route::get('/customer', [CustomerController::class, 'index'])->name('customers.index');
+    Route::get('/planning', [GanttController::class, 'index'])->name('gantt.index');
     Route::get('/invoice', [InvoiceController::class, 'index'])->name('invoices.index');
     Route::get('/product', [ProductController::class, 'index'])->name('products.index');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

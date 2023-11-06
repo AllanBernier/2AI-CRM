@@ -18,6 +18,7 @@
         "vue": "^3.2.41"
     },
     "dependencies": {
+        "@infectoone/vue-ganttastic": "^2.2.0",
         "dayjs": "^1.11.10",
         "lodash": "^4.17.21",
         "pinia": "^2.1.7",

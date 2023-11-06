@@ -66,6 +66,9 @@ onMounted( ()=> {
                                 <NavLink :href="route('invoices.index')" :active="route().current('invoices.index')">
                                     Facturation
                                 </NavLink>
+                                <NavLink :href="route('gantt.index')" :active="route().current('gantt.index')">
+                                    Planning
+                                </NavLink>
                             </div>
                         </div>
 

@@ -56,7 +56,7 @@ const props = defineProps({
                     </div>
                 </td>
                 <td class="border-2 border-gray-800">
-                    toto
+                    {{ training.name }}
                 </td>
                 <td  class="border-2 border-gray-800">
                     {{ training.duree }} J
@@ -68,7 +68,7 @@ const props = defineProps({
                     {{ training.location }}
                 </td>
                 <td  class="border-2 border-gray-800">
-                    toto
+                    {{ training.subcontractor.first_name + ' ' + training.subcontractor.last_name  }}
                 </td>
                 <td  class="border-2 border-gray-800">
                     {{ training.tjm_subcontractor }} €

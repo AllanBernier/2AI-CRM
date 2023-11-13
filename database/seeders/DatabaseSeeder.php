@@ -57,7 +57,7 @@ class DatabaseSeeder extends Seeder
         Product::create(['code' => 'JVS-REA', 'description' => 'ReactJS - Développement d\'applications Web', 'url' => '', 'tjm' => '650', 'duree' => '3', 'company_id' => $m2i->id]);
         Product::create(['code' => 'PHO-IN', 'description' => 'Photoshop - Initiation', 'url' => '', 'tjm' => '400', 'duree' => '3', 'company_id' => $m2i->id]);
         Product::create(['code' => 'GIT-VER', 'description' => 'Git - Gérer le versioning', 'url' => '', 'tjm' => '650', 'duree' => '2', 'company_id' => $m2i->id]);
-        Product::create(['code' => 'JVS-VUE', 'description' => 'Vue.js - Développement d\'applications Web', 'url' => '', 'tjm' => '650', 'duree' => '3', 'company_id' => $m2i->id]);
+/*        Product::create(['code' => 'JVS-VUE', 'description' => 'Vue.js - Développement d\'applications Web', 'url' => '', 'tjm' => '650', 'duree' => '3', 'company_id' => $m2i->id]);
         Product::create(['code' => 'PYT', 'description' => 'Python - Par la pratique', 'url' => '', 'tjm' => '650', 'duree' => '4', 'company_id' => $m2i->id]);
         Product::create(['code' => 'REAC-APP', 'description' => 'React Native - Apprendre à développer et publier une application mobile native sur les stores', 'url' => '', 'tjm' => '650', 'duree' => '2', 'company_id' => $m2i->id]);
         Product::create(['code' => 'JVS-IN', 'description' => 'JavaScript - Fondamentaux', 'url' => '', 'tjm' => '650', 'duree' => '3', 'company_id' => $m2i->id]);
@@ -101,7 +101,7 @@ class DatabaseSeeder extends Seeder
         Product::create(['code' => 'UNI-3D', 'description' => 'Unity 3D - Moteur de jeu multiplateforme', 'url' => '', 'tjm' => '650', 'duree' => '5', 'company_id' => $m2i->id]);
         Product::create(['code' => 'IND-N1', 'description' => 'InDesign - Initiation longue pour les professionnels de la communication', 'url' => '', 'tjm' => '400', 'duree' => '5', 'company_id' => $m2i->id]);
         Product::create(['code' => 'PHO-N1', 'description' => 'Photoshop - Initiation longue pour les professionnels de la communication', 'url' => '', 'tjm' => '400', 'duree' => '5', 'company_id' => $m2i->id]);
-        Product::create(['code' => 'ARC-JEE', 'description' => 'Architectures d\'entreprise JEE', 'url' => '', 'tjm' => '675', 'duree' => '2', 'company_id' => $m2i->id]);
+        Product::create(['code' => 'ARC-JEE', 'description' => 'Architectures d\'entreprise JEE', 'url' => '', 'tjm' => '675', 'duree' => '2', 'company_id' => $m2i->id]);*/
 
         Product::create(['code' => 'IB000', 'description' => 'Développement mobile pour piloter des développements sur iOS et Android - Niveau les fondamentaux', 'url' => '', 'tjm' => '600', 'duree' => '2', 'company_id' => $ib->id]);
         Product::create(['code' => 'LI248', 'description' => 'Initiation à la programmation avec Python', 'url' => '', 'tjm' => '650', 'duree' => '2', 'company_id' => $ib->id]);
@@ -138,7 +138,7 @@ class DatabaseSeeder extends Seeder
         Customer::create(['first_name' => 'Aurélie', 'last_name' => 'OLIVIER', 'role' => 'POE Chef de projet', 'phone' => '', 'email' => 'a.olivier@m2iformation.fr', 'city' => 'Nantes', 'company_id' => $m2i->id]);
         Customer::create(['first_name' => 'Alexandra', 'last_name' => 'BONENFANT', 'role' => 'INTRA planification', 'phone' => '', 'email' => 'a.bonnenfant@m2iformation.fr', 'city' => 'Paris', 'company_id' => $m2i->id]);
         Customer::create(['first_name' => 'Colline', 'last_name' => 'MASSOUBRE', 'role' => 'Enregistrement formateurs', 'phone' => '', 'email' => 'c.massoubre@m2iformation.fr', 'city' => 'Paris', 'company_id' => $m2i->id]);
-        Customer::create(['first_name' => 'Stéphanie', 'last_name' => 'WILKOSZ', 'role' => 'POE Chef de projet', 'phone' => '', 'email' => 's.wilkosz@m2iformation.fr', 'city' => 'Lille', 'company_id' => $m2i->id]);
+/*        Customer::create(['first_name' => 'Stéphanie', 'last_name' => 'WILKOSZ', 'role' => 'POE Chef de projet', 'phone' => '', 'email' => 's.wilkosz@m2iformation.fr', 'city' => 'Lille', 'company_id' => $m2i->id]);
         Customer::create(['first_name' => 'Grégory', 'last_name' => 'COLOMAR', 'role' => 'DA', 'phone' => '', 'email' => 'g.colomar@m2iformation.fr', 'city' => 'Lille', 'company_id' => $m2i->id]);
         Customer::create(['first_name' => 'Amaury', 'last_name' => 'DELCOURT', 'role' => 'DA', 'phone' => '', 'email' => 'a.delcourt@m2iformation.fr', 'city' => 'Lille', 'company_id' => $m2i->id]);
         Customer::create(['first_name' => 'Agnès', 'last_name' => 'RICHIR', 'role' => 'Assistant commercial', 'phone' => '', 'email' => 'a.richir@m2iformation.fr', 'city' => 'Bordeaux', 'company_id' => $m2i->id]);
@@ -153,7 +153,7 @@ class DatabaseSeeder extends Seeder
         Customer::create(['first_name' => 'Anna-Maria', 'last_name' => 'PAIVA', 'role' => 'Sourcing & planif', 'phone' => '189199911', 'email' => 'am.paiva@m2iformation.fr', 'city' => '', 'company_id' => $m2i->id]);
         Customer::create(['first_name' => 'Ludivine', 'last_name' => 'GAGNEAUD', 'role' => '', 'phone' => '', 'email' => 'l.gagneaud@m2iformation.fr', 'city' => '', 'company_id' => $m2i->id]);
         Customer::create(['first_name' => 'Sandrine', 'last_name' => 'NÉBOUT', 'role' => 'DA', 'phone' => '330687609141', 'email' => 's.nebout@m2iformation.fr', 'city' => 'Montpellier', 'company_id' => $m2i->id]);
-        Customer::create(['first_name' => 'Mélissa', 'last_name' => 'VALTON', 'role' => 'Recrutement Formateur', 'phone' => '33189199909', 'email' => 'm.valton@m2iformation.fr', 'city' => 'Paris (92)', 'company_id' => $m2i->id]);
+        Customer::create(['first_name' => 'Mélissa', 'last_name' => 'VALTON', 'role' => 'Recrutement Formateur', 'phone' => '33189199909', 'email' => 'm.valton@m2iformation.fr', 'city' => 'Paris (92)', 'company_id' => $m2i->id]);*/
 
         Customer::create(['first_name' => 'Fanny', 'last_name' => 'HUTET', 'role' => 'Résponsable centre rennes', 'phone' => '788862563', 'email' => 'fhutet@orsys.fr', 'city' => 'Rennes', 'company_id' => $orsys->id]);
         Customer::create(['first_name' => 'Victoria', 'last_name' => 'DELAUNAY', 'role' => 'Sourcing & planif', 'phone' => '', 'email' => 'vdelaunay@orsys.fr', 'city' => '', 'company_id' => $orsys->id]);
@@ -181,7 +181,7 @@ class DatabaseSeeder extends Seeder
         Subcontractor::create(['first_name' => 'Davy', 'last_name' => 'BUREAU', 'email_perso' => 'davy.bureau@gmail.com', 'phone' => '630082034', 'email_company' => 'd.bureau@2aiconcept.com', 'company_name' => 'BUREAU','city' => 'Paris / France']);
         Subcontractor::create(['first_name' => 'Dylan', 'last_name' => 'MEURIOT', 'email_perso' => 'd.meuriot@2aiconcept.com', 'phone' => '656856554', 'email_company' => 'd.meuriot@2aiconcept.com', 'company_name' => 'MEURIOT','city' => 'Liège / Belgique']);
         Subcontractor::create(['first_name' => 'François', 'last_name' => 'CAREMOLI', 'email_perso' => 'francois.caremoli@wanadoo.fr', 'phone' => '672774563', 'email_company' => 'f.caremoli@2aiconcept.com', 'company_name' => 'HEPHAISTOS','city' => 'Bretagne / France']);
-        Subcontractor::create(['first_name' => 'Glodie', 'last_name' => 'TSHIMINI', 'email_perso' => 'contact@tshimini.fr', 'phone' => '620519791', 'email_company' => 'g.tshimini@2aiconcept.com', 'company_name' => 'TSHIMINI','city' => 'Paris / France']);
+/*        Subcontractor::create(['first_name' => 'Glodie', 'last_name' => 'TSHIMINI', 'email_perso' => 'contact@tshimini.fr', 'phone' => '620519791', 'email_company' => 'g.tshimini@2aiconcept.com', 'company_name' => 'TSHIMINI','city' => 'Paris / France']);
         Subcontractor::create(['first_name' => 'Guilian', 'last_name' => 'GANSTER', 'email_perso' => 'guilian.ganster@wisoftify.fr', 'phone' => '767676761', 'email_company' => 'g.ganster@2aiconcept.com', 'company_name' => 'GANSTER','city' => 'Rennes / France']);
         Subcontractor::create(['first_name' => 'Jean-Christophe', 'last_name' => 'DOMINGUEZ', 'email_perso' => 'jcd.pro@gmail.com', 'phone' => '767665195', 'email_company' => 'jc.dominguez@2aiconcept.com', 'company_name' => 'DOMINGUEZ','city' => 'Montpellier / France']);
         Subcontractor::create(['first_name' => 'Jeremy', 'last_name' => 'BOJKO', 'email_perso' => 'jeremy.bojko.pro@protonmail.com', 'phone' => '677843165', 'email_company' => 'j.bojko@2aiconcept.com', 'company_name' => 'BOJKO','city' => 'Bagnolet / France']);
@@ -212,14 +212,14 @@ class DatabaseSeeder extends Seeder
         Subcontractor::create(['first_name' => 'Anthony', 'last_name' => 'DEMON', 'email_perso' => 'demon.anthony95@gmail.com', 'phone' => '768528389', 'email_company' => 'a.demon@2aiconcept.com', 'company_name' => 'DEMON','city' => 'Dijon / France']);
         Subcontractor::create(['first_name' => 'Nehemie', 'last_name' => 'BALUKIDI', 'email_perso' => 'christian.lisangola@gmail.com', 'phone' => '', 'email_company' => 'n.balukidi@2aiconcept.com', 'company_name' => 'LISANGOLA','city' => '']);
         Subcontractor::create(['first_name' => 'Balogun', 'last_name' => 'OLA-DAVIES', 'email_perso' => 'boladavies@gmail.com', 'phone' => '668153658', 'email_company' => 'b.oladavies@2aiconcept.com', 'company_name' => 'OLA-DAVIES','city' => 'Paris / France']);
-        Subcontractor::create(['first_name' => 'Samuel', 'last_name' => 'NEVEU', 'email_perso' => 'samuel.neveugall@gmail.com', 'phone' => '33782216779', 'email_company' => '', 'company_name' => '','city' => 'Rennes / France']);
+        Subcontractor::create(['first_name' => 'Samuel', 'last_name' => 'NEVEU', 'email_perso' => 'samuel.neveugall@gmail.com', 'phone' => '33782216779', 'email_company' => '', 'company_name' => '','city' => 'Rennes / France']);*/
 
 
-        for($i=0;$i<50;$i++){
+        for($i=0;$i<20;$i++){
             $product = Product::select('id', 'company_id' ,)->inRandomOrder()->first();
 
             Training::create([
-                'status' => fake()->randomElement(['nouveau', 'confirmé', 'option', 'archivé']),
+                'status' => fake()->randomElement(['nouveau', 'confirmé', 'option', 'annulé']),
                 'product_id' => $product->id,
                 'customer_id' => Customer::query()->where('company_id', $product->company_id)->inRandomOrder()->first()->id,
                 'subcontractor_id' => Subcontractor::inRandomOrder()->first()->id,
@@ -245,7 +245,7 @@ class DatabaseSeeder extends Seeder
             Training::create([
                 'name' => 'CDA BORDEAUX 2024',
                 'text' => fake()->text(20),
-                'status' => fake()->randomElement(['nouveau', 'confirmé', 'option', 'archivé']),
+                'status' => fake()->randomElement(['nouveau', 'confirmé', 'option', 'annulé']),
                 'product_id' => $product->id,
                 'customer_id' => Customer::query()->where('company_id', $product->company_id)->inRandomOrder()->first()->id,
                 'subcontractor_id' => Subcontractor::inRandomOrder()->first()->id,
@@ -272,7 +272,7 @@ class DatabaseSeeder extends Seeder
             Training::create([
                 'name' => 'POE JAVA 4 DEC',
                 'text' => fake()->text(20),
-                'status' => fake()->randomElement(['nouveau', 'confirmé', 'option', 'archivé']),
+                'status' => fake()->randomElement(['nouveau', 'confirmé', 'option', 'annulé']),
                 'product_id' => $product->id,
                 'customer_id' => Customer::query()->where('company_id', $product->company_id)->inRandomOrder()->first()->id,
                 'subcontractor_id' => Subcontractor::inRandomOrder()->first()->id,

@@ -22,6 +22,12 @@ onMounted( async () => {
         });
 })
 
+let file = ref(undefined)
+const selectFile = (event) => {
+    file.value = event.target.files[0]
+}
+
+
 </script>
 
 <template>
@@ -61,7 +67,8 @@ onMounted( async () => {
         <tbody>
         <tr v-for="training in trainings" :key="training.id" class="text-center border-2 border-gray-800 p-2">
             <td class="border-2 border-gray-800">
-                toto
+                {{ training.name }}
+
             </td>
             <td  class="border-2 border-gray-800">
                 {{ training.duree }} J
@@ -73,7 +80,7 @@ onMounted( async () => {
                 {{ training.location }}
             </td>
             <td  class="border-2 border-gray-800">
-                toto
+                {{ training.subcontractor.first_name + ' ' + training.subcontractor.last_name  }}
             </td>
             <td  class="border-2 border-gray-800">
                 {{ training.tjm_subcontractor }} €
@@ -94,7 +101,16 @@ onMounted( async () => {
                 <input
                     class="relative m-0 block w-full min-w-0 flex-auto cursor-pointer rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] font-normal leading-[2.15] text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary"
                     id="formFileLg"
-                    type="file" />
+                    type="file"
+                    @change="selectFile"
+                />
+
+                <div v-if="file">
+                    <button class=" w-full bg-blue-600 hover:bg-blue-700 text-white" @click="console.log('clicked')" >
+                        Envoyer facture
+                    </button>
+                </div>
+
             </td>
             <td  class="">
             </td>

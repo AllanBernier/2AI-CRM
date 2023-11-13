@@ -4,48 +4,14 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import {onMounted, ref} from "vue";
 import {GGanttChart, GGanttRow} from "@infectoone/vue-ganttastic";
 import dayjs from "dayjs";
+import {useTrainingStore} from "@/Store/trainingStore.js";
 
-
-console.log(dayjs().format('YYYY-M-D'))
-
-const row1BarList = ref([
-    {
-        myBeginDate: "2021-7-10",
-        myEndDate: "2021-7-11",
-        ganttBarConfig: {
-            // each bar must have a nested ganttBarConfig object ...
-            id: "unique-id-1", // ... and a unique "id" property
-            label: "Lorem ipsum dolor"
-        }
-    }
-])
-const row2BarList = ref([
-    {
-        myBeginDate: "2021-6-20",
-        myEndDate: "2021-12-4",
-        ganttBarConfig: {
-            id: "another-unique-id-2d",
-            label: "Hey, look at me",
-        }
-    },
-    {
-        myBeginDate: "2021-7-1",
-        myEndDate: "2021-7-7",
-        ganttBarConfig: {
-            id: "another-unique-id-2",
-            label: "Hey, look at me",
-        }
-    }
-])
-
-
-
+const trainingStore = useTrainingStore();
 
 let gantt_date = ref({
     start :dayjs(),
     end :dayjs().add(35, 'day')
 })
-
 
 let prev = () => {
     gantt_date.value.start = gantt_date.value.start.subtract(35, 'day')
@@ -61,17 +27,23 @@ let next = () => {
 const subcontractors = ref({})
 
 const getSubcontractors = async () => {
-    subcontractors.value = await axios.get(route('invoices.subcontractors', {
-        month: gantt_date.value.start.add(35, 'day').month(),
-        year: gantt_date.value.start.year(),
-    })).then((res) => {
+    subcontractors.value = await axios.post(route('gantt.show'), {
+        start_date: gantt_date.value.start.add(1,'day').format('YYYY-MM-DD'),
+        end_date: gantt_date.value.end.subtract(1,'day').format('YYYY-MM-DD'),
+    }).then((res) => {
         res.data.data.forEach( (sub) => {
             sub.trainings.forEach( (training) => {
                 training['ganttBarConfig'] = {
                     id: training.id,
                     label: training.name,
                     immobile: true,
-                    backgroundColor: "#404040"
+                    style: {
+                        background: trainingStore.bgColorStyle(training),
+                        borderRadius: "20px",
+                        border: "1px",
+                        borderColor: 'black',
+                        color: "black"
+                    }
                 }
             })
         })

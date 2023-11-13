@@ -36,5 +36,14 @@ class Cursus extends Model
         return $this->belongsTo(Customer::class);
     }
 
+    protected static function booted(): void
+    {
+        static::updating(function (Cursus $cursus) {
+            if ($cursus->product_id != $cursus->getOriginal('product_id')) {
+                $cursus->tjm = $cursus->product->tjm;
+            }
+        });
+    }
+
 }
 

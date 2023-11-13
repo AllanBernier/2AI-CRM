@@ -73,7 +73,7 @@ let trainingStore = useTrainingStore()
                     {{ training.location }}
                 </td>
                 <td  class="border-2 border-gray-800">
-                    toto
+                    {{ training.subcontractor.first_name + ' ' + training.subcontractor.last_name}}
                 </td>
                 <td  class="border-2 border-gray-800">
                     {{ training.tjm_subcontractor }} €

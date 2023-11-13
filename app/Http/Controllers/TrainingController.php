@@ -54,13 +54,15 @@ class TrainingController extends Controller
         }
 
         $training = Training::create($training_data);
+        $training->refresh();
+        $training->load('product', 'customer', 'customer.company', 'subcontractor', 'subcontractor.leader');
         return new JsonResource($training);
     }
 
     public function edit(Training $training, TrainingStoreRequest $request)
     {
         $training->update($request->validated());
-        $training->load('product', 'customer', 'customer.company', 'subcontractor');
+        $training->load('product', 'customer', 'customer.company', 'subcontractor', 'subcontractor.leader');
 
         return new  JsonResource($training);
     }

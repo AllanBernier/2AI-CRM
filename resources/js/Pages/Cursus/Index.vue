@@ -26,7 +26,7 @@ const createCursus = async (name) => {
 
         <div class="py-2">
             <div class="max-w-7xl mx-auto">
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="bg-white shadow-sm sm:rounded-lg">
 
                     <inline-show-create @create="createCursus"/>
 

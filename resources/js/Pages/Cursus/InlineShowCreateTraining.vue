@@ -18,7 +18,7 @@ const createTraining = async () => {
     }
 
     let training_data = {
-        status: 'Cursus',
+        status: 'cursus',
         product_id: props.cursus.product_id,
         customer_id: props.cursus.customer_id,
         tjm_client: props.cursus.tjm,

@@ -70,18 +70,18 @@ const destroy = (training) => {
                         v-model="dateValue"
                         @click-prev="onClickSomething($event)"
                         :formatter=" {
-                                            date: 'YYYY-MM-DD',
-                                            month: 'MMM'
-                                          }"
+                            date: 'YYYY-MM-DD',
+                            month: 'MMM'
+                          }"
                         :shortcuts="false"
                     >
                         <button
                             type="button"
                             class="bg-gray-700 text-white rounded-full p-1 w-full"
                             @click="selected_training_modal = training">
-                                                    <span class="">
-                                                        {{trainingStore.formatDate(training)}}
-                                                    </span>
+                            <span class="">
+                                {{trainingStore.formatDate(training)}}
+                            </span>
                         </button>
                     </vue-tailwind-datepicker>
                 </td>

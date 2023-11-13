@@ -29,7 +29,9 @@ class InvoiceController extends Controller
             })->with(["trainings" => function($query) use ($date) {
                 $query->whereDate('end_date', '>=', $date->firstOfMonth()->format('Y-m-d'));
                 $query->whereDate('end_date', '<', $date->lastOfMonth()->format('Y-m-d'));
-            }])->get()
+            }])
+            ->with('trainings.subcontractor')
+            ->get()
         );
     }
 }

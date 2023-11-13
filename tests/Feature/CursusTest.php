@@ -120,3 +120,14 @@ test('cursuses can be linked to product & customer', function () {
         ->and($cursus->customer->first_name)->toBe($barbara->first_name);
 
 });
+
+test('updating cursus product also update TJM', function () {
+    $poe = Product::factory()->create(['tjm' => 600]);
+    $cursus = Cursus::factory()->create([
+        'name' => 'POE JAVA',
+    ]);
+    $cursus->update(['product_id' => $poe->id]);
+
+    $cursus->refresh();
+    expect($cursus->tjm)->toBe(600);
+})->only();

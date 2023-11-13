@@ -64,6 +64,7 @@ Route::post('/customer', [CustomerController::class, 'store'])->name('customers.
 Route::put('/customer/{customer}', [CustomerController::class, 'edit'])->name('customers.edit');
 Route::delete('/customer/{customer}', [CustomerController::class, 'destroy'])->name('customers.destroy');
 
+Route::post('/gantt/planning', [GanttController::class, 'show'])->name('gantt.show');
 
 Route::get('/invoice/subcontractors/{month}/{year}', [InvoiceController::class, 'subcontractors'])->name('invoices.subcontractors');
 Route::get('/product/all', [ProductController::class, 'all'])->name('products.all');

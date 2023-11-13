@@ -74,7 +74,7 @@ const confirmSollicitation = async (training, action) => {
                     </button>
                 </td>
                 <td class="border-2 border-gray-800">
-                    toto
+                    {{ training.name }}
                 </td>
                 <td  class="border-2 border-gray-800">
                     {{ training.duree }} J
@@ -86,7 +86,7 @@ const confirmSollicitation = async (training, action) => {
                     {{ training.location }}
                 </td>
                 <td  class="border-2 border-gray-800">
-                    toto
+                    {{ training.subcontractor.first_name + ' ' + training.subcontractor.last_name  }}
                 </td>
                 <td  class="border-2 border-gray-800">
                     {{ training.tjm_subcontractor }} €

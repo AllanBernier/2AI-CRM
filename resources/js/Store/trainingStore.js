@@ -19,6 +19,11 @@ export const useTrainingStore = defineStore({
         updateCol(value, column, training){
             training[column] = value
             axios.put(route('trainings.edit', training.id), training)
+                .then( (res) => {
+                    let updated = res.data.data;
+                    let id = this.trainings.findIndex( (t) => t.id === updated.id )
+                    this.trainings[id] = updated
+                })
         },
         updateDate(start, end, training){
             training['start_date'] = start
@@ -26,13 +31,13 @@ export const useTrainingStore = defineStore({
             axios.put(route('trainings.edit', training.id), training)
         },
         totalHT(training){
-            return ((training.tjm_client + training.travelling_expenses) * training.duree).toFixed(2)
+            return (( parseFloat(training.tjm_client) + parseFloat(training.travelling_expenses)) * parseFloat(training.duree)).toFixed(2)
         },
         totalSubcontractor(training){
-            return ((training.tjm_subcontractor + training.travelling_expenses) * training.duree).toFixed(2)
+            return ((parseFloat(training.tjm_subcontractor) + parseFloat(training.travelling_expenses)) * parseFloat(training.duree)).toFixed(2)
         },
         margeEur(training){
-            return (this.totalHT(training) - this.totalSubcontractor(training)).toFixed(2)
+            return (parseFloat(this.totalHT(training)) - parseFloat(this.totalSubcontractor(training))).toFixed(2)
         },
         totalPercent(training){
             return (this.margeEur(training) / this.totalHT(training) * 100).toFixed(2)
@@ -45,10 +50,26 @@ export const useTrainingStore = defineStore({
                     return "bg-amber-100"
                 case "confirmé":
                     return "bg-lime-100"
-                case "archivé":
+                case "annulé":
                     return "bg-red-100"
+                case "cursus":
+                    return "bg-blue-100"
                 default:
-                    return "bg-red"
+                    return "bg-red-500"
+            }
+        },
+        bgColorStyle(training){
+            switch(training.status) {
+                case "nouveau":
+                    return "#a855f7"
+                case "option":
+                    return "#f97316"
+                case "confirmé":
+                    return "#22c55e"
+                case "annulé":
+                    return "#991b1b"
+                default:
+                    return "#991b1b"
             }
         },
         bgColorActionCustomer (action) {
@@ -116,6 +137,7 @@ export const useTrainingStore = defineStore({
 
             axios.post(route('trainings.store'), training_data )
                 .then( (res) => {
+                    console.log(res.data.data)
                     this.trainings.unshift(res.data.data)
                 })
         },

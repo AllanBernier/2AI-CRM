@@ -88,7 +88,7 @@ let modal = ref(false)
                     :can-add="false"
                     :fill-on-select="true"
                     :default-input="cursus.product ? cursus.product.code : ''"
-                    @select="(id) => {cursusStore.updateCol(id, cursus, 'product_id')}"
+                    @select="async (id) => { cursus.tjm = await cursusStore.updateProduct(id, cursus, 'product_id')}"
                 />
             </td>
             <td class="border-2 border-gray-800 p-2 text-xl">

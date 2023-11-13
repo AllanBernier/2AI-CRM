@@ -46,7 +46,9 @@ class SubcontractorTrainingController extends Controller
                 ->where(function($query) {
                     $query->where('status', 'option');
                     $query->orWhere('status', 'nouveau');
-                })->get()
+                })
+                ->with('subcontractor')
+                ->get()
         );
     }
 
@@ -64,6 +66,7 @@ class SubcontractorTrainingController extends Controller
         $query->whereDate('end_date', '>=', $date->format('Y-m-d'));
         $query->whereDate('end_date', '<', $date->addMonth(1)->format('Y-m-d'));
         $query->orderBy('start_date');
+        $query->with('subcontractor');
 
         return new JsonResource(
             $query->get()
@@ -78,6 +81,7 @@ class SubcontractorTrainingController extends Controller
         $query->where('status', 'confirmé');
         $query->where('action_subcontractor', 'Envoyer BDC');
         $query->orderBy('start_date');
+        $query->with('subcontractor');
 
         return new JsonResource(
             $query->get()
@@ -96,7 +100,7 @@ class SubcontractorTrainingController extends Controller
         });
         $query->whereDate('end_date', '>=', Carbon::now()->subMonth(1)->format('Y-m-d'));
         $query->orderBy('start_date');
-
+        $query->with('subcontractor');
         return new JsonResource(
             $query->get()
         );

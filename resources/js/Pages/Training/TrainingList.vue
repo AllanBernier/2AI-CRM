@@ -107,6 +107,9 @@ watch(dateValue, debounce(function (value) {
                                 Texte
                             </th>
                             <th scope="col" class="px-6 py-3 px-6 py-3">
+                                Num BDC
+                            </th>
+                            <th scope="col" class="px-6 py-3 px-6 py-3">
                                 Total HT
                             </th>
                             <th scope="col" class="px-6 py-3 px-6 py-3">
@@ -117,9 +120,6 @@ watch(dateValue, debounce(function (value) {
                             </th>
                             <th scope="col" class="px-6 py-3 px-6 py-3">
                                 % Marge
-                            </th>
-                            <th scope="col" class="px-6 py-3 px-6 py-3">
-                                Num BDC
                             </th>
 
 
@@ -143,25 +143,25 @@ watch(dateValue, debounce(function (value) {
                                     <span v-html="training.num_session" contenteditable @blur="updateCol($event, training, 'num_session')"></span>
                                 </th>
                                 <th scope="row" class="border-r px-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-<!--                                    <vue-tailwind-datepicker-->
-<!--                                        v-slot="{ value, placeholder, clear }"-->
-<!--                                        v-model="dateValue"-->
-<!--                                        @click-prev="onClickSomething($event)"-->
-<!--                                        :formatter=" {-->
-<!--                                            date: 'YYYY-MM-DD',-->
-<!--                                            month: 'MMM'-->
-<!--                                          }"-->
-<!--                                        :shortcuts="false"-->
-<!--                                    >-->
-<!--                                        <button-->
-<!--                                            type="button"-->
-<!--                                            class="bg-gray-700 text-white rounded-full p-1 w-full"-->
-<!--                                            @click="selected_training_modal = training">-->
-<!--                                                    <span class="">-->
-<!--                                                        {{trainingStore.formatDate(training)}}-->
-<!--                                                    </span>-->
-<!--                                        </button>-->
-<!--                                    </vue-tailwind-datepicker>-->
+                                    <vue-tailwind-datepicker
+                                        v-slot="{ value, placeholder, clear }"
+                                        v-model="dateValue"
+                                        @click-prev="onClickSomething($event)"
+                                        :formatter=" {
+                                            date: 'YYYY-MM-DD',
+                                            month: 'MMM'
+                                          }"
+                                        :shortcuts="false"
+                                    >
+                                        <button
+                                            type="button"
+                                            class="bg-gray-700 text-white rounded-full p-1 w-full"
+                                            @click="selected_training_modal = training">
+                                                    <span class="">
+                                                        {{trainingStore.formatDate(training)}}
+                                                    </span>
+                                        </button>
+                                    </vue-tailwind-datepicker>
                                 </th>
                                 <th scope="row" class="border-r px-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     <span v-html="training.duree" contenteditable @blur="updateCol($event, training, 'duree')"></span> J
@@ -223,6 +223,10 @@ watch(dateValue, debounce(function (value) {
                                     <span v-html="training.text" contenteditable @blur="updateCol($event, training, 'text')"></span>
                                 </th>
                                 <th scope="row" class="border-r px-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    <span v-html="training.num_bdc" contenteditable @blur="updateCol($event, training, 'num_bdc')"></span>
+                                </th>
+
+                                <th scope="row" class="border-r px-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     {{ trainingStore.totalHT(training) }} €
                                 </th>
                                 <th scope="row" class="border-r px-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -237,11 +241,6 @@ watch(dateValue, debounce(function (value) {
 
                                     {{ trainingStore.totalPercent(training) }} %
                                 </th>
-                                <th scope="row" class="border-r px-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    <span v-html="training.num_bdc" contenteditable @blur="updateCol($event, training, 'num_bdc')"></span>
-                                </th>
-
-
                             </tr>
                         </tbody>
                     </table>

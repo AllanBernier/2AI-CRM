@@ -10,6 +10,12 @@ export const useCursusStore = defineStore({
             cursus[col] = value
             axios.put(route('cursuses.edit', cursus.id), cursus)
         },
+        async updateProduct(value, cursus, col){
+            cursus[col] = value
+            return axios.put(route('cursuses.edit', cursus.id), cursus).then( (res) => {
+                return res.data.data.tjm
+            })
+        },
         async createCursus(name) {
             return axios.post(route('cursuses.store'), { name: name}).then((res) => {
                 return res.data.data;

@@ -1,8 +1,11 @@
 <?php
 
+use App\Models\Subcontractor;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Auth;
 use Tests\TestCase;
- 
+
 /*
 |--------------------------------------------------------------------------
 | Test Case
@@ -45,7 +48,11 @@ expect()->extend('toBeOne', function () {
 |
 */
 
-function something()
+function logAsNewSubcontractor()
 {
-    // ..
+    $subcontractor = Subcontractor::factory()->create();
+    $user = User::factory()->create(['subcontractor_id' => $subcontractor->id]);
+    Auth::login($user);
+
+    return $user;
 }

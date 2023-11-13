@@ -24,16 +24,6 @@ test('user can be linked to subcontractor_id', function () {
 
 });
 
-
-function logAsNewSubcontractor()
-{
-    $subcontractor = Subcontractor::factory()->create();
-    $user = User::factory()->create(['subcontractor_id' => $subcontractor->id]);
-    Auth::login($user);
-
-    return $user;
-}
-
 test('i can retrieve all my trainings in options', function () {
     $user = logAsNewSubcontractor();
 

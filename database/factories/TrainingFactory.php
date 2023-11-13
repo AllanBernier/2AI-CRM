@@ -23,7 +23,7 @@ class TrainingFactory extends Factory
         $company = Company::factory()->create();
 
         return [
-            'status' => fake()->randomElement(['nouveau', 'confirmé', 'option', 'archivé']),
+            'status' => fake()->randomElement(['nouveau', 'confirmé', 'option', 'annulé']),
             'product_id' => Product::factory()->create(['company_id' => $company->id]),
             'customer_id' => Customer::factory()->create(['company_id' => $company->id]),
             'subcontractor_id' => Subcontractor::factory()->create(),

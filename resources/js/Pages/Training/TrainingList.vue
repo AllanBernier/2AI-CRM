@@ -35,11 +35,11 @@ const updateStatus = (status) => {
     })
 }
 const updateSubcontractorAction = (action) => {
-    trainingStore.updateCol(action, 'action_subcontractor', selected_training_modal.value)
+    trainingStore.updateAction(action, 'action_subcontractor', selected_training_modal.value)
     subcontractorModal.value = false
 }
 const updateCustomerAction = (action) => {
-    trainingStore.updateCol(action, 'action_customer', selected_training_modal.value)
+    trainingStore.updateAction(action, 'action_customer', selected_training_modal.value)
     customerModal.value = false
 }
 

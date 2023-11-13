@@ -218,6 +218,8 @@ class DatabaseSeeder extends Seeder
         for($i=0;$i<20;$i++){
             $product = Product::select('id', 'company_id' ,)->inRandomOrder()->first();
 
+            $date = Carbon::today()->subDays(rand(0, 150));
+
             Training::create([
                 'status' => fake()->randomElement(['nouveau', 'confirmé', 'option', 'annulé']),
                 'product_id' => $product->id,
@@ -226,8 +228,8 @@ class DatabaseSeeder extends Seeder
                 'tjm_client' => 600 + fake()->numberBetween(0,4) * 25,
                 'tjm_subcontractor' => 300 + fake()->numberBetween(0,8) * 25,
                 'duree' => fake()->randomFloat(1,1,5),
-                'start_date' => fake()->dateTimeThisMonth()->format('Y-m-d'),
-                'end_date' => fake()->dateTimeThisMonth()->format('Y-m-d'),
+                'start_date' => $date->format('Y-m-d'),
+                'end_date' => $date->addDays(rand(1,5))->format('Y-m-d'),
                 'num_session' => fake()->postcode,
                 'num_bdc' => fake()->postcode,
                 'travelling_expenses' => 0,
@@ -241,6 +243,7 @@ class DatabaseSeeder extends Seeder
 
         for($i=0;$i<10;$i++){
             $product = Product::select('id', 'company_id' ,)->inRandomOrder()->first();
+            $date = Carbon::today()->subDays(rand(0, 150));
 
             Training::create([
                 'name' => 'CDA BORDEAUX 2024',
@@ -252,8 +255,8 @@ class DatabaseSeeder extends Seeder
                 'tjm_client' => 600 + fake()->numberBetween(0,4) * 25,
                 'tjm_subcontractor' => 300 + fake()->numberBetween(0,8) * 25,
                 'duree' => fake()->randomFloat(1,1,5),
-                'start_date' => fake()->dateTimeThisYear()->format('Y-m-d'),
-                'end_date' => fake()->dateTimeThisYear()->format('Y-m-d'),
+                'start_date' => $date->format('Y-m-d'),
+                'end_date' => $date->addDays(rand(1,5))->format('Y-m-d'),
                 'num_session' => fake()->postcode,
                 'num_bdc' => fake()->postcode,
                 'travelling_expenses' => 0,
@@ -268,8 +271,9 @@ class DatabaseSeeder extends Seeder
 
         for($i=0;$i<10;$i++){
             $product = Product::select('id', 'company_id' ,)->inRandomOrder()->first();
+            $date = Carbon::today()->subDays(rand(0, 150));
 
-            Training::create([
+             Training::create([
                 'name' => 'POE JAVA 4 DEC',
                 'text' => fake()->text(20),
                 'status' => fake()->randomElement(['nouveau', 'confirmé', 'option', 'annulé']),
@@ -279,8 +283,8 @@ class DatabaseSeeder extends Seeder
                 'tjm_client' => 600 + fake()->numberBetween(0,4) * 25,
                 'tjm_subcontractor' => 300 + fake()->numberBetween(0,8) * 25,
                 'duree' => fake()->randomFloat(1,1,5),
-                'start_date' => fake()->dateTimeThisYear()->format('Y-m-d'),
-                'end_date' => fake()->dateTimeThisYear()->format('Y-m-d'),
+                'start_date' => $date->format('Y-m-d'),
+                'end_date' => $date->addDays(rand(1,5))->format('Y-m-d'),
                 'num_session' => fake()->postcode,
                 'num_bdc' => fake()->postcode,
                 'travelling_expenses' => 0,
@@ -299,8 +303,9 @@ class DatabaseSeeder extends Seeder
             'subcontractor_id' => $chri_sub->id
         ]);
 
-        for($i=0;$i<25;$i++){
+        for($i=0;$i<10;$i++){
             $product = Product::select('id', 'company_id' ,)->inRandomOrder()->first();
+            $date = Carbon::today()->subDays(rand(0, 150));
 
             Training::create([
                 'status' => fake()->randomElement(['nouveau', 'confirmé', 'option', 'annulé']),
@@ -310,8 +315,8 @@ class DatabaseSeeder extends Seeder
                 'tjm_client' => 600 + fake()->numberBetween(0,4) * 25,
                 'tjm_subcontractor' => 300 + fake()->numberBetween(0,8) * 25,
                 'duree' => fake()->randomFloat(0,1,5),
-                'start_date' => fake()->dateTimeThisMonth()->format('Y-m-d'),
-                'end_date' => fake()->dateTimeThisMonth()->format('Y-m-d'),
+                'start_date' => $date->format('Y-m-d'),
+                'end_date' => $date->addDays(rand(1,5))->format('Y-m-d'),
                 'num_session' => fake()->postcode,
                 'num_bdc' => fake()->postcode,
                 'travelling_expenses' => 0,
@@ -320,15 +325,5 @@ class DatabaseSeeder extends Seeder
                 'action_subcontractor' =>  fake()->randomElement(['Solliciter', 'Solliciter dates', 'Envoyé bon d\'option', 'Bon pour accord', 'Envoyer BDC']),
             ]);
         }
-        Training::factory(2)->create(['subcontractor_id' => $chri_sub->id ,'status' => 'option', 'action_subcontractor' => 'Envoyer BDC']);
-
-
-        $s1 = Subcontractor::factory()->create();
-        $s2 = Subcontractor::factory()->create();
-
-        Training::factory(1)->create(['subcontractor_id'=>$s1->id, 'end_date' => Carbon::now()->format('Y-m-d')]);
-        Training::factory(2)->create(['subcontractor_id'=>$s2->id, 'end_date' => Carbon::now()->format('Y-m-d')]);
-
-
     }
 }

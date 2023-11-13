@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SubcontractorStoreRequest;
+use App\Models\Product;
 use App\Models\Subcontractor;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -41,7 +42,7 @@ class SubcontractorController extends Controller
 
     public function show(Subcontractor $subcontractor)
     {
-        $subcontractor->load('tjms');
+        $subcontractor->load('tjms', 'products');
         return Inertia::render('Subcontractor/Show', [
             'subcontractor' => $subcontractor,
         ]);
@@ -61,6 +62,18 @@ class SubcontractorController extends Controller
     public function destroy(Subcontractor $subcontractor)
     {
         $subcontractor->delete();
+        return new JsonResource($subcontractor);
+    }
+
+    public function attachProduct(Product $product, Subcontractor $subcontractor)
+    {
+        $subcontractor->products()->attach($product);
+        return new JsonResource($subcontractor);
+    }
+
+    public function detachProduct(Product $product, Subcontractor $subcontractor)
+    {
+        $subcontractor->products()->detach($product);
         return new JsonResource($subcontractor);
     }
 }

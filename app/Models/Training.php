@@ -30,7 +30,8 @@ class Training extends Model
         'action_customer',
         'action_subcontractor',
         'name',
-        'cursus_id'
+        'cursus_id',
+        'invoice_file'
     ];
 
     public function cursus()
@@ -65,10 +66,13 @@ class Training extends Model
         });
 
         static::updating(function (Training $training) {
-            if (isset($training->product_id) && isset($training->subcontractor_id)){
-                $product_tjm_type = $training->product->tjm_type;
-                if (isset($product_tjm_type->id)){
-                    $training->tjm_subcontractor = $training->subcontractor->tjms()->find($product_tjm_type->id)->pivot->price;
+            if ($training->getOriginal('product_id') != $training->product_id || $training->getOriginal('subcontractor_id') != $training->subcontractor_id)
+            {
+                if (isset($training->product_id) && isset($training->subcontractor_id)){
+                    $product_tjm_type = $training->product->tjm_type;
+                    if (isset($product_tjm_type->id)){
+                        $training->tjm_subcontractor = $training->subcontractor->tjms()->find($product_tjm_type->id)->pivot->price;
+                    }
                 }
             }
         });

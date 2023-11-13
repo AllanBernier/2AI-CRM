@@ -4,7 +4,6 @@ let props = defineProps({
 });
 
 let updateTjm = (e, tjm) => {
-    console.log(tjm)
     axios.put(route('tjms.edit',
         {
             subcontractor : tjm.pivot.subcontractor_id,

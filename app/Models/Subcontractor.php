@@ -35,6 +35,10 @@ class Subcontractor extends Model
         return $this->hasMany(Training::class);
     }
 
+    public function products()
+    {
+        return $this->belongsToMany(Product::class);
+    }
     public function leader()
     {
         return $this->belongsTo(Subcontractor::class,'subcontractor_id');

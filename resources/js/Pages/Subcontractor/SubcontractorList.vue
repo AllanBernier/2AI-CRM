@@ -23,9 +23,7 @@ let destroy = (subcontractor) => {
 
 let updateCol = (e, subcontractor, col) =>{
     subcontractor[col] = e.target.innerHTML
-    axios.put(route('subcontractors.edit', subcontractor.id), subcontractor).then( (res) => {
-        console.log(res)
-    })
+    axios.put(route('subcontractors.edit', subcontractor.id), subcontractor)
 }
 
 

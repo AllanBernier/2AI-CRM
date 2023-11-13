@@ -26,15 +26,15 @@ class InvoiceController extends Controller
 
         $date = Carbon::now()->setMonth($month)->setYear($year);
 
+
+
         return new JsonResource(
             Subcontractor::whereHas('trainings', function (Builder $query) use ($date) {
-                $query->whereDate('end_date', '>=', $date->firstOfMonth()->format('Y-m-d'));
-                $query->whereDate('end_date', '<=', $date->lastOfMonth()->format('Y-m-d'));
+                $query->whereBetween('end_date', [$date->firstOfMonth()->format('Y-m-d'),$date->lastOfMonth()->format('Y-m-d')] );
             })->with(["trainings" => function($query) use ($date) {
-                $query->whereDate('end_date', '>=', $date->firstOfMonth()->format('Y-m-d'));
-                $query->whereDate('end_date', '<', $date->lastOfMonth()->format('Y-m-d'));
+                $query->whereBetween('end_date', [$date->firstOfMonth()->format('Y-m-d'),$date->lastOfMonth()->format('Y-m-d')]);
+                $query->with('subcontractor');
             }])
-            ->with('trainings.subcontractor')
             ->get()
         );
     }
@@ -44,7 +44,7 @@ class InvoiceController extends Controller
         if (!$request['file_content'] || !$request['trainings']){
             abort(403);
         }
-        $uuid = Str::uuid() ;
+        $uuid = Str::uuid();
         Storage::put($uuid , file_get_contents($request['file_content']));
         Training::query()->whereIn('id', explode(",", $request['trainings']))->update(['invoice_file' => $uuid]);
 

@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Product;
+use App\Models\Subcontractor;
 use App\Models\Training;
 use function Pest\Laravel\post;
 
@@ -18,3 +20,18 @@ test('i can recieve all trainers with corresponding training in new, option, con
         ->and($response->json('data'))->toHaveCount(8);
 
 });
+
+
+test('i can search all subcontractors that are linked with product', function () {
+    $product = Product::factory()->create();
+    $toto = Subcontractor::factory()->create();
+    $titi = Subcontractor::factory()->create();
+    $tata = Subcontractor::factory()->create();
+    $toto->products()->attach($product);
+    $tata->products()->attach($product);
+
+    $response = post(route('gantt.search', ['product' => $product->id, 'start_date' => '2023-11-01', 'end_date' => '2023-12-01']));
+
+    expect($response->status())->toBe(200)
+        ->and($response->json('data'))->toHaveCount(2);
+})->only();

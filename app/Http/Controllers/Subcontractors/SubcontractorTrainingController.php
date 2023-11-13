@@ -42,7 +42,7 @@ class SubcontractorTrainingController extends Controller
         return new JsonResource(
             Training::query()
                 ->where('subcontractor_id', $sub_id)
-                ->where('action_subcontractor', 'solliciter')
+                ->where('action_subcontractor', 'Solliciter')
                 ->where(function($query) {
                     $query->where('status', 'option');
                     $query->orWhere('status', 'nouveau');

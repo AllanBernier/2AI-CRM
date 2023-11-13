@@ -3,12 +3,12 @@ import { defineStore} from "pinia";
 export const useProductStore = defineStore({
     id: 'products',
     state: () => ({
-        products: "not defined"
+        products: {}
     }),
     getters: {},
     actions: {
         getProductsIfNotLoaded(){
-            if (this.products === "not defined") {
+            if (!Array.isArray(this.products )) {
                 axios.get(route('products.all')).then( (res) => {
                     this.products = res.data.data;
                     this.products.forEach( (p) => {

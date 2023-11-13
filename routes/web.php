@@ -65,6 +65,7 @@ Route::put('/customer/{customer}', [CustomerController::class, 'edit'])->name('c
 Route::delete('/customer/{customer}', [CustomerController::class, 'destroy'])->name('customers.destroy');
 
 Route::post('/gantt/planning', [GanttController::class, 'show'])->name('gantt.show');
+Route::post('/gantt/search/{product}', [GanttController::class, 'search'])->name('gantt.search');
 
 Route::post('/invoice/subcontractors/store', [InvoiceController::class, 'store'])->name('invoices.store');
 Route::get('/invoice/subcontractors/{month}/{year}', [InvoiceController::class, 'subcontractors'])->name('invoices.subcontractors');
@@ -74,13 +75,19 @@ Route::post('/product', [ProductController::class, 'store'])->name('products.sto
 Route::post('/product/search', [ProductController::class, 'search'])->name('products.search');
 Route::put('/product/{product}', [ProductController::class, 'edit'])->name('products.edit');
 Route::delete('/product/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
+
 Route::get('/subcontractor/all', [SubcontractorController::class, 'all'])->name('subcontractors.all');
 Route::post('/subcontractor', [SubcontractorController::class, 'store'])->name('subcontractors.store');
+Route::post('/subcontractor/attach/{product}/{subcontractor}', [SubcontractorController::class, 'attachProduct'])->name('subcontractor.product.attach');
+Route::post('/subcontractor/detach/{product}/{subcontractor}', [SubcontractorController::class, 'detachProduct'])->name('subcontractor.product.detach');
+
 Route::put('/subcontractor/{subcontractor}', [SubcontractorController::class, 'edit'])->name('subcontractors.edit');
 Route::delete('/subcontractor/{subcontractor}', [SubcontractorController::class, 'destroy'])->name('subcontractors.destroy');
+
 Route::put('/tjm/edit/{subcontractor}/{tjm_type}', [TjmTypeController::class, 'edit'])->name('tjms.edit');
-Route::get('/training/all', [TrainingController::class, 'all'])->name('trainings.all');
 Route::post('/training', [TrainingController::class, 'store'])->name('trainings.store');
+Route::post('/training/mail/{training}', [TrainingController::class, 'mail'])->name('trainings.mail');
+Route::get('/training/all', [TrainingController::class, 'all'])->name('trainings.all');
 Route::delete('/training/{training}', [TrainingController::class, 'destroy'])->name('trainings.destroy');
 Route::put('/training/{training}', [TrainingController::class, 'edit'])->name('trainings.edit');
 

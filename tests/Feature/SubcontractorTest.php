@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Product;
 use App\Models\Subcontractor;
 use App\Models\TjmType;
 use function Pest\Laravel\delete;
@@ -79,5 +80,43 @@ test('subcontractor can have subcontractor', function () {
         ->and(Subcontractor::count())->toBe(2)
         ->and($subcontractor_data['subcontractor_id'])->toBe($subcontractor->subcontractor_id)
         ->and($subcontractor->leader->first_name)->toBe($mechety->first_name);
+
+});
+
+
+test('subcontractors can be linked to products', function () {
+    $toto = Subcontractor::factory()->create();
+    $tata = Subcontractor::factory()->create();
+    $products_for_all = Product::factory(2)->create();
+    $products = Product::factory(1)->create();
+
+    $tata->products()->attach($products_for_all);
+    $tata->products()->attach($products);
+    $toto->products()->attach($products_for_all);
+
+    expect($tata->products()->count())->toBe(3)
+        ->and($toto->products()->count())->toBe(2);
+});
+
+
+test('i can attach product to subcontractor', function () {
+    $toto = Subcontractor::factory()->create();
+    $product = Product::factory()->create();
+
+    $response = post(route('subcontractor.product.attach', ['subcontractor' => $toto->id, 'product' => $product->id]));
+
+    expect($response->status())->toBe(200)
+        ->and($toto->products()->count())->toBe(1);
+})->only();
+
+test('i can detach product to subcontractor', function () {
+    $toto = Subcontractor::factory()->create();
+    $products = Product::factory(5)->create();
+
+    $toto->products()->attach($products);
+    $response = post(route('subcontractor.product.detach', ['subcontractor' => $toto->id, 'product' => $products[0]->id]));
+
+    expect($response->status())->toBe(200)
+        ->and($toto->products()->count())->toBe(4);
 
 });

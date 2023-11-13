@@ -42,12 +42,16 @@ let openDropDown = () => {
 let closeDropDown = () => {
     setTimeout(() => {
         open.value = false
+        if ( input.value === ''){
+            emit('close:empty')
+        }
     }, 150)
 }
 
 const emit = defineEmits([
     "select",
-    "create"
+    "create",
+    "close:empty",
 ])
 
 onMounted(() => {

@@ -10,17 +10,13 @@ let props = defineProps({
 
 let updateCol = (e, customer, col) =>{
     customer[col] = e.target.innerHTML
-    axios.put(route('customers.edit', customer.id), customer).then( (res) => {
-        console.log(res)
-    })
-}
+    axios.put(route('customers.edit', customer.id), customer)}
 
 
 let showModal = ref(false)
 let selected_customer_modal = ref({})
 let updateCompany = (company) => {
     selected_customer_modal.value.company_id = company.id;
-    console.log(route('customers.edit', {customer : selected_customer_modal.value.id}))
     axios.put(route('customers.edit', {customer : selected_customer_modal.value.id}), selected_customer_modal.value).then( (res) => {
         selected_customer_modal.value.company = company;
         showModal.value = false
@@ -30,7 +26,7 @@ let updateCompany = (company) => {
 
 let destroy = (customer) => {
     axios.delete(route('customers.destroy', customer.id)).then( (res) => {
-        var customer_index = props.customers.indexOf(customer);
+        let customer_index = props.customers.indexOf(customer);
         props.customers.splice(customer_index, 1)
     })
 }

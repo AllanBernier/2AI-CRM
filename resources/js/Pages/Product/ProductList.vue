@@ -13,9 +13,7 @@ let props = defineProps({
 
 let updateCol = (e, customer, col) =>{
     customer[col] = e.target.innerHTML
-    axios.put(route('products.edit', customer.id), customer).then( (res) => {
-        console.log(res)
-    })
+    axios.put(route('products.edit', customer.id), customer)
 
 }
 
@@ -25,7 +23,6 @@ let tjmModal = ref(false)
 let selected_product_modal = ref({})
 let updateCompany = (company) => {
     selected_product_modal.value.company_id = company.id;
-    console.log(route('products.edit', {product : selected_product_modal.value.id}))
     axios.put(route('products.edit', {product : selected_product_modal.value.id}), selected_product_modal.value).then( (res) => {
         selected_product_modal.value.company = company;
         companyModal.value = false
@@ -34,7 +31,6 @@ let updateCompany = (company) => {
 
 let updateTjmType = (tjm_type) => {
     selected_product_modal.value.tjm_type_id = tjm_type.id;
-    console.log(route('products.edit', {product : selected_product_modal.value.id}))
     axios.put(route('products.edit', {product : selected_product_modal.value.id}), selected_product_modal.value).then( (res) => {
         selected_product_modal.value.tjm_type = tjm_type;
         tjmModal.value = false
@@ -43,7 +39,7 @@ let updateTjmType = (tjm_type) => {
 
 let destroy = (product) => {
     axios.delete(route('products.destroy', product.id)).then( (res) => {
-        var product_index = props.products.indexOf(product);
+        let product_index = props.products.indexOf(product);
         props.products.splice(product_index, 1)
     })
 }

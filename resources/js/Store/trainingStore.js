@@ -5,12 +5,12 @@ import axios from "axios";
 export const useTrainingStore = defineStore({
     id: 'training',
     state: () => ({
-        trainings: "not defined"
+        trainings: {}
     }),
     getters: {},
     actions: {
         getTrainingsIfNotLoaded(){
-            if (this.trainings === "not defined") {
+            if (!Array.isArray(this.trainings )) {
                 axios.get(route('trainings.all')).then( (res) => {
                     this.trainings = res.data.data;
                 })
@@ -24,6 +24,18 @@ export const useTrainingStore = defineStore({
                     let id = this.trainings.findIndex( (t) => t.id === updated.id )
                     this.trainings[id] = updated
                 })
+        },
+        updateAction(value, column, training) {
+            let data = {}
+                data[column] = value
+            training[column] = value
+
+            axios.post(route('trainings.mail', training.id), data)
+            .then( (res) => {
+                let updated = res.data.data;
+                let id = this.trainings.findIndex( (t) => t.id === updated.id )
+                this.trainings[id] = updated
+            })
         },
         updateDate(start, end, training){
             training['start_date'] = start
@@ -137,14 +149,10 @@ export const useTrainingStore = defineStore({
 
             axios.post(route('trainings.store'), training_data )
                 .then( (res) => {
-                    console.log(res.data.data)
                     this.trainings.unshift(res.data.data)
                 })
         },
         async createTraining(training_data) {
-
-            console.log(training_data)
-
             return axios.post(route('trainings.store'), training_data )
             .then( (res) => {
                 this.trainings.unshift(res.data.data)

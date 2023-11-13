@@ -26,7 +26,7 @@ test('i can edit cursus', function () {
     $cursus = Cursus::create(['name' => 'POE JAVA BORDEAUX 4 DEC']);
 
     $poe_data = [
-        'product_id' => Product::factory()->create(['code' => 'POE JAVA', 'company_id' => $m2i->id])->id,
+        'product_id' => Product::factory()->create(['code' => 'POE JAVA', 'company_id' => $m2i->id, 'tjm' => 550])->id,
         'customer_id' => Customer::factory()->create(['company_id' => $m2i->id])->id,
         'tjm' => 550,
         'travelling_expenses' => 180,

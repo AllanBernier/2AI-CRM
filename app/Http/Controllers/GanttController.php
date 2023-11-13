@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use App\Models\Subcontractor;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -32,5 +33,21 @@ class GanttController extends Controller
             }])->get()
         );
 
+    }
+
+    public function search(Request $request, Product $product)
+    {
+        if (!(isset($request['start_date']) && isset($request['end_date']) )){
+            abort(403);
+        }
+
+        return new JsonResource(
+            Subcontractor::whereHas('products', function (Builder $query) use ($product) {
+                $query->where('product_id', $product->id);
+            })->with(["trainings" => function($query) use ($request) {
+                $query->whereBetween('start_date', [$request['start_date'], $request['end_date']]);
+                $query->orWhereBetween('end_date', [$request['start_date'], $request['end_date']]);
+            }])->get()
+        );
     }
 }

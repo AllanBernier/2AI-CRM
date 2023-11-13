@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\TrainingStoreRequest;
+use App\Mail\ARNouveau;
 use App\Models\Company;
 use App\Models\Cursus;
 use App\Models\Product;
@@ -11,6 +12,7 @@ use App\Models\TjmType;
 use App\Models\Training;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Mail;
 use Inertia\Inertia;
 
 class TrainingController extends Controller
@@ -71,5 +73,28 @@ class TrainingController extends Controller
     {
         $training->delete();
         return new JsonResource($training);
+    }
+
+    public function mail(Training $training, Request $request)
+    {
+        $training->load('customer');
+
+
+
+        if (isset($request['action_customer']) && isset($training->customer->email)){
+            switch ($request['action_customer']) {
+                case "AR Nouveau":
+                    Mail::to($training->customer->email)->queue(new ARNouveau($training));
+                    $training->update(['action_customer' => "AR Nouveau"]);
+                    break;
+            }
+            $training->update(['action_customer' => $request['action_customer']]);
+        }
+        if (isset($request['action_subcontractor']) ) {
+            $training->update(['action_subcontractor' => $request['action_subcontractor']]);
+        }
+
+
+        return new JsonResource(['message' => 'Email sent']);
     }
 }

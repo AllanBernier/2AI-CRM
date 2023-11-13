@@ -30,6 +30,7 @@ watch(date_value, debounce(function (value) {
 
 let modal = ref(false)
 
+let emit = defineEmits(['modal'])
 </script>
 
 <template>

@@ -3,12 +3,12 @@ import { defineStore} from "pinia";
 export const useSubcontractorStore = defineStore({
     id: 'subcontractors',
     state: () => ({
-        subcontractors: "not defined"
+        subcontractors: {}
     }),
     getters: {},
     actions: {
         getSubcontractorsIfNotLoaded(){
-            if (this.subcontractors === "not defined") {
+            if (!Array.isArray(this.subcontractors )) {
                 axios.get(route('subcontractors.all')).then( (res) => {
                     this.subcontractors = res.data.data;
                     this.subcontractors.forEach( (p) => {

@@ -2,6 +2,7 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import EditForm from "@/Pages/Subcontractor/EditForm.vue";
 import EditTjm from "@/Pages/Subcontractor/EditTjm.vue";
+import Products from "@/Pages/Subcontractor/Products.vue";
 
 let props = defineProps({
     subcontractor : Object
@@ -25,18 +26,16 @@ let computeFullName = () => {
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="bg-white shadow-sm sm:rounded-lg ">
                     <edit-form :subcontractor="subcontractor"/>
-                    <div class="grid grid-cols-3 mr-5">
-                        <edit-tjm :subcontractor="subcontractor"/>
-
+                    <div class="grid grid-cols-3 mr-5 gap-6 pt-6">
+                        <products class="overflow-hidden h-64" :subcontractor="subcontractor" />
+                        <edit-tjm class="max-h-6" :subcontractor="subcontractor"/>
                     </div>
                 </div>
             </div>
         </div>
     </AuthenticatedLayout>
-    {{subcontractor}}
-
 </template>
 
 <style scoped>

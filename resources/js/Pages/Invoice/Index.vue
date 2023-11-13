@@ -22,7 +22,6 @@ const getSubcontractors = async () => {
         month: date.value.month,
         year: date.value.year,
     })).then((res) => {
-        console.log(res)
         return res.data.data
     })
 }

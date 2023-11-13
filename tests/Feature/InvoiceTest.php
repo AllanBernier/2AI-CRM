@@ -3,7 +3,10 @@
 use App\Models\Subcontractor;
 use App\Models\Training;
 use Carbon\Carbon;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use function Pest\Laravel\get;
+use function Pest\Laravel\post;
 
 test('i can get all subcontractor who made training in month ? and corresponding tranings', function () {
     $s1 = Subcontractor::factory()->create();
@@ -23,3 +26,24 @@ test('i can get all subcontractor who made training in month ? and corresponding
         ->and($response->json('data.1.trainings'))->toHaveCount(2);
 });
 
+test('i can link subcontractor invoice to multiple trainings', function () {
+    Storage::fake();
+    $christophe = Subcontractor::factory()->create();
+    $trainings = Training::factory(2)->create(['subcontractor_id'=>$christophe->id, 'end_date' => Carbon::now()->format('Y-m-d')]);
+
+
+    $data = [
+        'trainings' => $trainings[0]->id .','. $trainings[1]->id,
+        'file_content' => UploadedFile::fake()->create('avatar.pdf')
+    ];
+
+    $response = post(route('invoices.store'), $data);
+
+    $trainings[0]->refresh();
+    $trainings[1]->refresh();
+
+    expect($response->status())->toBe(200)
+        ->and($trainings[0]->invoice_file)->not->toBe(null)
+        ->and($trainings[1]->invoice_file)->not->toBe(null);
+    Storage::assertExists($trainings[0]->invoice_file);
+})->only();

@@ -17,5 +17,4 @@ test('i can recieve all trainers with corresponding training in new, option, con
     expect($response->status())->toBe(200)
         ->and($response->json('data'))->toHaveCount(8);
 
-
-})->only();
+});

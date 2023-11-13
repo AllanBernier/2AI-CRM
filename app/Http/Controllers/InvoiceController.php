@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\InvoiceStoreRequest;
 use App\Models\Subcontractor;
+use App\Models\Training;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 
 class InvoiceController extends Controller
@@ -34,4 +38,19 @@ class InvoiceController extends Controller
             ->get()
         );
     }
+
+    public function store(Request $request)
+    {
+        if (!$request['file_content'] || !$request['trainings']){
+            abort(403);
+        }
+        $uuid = Str::uuid() ;
+        Storage::put($uuid , file_get_contents($request['file_content']));
+        Training::query()->whereIn('id', explode(",", $request['trainings']))->update(['invoice_file' => $uuid]);
+
+        return new JsonResource(['message' => 'file uploaded']);
+    }
+
 }
+
+

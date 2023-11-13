@@ -31,6 +31,7 @@ return new class extends Migration
             $table->string('action_subcontractor')->nullable();
             $table->string('name')->nullable();
             $table->ulid('cursus_id')->nullable();
+            $table->uuid('invoice_file')->nullable();
             $table->timestamps();
         });
     }

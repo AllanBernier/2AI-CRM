@@ -130,4 +130,4 @@ test('updating cursus product also update TJM', function () {
 
     $cursus->refresh();
     expect($cursus->tjm)->toBe(600);
-})->only();
+});

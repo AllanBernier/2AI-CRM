@@ -39,7 +39,10 @@ class TrainingStoreRequest extends FormRequest
             'action_customer' => '',
             'action_subcontractor' => '',
             'name' => '',
-            'cursus_id' => ''
+            'cursus_id' => '',
+            'company_invoice_id' => '',
+            'company_invoice_status' => '',
+            'bdc_file' => '',
          ];
     }
 }

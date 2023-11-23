@@ -107,7 +107,7 @@ test('i can attach product to subcontractor', function () {
 
     expect($response->status())->toBe(200)
         ->and($toto->products()->count())->toBe(1);
-})->only();
+});
 
 test('i can detach product to subcontractor', function () {
     $toto = Subcontractor::factory()->create();

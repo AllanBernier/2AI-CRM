@@ -13,6 +13,8 @@ use App\Models\Training;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 
 class TrainingController extends Controller
@@ -96,5 +98,20 @@ class TrainingController extends Controller
 
 
         return new JsonResource(['message' => 'Email sent']);
+    }
+
+    public function uploadBdc(Request $request, Training $training)
+    {
+        if (! isset($request['file_content'])){
+            abort(403);
+        }
+
+        $uuid = Str::uuid();
+
+        Storage::put($uuid , file_get_contents($request['file_content']));
+        $training->update(['bdc_file' => $uuid]);
+
+        return new JsonResource(['uuid' => $uuid]);
+
     }
 }

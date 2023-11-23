@@ -42,7 +42,7 @@ class SubcontractorTrainingController extends Controller
         return new JsonResource(
             Training::query()
                 ->where('subcontractor_id', $sub_id)
-                ->where('action_subcontractor', 'Solliciter')
+                ->where('action_subcontractor', 'solliciter')
                 ->where(function($query) {
                     $query->where('status', 'option');
                     $query->orWhere('status', 'nouveau');
@@ -79,7 +79,7 @@ class SubcontractorTrainingController extends Controller
         $query = Training::query();
         $query->where('subcontractor_id', $sub_id);
         $query->where('status', 'confirmé');
-        $query->where('action_subcontractor', 'Envoyer BDC');
+        $query->where('action_subcontractor', 'envoyé bdc');
         $query->orderBy('start_date');
         $query->with('subcontractor');
 
@@ -109,8 +109,8 @@ class SubcontractorTrainingController extends Controller
     public function arbdc(Training $training)
     {
 
-        if ($training->action_subcontractor = "Envoyer BDC"){
-            $training->action_subcontractor = "AR BDC";
+        if ($training->action_subcontractor = "envoyer bdc"){
+            $training->action_subcontractor = "ar bdc";
             $training->save();
         }
 
@@ -123,13 +123,14 @@ class SubcontractorTrainingController extends Controller
             abort(403);
         }
 
-        if ($training->action_subcontractor = "Solliciter"){
+        if ($training->action_subcontractor = "solliciter"){
             if ($request['action'] == true){
-                $training->action_subcontractor = "Accepte Solicitation";
+                $training->action_subcontractor = "accepte solicitation";
+                $training->status = 'option';
             }
 
             if ($request['action'] == false){
-                $training->action_subcontractor = "Refuse Solicitation";
+                $training->action_subcontractor = "refuse solicitation";
             }
             $training->save();
 

@@ -5,6 +5,8 @@ use App\Models\Product;
 use App\Models\Subcontractor;
 use App\Models\TjmType;
 use App\Models\Training;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use function Pest\Laravel\delete;
 use function Pest\Laravel\get;
 use function Pest\Laravel\post;
@@ -30,8 +32,10 @@ test('it can create training', function () {
         ->and($training_data['num_session'])->toBe($training->num_session)
         ->and($training_data['num_bdc'])->toBe($training->num_bdc)
         ->and($training_data['location'])->toBe($training->location)
-        ->and($training_data['travelling_expenses'])->toBe($training->travelling_expenses);
-
+        ->and($training_data['travelling_expenses'])->toBe($training->travelling_expenses)
+        ->and($training_data['company_invoice_status'])->toBe($training->company_invoice_status)
+        ->and($training_data['bdc_file'])->toBe($training->bdc_file)
+        ->and($training_data['company_invoice_id'])->toBe($training->company_invoice_id);
 });
 
 
@@ -242,4 +246,19 @@ test('i can delete training', function () {
 
     expect($response->status())->toBe(200)
         ->and(Training::count())->toBe(0);
+});
+
+
+test('i can store bdc_file', function () {
+    Storage::fake();
+    $jvs = Training::factory()->create();
+    $data = ['file_content' => UploadedFile::fake()->create('avatar.pdf')];
+
+    $response = post(route('trainings.bdc.upload', ['training' => $jvs->id]), $data);
+    $jvs->refresh();
+
+    expect($response->status())->toBe(200)
+        ->and($jvs->bdc_file)->not->toBe(null);
+    Storage::assertExists($jvs->bdc_file);
+
 });

@@ -11,6 +11,7 @@ import { useSubcontractorStore } from "@/Store/subcontractorStore.js";
 import Create from "@/Pages/Training/Create.vue";
 import SelectCustomerActionModal from "@/Pages/Training/SelectCustomerActionModal.vue";
 import SelectSubcontractorActionModal from "@/Pages/Training/SelectSubcontractorActionModal.vue";
+import InputBDC from "@/Pages/Training/InputBDC.vue";
 
 
 let trainingStore = useTrainingStore();
@@ -108,6 +109,9 @@ watch(dateValue, debounce(function (value) {
                             </th>
                             <th scope="col" class="px-6 py-3 px-6 py-3">
                                 Num BDC
+                            </th>
+                            <th scope="col" class="px-6 py-3 px-6 py-3">
+                                BDC
                             </th>
                             <th scope="col" class="px-6 py-3 px-6 py-3">
                                 Total HT
@@ -225,7 +229,9 @@ watch(dateValue, debounce(function (value) {
                                 <th scope="row" class="border-r px-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     <span v-html="training.num_bdc" contenteditable @blur="updateCol($event, training, 'num_bdc')"></span>
                                 </th>
-
+                                <th>
+                                    <input-b-d-c :training="training" />
+                                </th>
                                 <th scope="row" class="border-r px-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     {{ trainingStore.totalHT(training) }} €
                                 </th>

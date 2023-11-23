@@ -70,7 +70,7 @@ test('i can retrieve all my trainings that need an ar bdc confirmation', functio
     Training::factory(2)->create(['subcontractor_id' => $user->subcontractor->id ,'status' => 'nouveau'] );
     Training::factory(2)->create(['subcontractor_id' => $user->subcontractor->id ,'status' => 'option']);
     Training::factory(2)->create(['subcontractor_id' => $user->subcontractor->id ,'status' => 'confirmé']);
-    Training::factory(2)->create(['subcontractor_id' => $user->subcontractor->id ,'status' => 'confirmé', 'action_subcontractor' => 'Envoyer BDC']);
+    Training::factory(2)->create(['subcontractor_id' => $user->subcontractor->id ,'status' => 'confirmé', 'action_subcontractor' => 'envoyé bdc']);
 
     $response = get(route('subcontractors.trainings.toconfirm'));
 
@@ -113,13 +113,13 @@ test('i can retrieve all my confirmed trainings of specific month', function () 
 
 test('as subcontractor i can AR bdc', function () {
     $user = logAsNewSubcontractor();
-    $to_confirm = Training::factory()->create(['subcontractor_id' => $user->subcontractor->id ,'status' => 'confirmé', 'action_subcontractor' => 'Envoyer BDC']);
+    $to_confirm = Training::factory()->create(['subcontractor_id' => $user->subcontractor->id ,'status' => 'confirmé', 'action_subcontractor' => 'envoyer bdc']);
 
     $response = post(route('subcontractors.trainings.arbdc', ['training' => $to_confirm->id]));
     $to_confirm->refresh();
 
     expect($response->status())->toBe(200);
-    expect($to_confirm->action_subcontractor)->toBe('AR BDC');
+    expect($to_confirm->action_subcontractor)->toBe('ar bdc');
 });
 
 test('as subcontractor i can accept solicitation', function () {
@@ -133,7 +133,8 @@ test('as subcontractor i can accept solicitation', function () {
     $to_confirm->refresh();
 
     expect($response->status())->toBe(200)
-        ->and($to_confirm->action_subcontractor)->toBe('Accepte Solicitation');
+        ->and($to_confirm->action_subcontractor)->toBe('accepte solicitation')
+        ->and($to_confirm->status)->toBe('option');
 });
 
 test('as subcontractor i can refuse solicitation', function () {
@@ -147,5 +148,5 @@ test('as subcontractor i can refuse solicitation', function () {
     $to_confirm->refresh();
 
     expect($response->status())->toBe(200)
-        ->and($to_confirm->action_subcontractor)->toBe('Refuse Solicitation');
+        ->and($to_confirm->action_subcontractor)->toBe('refuse solicitation');
 });

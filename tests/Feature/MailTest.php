@@ -20,4 +20,4 @@ test('i can send AR Nouveau mail', function () {
         return $mail->hasTo($training->customer->email);
     });
 
-})->only();
+});

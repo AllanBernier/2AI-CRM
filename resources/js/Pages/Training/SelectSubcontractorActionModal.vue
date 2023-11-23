@@ -12,47 +12,47 @@ let trainingStore = useTrainingStore();
 
 
                     <div class="modal-body grid gap-4 lg:grid-cols-2">
-                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                        <button class="bg-gray-800 uppercase hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                                 :class="trainingStore.bgColorActionSubcontractor('')"
                                 @click="$emit('action', '')">
                         </button>
-                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                                :class="trainingStore.bgColorActionSubcontractor('Solliciter')"
-                                @click="$emit('action', 'Solliciter')">
-                            Solliciter
+                        <button class="uppercase hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                                :class="trainingStore.bgColorActionSubcontractor('solliciter')"
+                                @click="$emit('action', 'solliciter')">
+                            solliciter
                         </button>
-                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                                :class="trainingStore.bgColorActionSubcontractor('Solliciter dates')"
-                                @click="$emit('action', 'Solliciter dates')">
-                            Solliciter dates
+                        <button class="uppercase hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                                :class="trainingStore.bgColorActionSubcontractor('solliciter dates')"
+                                @click="$emit('action', 'solliciter dates')">
+                            solliciter dates
                         </button>
-                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                                :class="trainingStore.bgColorActionSubcontractor('Envoyé bon d\'option')"
-                                @click="$emit('action', 'Envoyé bon d\'option')">
-                            Envoyé bon d'option
+                        <button class="uppercase hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                                :class="trainingStore.bgColorActionSubcontractor('envoyé bon d\'option')"
+                                @click="$emit('action', 'envoyé bon d\'option')">
+                            envoyé bon d'option
                         </button>
-                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                                :class="trainingStore.bgColorActionSubcontractor('Envoyé BDC')"
-                                @click="$emit('action', 'Envoyé BDC')">
-                            Envoyé BDC
+                        <button class="uppercase hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                                :class="trainingStore.bgColorActionSubcontractor('envoyé bdc')"
+                                @click="$emit('action', 'envoyé bdc')">
+                            envoyé bdc
                         </button>
-                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                                :class="trainingStore.bgColorActionSubcontractor('Bon pour accord')"
-                                @click="$emit('action', 'Bon pour accord')">
-                            Bon pour accord
+                        <button class="uppercase hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                                :class="trainingStore.bgColorActionSubcontractor('bon pour accord')"
+                                @click="$emit('action', 'bon pour accord')">
+                            bon pour accord
                         </button>
-                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                                :class="trainingStore.bgColorActionSubcontractor('Annuler une option')"
-                                @click="$emit('action', 'Annuler une option')">
+                        <button class="uppercase hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                                :class="trainingStore.bgColorActionSubcontractor('annuler une option')"
+                                @click="$emit('action', 'annuler une option')">
                             Annuler une option
                         </button>
-                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                                :class="trainingStore.bgColorActionSubcontractor('Annuler une confirmation')"
-                                @click="$emit('action', 'Annuler une confirmation')">
-                            Annuler une confirmation
+                        <button class="uppercase hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                                :class="trainingStore.bgColorActionSubcontractor('annuler une confirmation')"
+                                @click="$emit('action', 'annuler une confirmation')">
+                            annuler une confirmation
                         </button>
-                        <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" @click="$emit('close')">
-                            Fermer
+                        <button class="uppercase bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" @click="$emit('close')">
+                            fermer
                         </button>
                     </div>
                 </div>

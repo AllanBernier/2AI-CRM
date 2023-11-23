@@ -31,7 +31,10 @@ class Training extends Model
         'action_subcontractor',
         'name',
         'cursus_id',
-        'invoice_file'
+        'invoice_file',
+        'company_invoice_id',
+        'company_invoice_status',
+        'bdc_file',
     ];
 
     public function cursus()

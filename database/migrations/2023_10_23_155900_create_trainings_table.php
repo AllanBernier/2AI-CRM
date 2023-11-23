@@ -30,8 +30,13 @@ return new class extends Migration
             $table->string('action_customer')->nullable();
             $table->string('action_subcontractor')->nullable();
             $table->string('name')->nullable();
+            $table->string('company_invoice_status')->default('')->nullable();
             $table->ulid('cursus_id')->nullable();
             $table->uuid('invoice_file')->nullable();
+            $table->uuid('bdc_file')->nullable();
+            $table->ulid('company_invoice_id')->nullable();
+
+
             $table->timestamps();
         });
     }

@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('last_name')->nullable();
             $table->string('email_perso')->nullable();
             $table->string('email_company')->nullable();
-            $table->string('phone')->nullable();
             $table->string('company_name')->nullable();
+            $table->string('phone')->nullable();
             $table->string('city')->nullable();
             $table->ulid('subcontractor_id')->nullable();
             $table->timestamps();

@@ -97,3 +97,37 @@ texte, date, documents, type document, URL
 Ajouter des commentaires/documents sur toutes les pages voulue(s)
 
 Mettre à jour les commandes au prix des produits
+
+
+Formateur ; num facture
+Formation frais sup
+Total = (TJM + FDD) * nbjours + frais supp
+
+###Facturation client,###
+
+- Toutes les factures par société (date de début)
+- Envoie auto au client
+- Génération PDF
+
+- Facture à cheval sur deux mois (choix sur quel mois)
+- Facture : TJM + frais déplacement total TVA total TTC, TVC, num-bdc, date début
+- Visualiser PDF des bons de commandes
+
+Formations -> upload BDC
+
+Status facturation : facturé, payé, prete à facturer,erreur fraix, erreur TJM, erreur,erreur nb jours... (envoie mail : erreur sur le bdc envoie bdc pj et bon d'option)
+
+Date facturation payé 30j fin de mois
+Par mois récupérer les factures antérieur non facturé
+
+Formateur facture 
+
+
+Formateur : Nom société, siret, iban, num tva
+
+Formateur génère leurs facture, 
+
+
+
+
+Only show trainings that have not been billed & end_date is lower than now plus 10 days

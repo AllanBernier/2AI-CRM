@@ -36,7 +36,7 @@ onMounted(async () => {
     <AuthenticatedLayout>
         <template #header>
             <div class="flex justify-between">
-                <h2 class="font-semibold text-xl text-gray-800 leading-tight">Facturation</h2>
+                <h2 class="font-semibold text-xl text-gray-800 leading-tight">Facturation Sous-traitant</h2>
 
                 <div class="flex gap-2">
                     <select-year-drop-down :year="date.year" @update:year="(year) =>{date.year = year; getSubcontractors()}"/>

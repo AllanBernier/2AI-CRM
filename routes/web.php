@@ -4,6 +4,7 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\CursusController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\GanttController;
+use App\Http\Controllers\InvoiceCompanyController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
@@ -70,6 +71,14 @@ Route::post('/gantt/search/{product}', [GanttController::class, 'search'])->name
 Route::post('/invoice/subcontractors/store', [InvoiceController::class, 'store'])->name('invoices.store');
 Route::get('/invoice/subcontractors/{month}/{year}', [InvoiceController::class, 'subcontractors'])->name('invoices.subcontractors');
 
+Route::get('/invoice/company/bdc/{training}', [InvoiceCompanyController::class, 'showBdc'])->name('invoice.company.show.bdc');
+Route::get('/invoice/company/billing/{company}', [InvoiceCompanyController::class, 'billing'])->name('invoices.company.billing');
+Route::get('/invoice/company/pdf/{invoice}', [InvoiceCompanyController::class, 'showInvoice'])->name('invoice.company.show.invoice');
+
+Route::post('/invoice/company/', [InvoiceCompanyController::class, 'store'])->name('invoice.company.store');
+
+
+
 Route::get('/product/all', [ProductController::class, 'all'])->name('products.all');
 Route::post('/product', [ProductController::class, 'store'])->name('products.store');
 Route::post('/product/search', [ProductController::class, 'search'])->name('products.search');
@@ -85,7 +94,9 @@ Route::put('/subcontractor/{subcontractor}', [SubcontractorController::class, 'e
 Route::delete('/subcontractor/{subcontractor}', [SubcontractorController::class, 'destroy'])->name('subcontractors.destroy');
 
 Route::put('/tjm/edit/{subcontractor}/{tjm_type}', [TjmTypeController::class, 'edit'])->name('tjms.edit');
+
 Route::post('/training', [TrainingController::class, 'store'])->name('trainings.store');
+Route::post('/training/bdc/{training}', [TrainingController::class, 'uploadBdc'])->name('trainings.bdc.upload');
 Route::post('/training/mail/{training}', [TrainingController::class, 'mail'])->name('trainings.mail');
 Route::get('/training/all', [TrainingController::class, 'all'])->name('trainings.all');
 Route::delete('/training/{training}', [TrainingController::class, 'destroy'])->name('trainings.destroy');
@@ -108,6 +119,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/customer', [CustomerController::class, 'index'])->name('customers.index');
     Route::get('/planning', [GanttController::class, 'index'])->name('gantt.index');
     Route::get('/invoice', [InvoiceController::class, 'index'])->name('invoices.index');
+    Route::get('/invoicecompany', [InvoiceCompanyController::class, 'index'])->name('invoices.company.index');
     Route::get('/product', [ProductController::class, 'index'])->name('products.index');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

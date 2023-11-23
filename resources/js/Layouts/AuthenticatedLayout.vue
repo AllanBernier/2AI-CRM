@@ -63,11 +63,14 @@ onMounted( ()=> {
                                 <NavLink :href="route('cursuses.index')" :active="route().current('cursuses.index')">
                                     Cursus
                                 </NavLink>
-                                <NavLink :href="route('invoices.index')" :active="route().current('invoices.index')">
-                                    Facturation
-                                </NavLink>
                                 <NavLink :href="route('gantt.index')" :active="route().current('gantt.index')">
                                     Planning
+                                </NavLink>
+                                <NavLink :href="route('invoices.index')" :active="route().current('invoices.index')">
+                                    Facturation Sous-Traitant
+                                </NavLink>
+                                <NavLink :href="route('invoices.company.index')" :active="route().current('invoices.company.index')">
+                                    Facturation Client
                                 </NavLink>
                             </div>
                         </div>
@@ -179,6 +182,7 @@ onMounted( ()=> {
                             Cursus
                         </ResponsiveNavLink>
                     </div>
+
                     <!-- Responsive Settings Options -->
                     <div class="pt-4 pb-1 border-t border-gray-200">
                         <div class="px-4">

@@ -34,4 +34,4 @@ test('i can search all subcontractors that are linked with product', function ()
 
     expect($response->status())->toBe(200)
         ->and($response->json('data'))->toHaveCount(2);
-})->only();
+});

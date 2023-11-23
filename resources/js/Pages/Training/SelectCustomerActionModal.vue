@@ -8,57 +8,54 @@ let trainingStore = useTrainingStore();
     <transition name="modal">
         <div class="modal-mask">
             <div class="modal-wrapper">
-                <div class="modal-container">
-
-
-
+                <div class="modal-container uppercase">
                     <div class="modal-body grid gap-4 lg:grid-cols-2">
-                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                        <button class="bg-gray-800 uppercase hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                                 :class="trainingStore.bgColorActionCustomer('')"
                                 @click="$emit('action', '')">
 
                         </button>
-                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                                :class="trainingStore.bgColorActionCustomer('AR Nouveau')"
-                                @click="$emit('action', 'AR Nouveau')">
+                        <button class="uppercase hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                                :class="trainingStore.bgColorActionCustomer('ar nouveau')"
+                                @click="$emit('action', 'ar nouveau')">
                             AR Nouveau
                         </button>
-                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                                :class="trainingStore.bgColorActionCustomer('Envoyé Intervenant')"
-                                @click="$emit('action', 'Envoyé Intervenant')">
+                        <button class="uppercase hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                                :class="trainingStore.bgColorActionCustomer('envoyé intervenant')"
+                                @click="$emit('action', 'envoyé intervenant')">
                             Envoyé Intervenant
                         </button>
-                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                                :class="trainingStore.bgColorActionCustomer('Relance Option')"
-                                @click="$emit('action', 'Relance Option')">
+                        <button class="uppercase hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                                :class="trainingStore.bgColorActionCustomer('relance option')"
+                                @click="$emit('action', 'relance option')">
                             Relance Option
                         </button>
-                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                                :class="trainingStore.bgColorActionCustomer('AR BDC')"
-                                @click="$emit('action', 'AR BDC')">
+                        <button class="uppercase hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                                :class="trainingStore.bgColorActionCustomer('ar bdc')"
+                                @click="$emit('action', 'ar bdc')">
                             AR BDC
                         </button>
-                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                                :class="trainingStore.bgColorActionCustomer('AR Annulation')"
-                                @click="$emit('action', 'AR Annulation')">
+                        <button class="uppercase hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                                :class="trainingStore.bgColorActionCustomer('ar annulation')"
+                                @click="$emit('action', 'ar annulation')">
                             AR Annulation
                         </button>
-                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                                :class="trainingStore.bgColorActionCustomer('Envoyé changement sur option')"
-                                @click="$emit('action', 'Envoyé changement sur option')">
+                        <button class="uppercase hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                                :class="trainingStore.bgColorActionCustomer('envoyé changement sur option')"
+                                @click="$emit('action', 'envoyé changement sur option')">
                             Envoyé changement sur option
                         </button>
-                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                                :class="trainingStore.bgColorActionCustomer('Envoyé changement sur confirmation')"
-                                @click="$emit('action', 'Envoyé changement sur confirmation')">
+                        <button class="uppercase hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                                :class="trainingStore.bgColorActionCustomer('envoyé changement sur confirmation')"
+                                @click="$emit('action', 'envoyé changement sur confirmation')">
                             Envoyé changement sur confirmation
                         </button>
-                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                                :class="trainingStore.bgColorActionCustomer('Envoyé refus')"
-                                @click="$emit('action', 'Envoyé refus')">
+                        <button class="uppercase hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                                :class="trainingStore.bgColorActionCustomer('envoyé refus')"
+                                @click="$emit('action', 'envoyé refus')">
                             Envoyé refus
                         </button>
-                        <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" @click="$emit('close')">
+                        <button class="bg-red-500 uppercase hover:bg-red-700 text-white font-bold py-2 px-4 rounded" @click="$emit('close')">
                             Fermer
                         </button>
                     </div>

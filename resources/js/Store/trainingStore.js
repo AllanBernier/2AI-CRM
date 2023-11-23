@@ -77,7 +77,9 @@ export const useTrainingStore = defineStore({
                 case "option":
                     return "#f97316"
                 case "confirmé":
-                    return "#22c55e"
+                    return "#f97316"
+                case "cursus":
+                    return "#227ec5"
                 case "annulé":
                     return "#991b1b"
                 default:
@@ -86,48 +88,54 @@ export const useTrainingStore = defineStore({
         },
         bgColorActionCustomer (action) {
             switch (action){
-                case "AR Nouveau":
+                case "ar nouveau":
                     return "bg-purple-600"
-                case "Envoyé Intervenant":
+                case "envoyé intervenant":
                     return "bg-amber-600"
-                case "Relance Option":
+                case "relance option":
+                    return "bg-amber-500"
+                case "ar bdc":
                     return "bg-lime-600"
-                case "AR BDC":
+                case "ar annulation":
                     return "bg-red-600"
-                case "AR Annulation":
-                    return "bg-red-600"
-                case "Envoyé changement sur option":
-                    return "bg-red-600"
-                case "Envoyé changement sur confirmation":
-                    return "bg-red-600"
-                case "Envoyé refus":
-                    return "bg-red-600"
-                case "":
-                    return "bg-gray-600"
+                case "envoyé changement sur option":
+                    return "bg-amber-400"
+                case "envoyé changement sur confirmation":
+                    return "bg-amber-300"
+                case "envoyé refus":
+                    return "bg-red-700"
                 default:
                     return "bg-red"
             }
         },
         bgColorActionSubcontractor (action) {
             switch (action){
-                case "Solliciter":
-                    return "bg-gray-600"
-                case "Solliciter dates":
+                case "solliciter":
+                    return "bg-purple-600"
+                case "solliciter dates":
+                    return "bg-purple-500"
+                case "envoyé bon d'option":
                     return "bg-amber-600"
-                case "Envoyé bon d'option":
+                case "envoyé bdc":
+                    return "bg-lime-500"
+                case "bon pour accord":
                     return "bg-lime-600"
-                case "Envoyé BDC":
+                case "annuler une option":
+                    return "bg-red-500"
+                case "annuler une confirmation":
                     return "bg-red-600"
-                case "Bon pour accord":
-                    return "bg-red-600"
-                case "Annuler une option":
-                    return "bg-red-600"
-                case "Annuler une confirmation":
-                    return "bg-red-600"
-                case "":
-                    return "bg-gray-600"
                 default:
                     return "bg-red"
+            }
+        },
+        bgColorInvoiceStatus(status) {
+            switch (status) {
+                case "erreur bdc":
+                    return "bg-red-600"
+                case "vérifié":
+                    return "bg-green-600"
+                default:
+                    return "bg-white"
             }
         },
         formatSingleDate(date){

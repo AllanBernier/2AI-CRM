@@ -25,8 +25,8 @@ let store = () =>{
 </script>
 
 <template>
-    <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-        <th scope="row" class="border-r font-medium text-gray-900 whitespace-nowrap dark:text-white">
+    <tr class="bg-white border-b">
+        <th scope="row" class="border-r font-medium text-gray-900 whitespace-nowrap">
             <input v-model="name" class="outline-none appearance-none" type="text" placeholder="+ Ajouter client"  @keyup.enter="store" @focusout="store">
         </th>
         <td class="px-2 border-r">

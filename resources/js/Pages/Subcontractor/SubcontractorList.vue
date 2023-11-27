@@ -35,8 +35,8 @@ let updateCol = (e, subcontractor, col) =>{
         <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div class="py-2 inline-block w-full sm:px-6 lg:px-8">
                 <div class="table-wrp block max-h-[65vh]	">
-                    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400 max-h-">
-                        <thead class="z-10 sticky top-0 text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <table class="w-full text-sm text-left text-gray-500 max-h-">
+                        <thead class="z-10 sticky top-0 text-xs text-gray-700 uppercase bg-gray-50">
                         <tr>
                             <th scope="col" class="px-6 py-3 px-6 py-3">
                                 Nom
@@ -64,8 +64,8 @@ let updateCol = (e, subcontractor, col) =>{
 
                         <tbody>
                             <create class="sticky top-10 z-40"/>
-                            <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700" v-for="subcontractor in subcontractors" :key="subcontractor.id">
-                                <th scope="row" class="border-r px-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            <tr class="bg-white border-b" v-for="subcontractor in subcontractors" :key="subcontractor.id">
+                                <th scope="row" class="border-r px-2 font-medium text-gray-900 whitespace-nowrap">
                                     <p v-html="subcontractor.first_name" contenteditable @blur="updateCol($event, subcontractor, 'first_name')"></p>
                                 </th>
                                 <td class="px-2 border-r">
@@ -74,7 +74,7 @@ let updateCol = (e, subcontractor, col) =>{
                                 <td class="border-r px-2">
                                     <p v-html="subcontractor.email_perso" contenteditable @blur="updateCol($event, subcontractor, 'email_perso')"></p>
                                 </td>
-                                <td class="border-r px-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <td class="border-r px-2 font-medium text-gray-900 whitespace-nowrap">
                                     <input-drop-down
                                         placeholder="+ Ajouter formateur"
                                         :values="subcontractorStore.subcontractors"

@@ -8,8 +8,7 @@
 <body>
     <h1>This is my first invoice</h1>
 
-    {{$company['name']}}
-
+    {{$invoice_number}}
     <hr>
 
     <ul>

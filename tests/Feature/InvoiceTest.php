@@ -31,11 +31,9 @@ test('i can link subcontractor invoice to multiple trainings', function () {
     Storage::fake();
     $christophe = Subcontractor::factory()->create();
     $trainings = Training::factory(2)->create(['subcontractor_id'=>$christophe->id, 'end_date' => Carbon::now()->format('Y-m-d')]);
-
-
     $data = [
-        'trainings' => $trainings[0]->id .','. $trainings[1]->id,
-        'file_content' => UploadedFile::fake()->create('avatar.pdf')
+        'trainings' => [$trainings[0]->id,$trainings[1]->id],
+        'invoice_number' => '1025'
     ];
 
     $response = post(route('invoices.store'), $data);
@@ -43,8 +41,26 @@ test('i can link subcontractor invoice to multiple trainings', function () {
     $trainings[0]->refresh();
     $trainings[1]->refresh();
 
-    expect($response->status())->toBe(200)
-        ->and($trainings[0]->invoice_file)->not->toBe(null)
+    $response->assertStatus(200);
+
+    expect($trainings[0]->invoice_file)->not->toBe(null)
         ->and($trainings[1]->invoice_file)->not->toBe(null);
     Storage::assertExists($trainings[0]->invoice_file);
-});
+})->only();
+
+
+test('i can retrieve subcontractor invoice from trainings', function () {
+    Storage::fake();
+    $christophe = Subcontractor::factory()->create();
+    $training = Training::factory()->create(['subcontractor_id'=>$christophe->id, 'end_date' => Carbon::now()->format('Y-m-d')]);
+    $data = [
+        'trainings' => [$training->id],
+        'invoice_number' => '1025'
+    ];
+    post(route('invoices.store'), $data);
+    $training->refresh();
+
+    $response = get(route('invoices.subcontractors.show', ['training' => $training->id]));
+
+    $response->assertStatus(200);
+})->only();

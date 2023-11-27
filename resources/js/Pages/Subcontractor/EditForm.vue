@@ -13,8 +13,8 @@ let updateCol = (e, customer, col) =>{
 </script>
 
 <template>
-    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400 max-h-">
-        <thead class="sticky top-0 text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+    <table class="w-full text-sm text-left text-gray-500">
+        <thead class="sticky top-0 text-xs text-gray-700 uppercase bg-gray-50">
         <tr>
             <th scope="col" class="px-6 py-3 px-6 py-3">
                 Nom
@@ -41,8 +41,8 @@ let updateCol = (e, customer, col) =>{
         </thead>
 
         <tbody>
-        <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-            <th scope="row" class="border-r px-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+        <tr class="bg-white border-b">
+            <th scope="row" class="border-r px-2 font-medium text-gray-900 whitespace-nowrap">
                 <p v-html="subcontractor.first_name" contenteditable @blur="updateCol($event, subcontractor, 'first_name')"></p>
             </th>
             <td class="px-2 border-r">

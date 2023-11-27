@@ -30,8 +30,8 @@ const detachProduct = (product) => {
 </script>
 
 <template>
-    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400 max-h-">
-        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+    <table class="w-full text-sm text-left text-gray-500">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
         <tr>
             <th scope="row" class="text-left ">
                 <input-drop-down
@@ -48,7 +48,7 @@ const detachProduct = (product) => {
         </thead>
 
         <tbody>
-        <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700"
+        <tr class="bg-white border-b"
             v-for="product in subcontractor.products"
             :key="product.id">
             <td class="border-r px-2" >

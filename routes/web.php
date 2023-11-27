@@ -68,12 +68,16 @@ Route::delete('/customer/{customer}', [CustomerController::class, 'destroy'])->n
 Route::post('/gantt/planning', [GanttController::class, 'show'])->name('gantt.show');
 Route::post('/gantt/search/{product}', [GanttController::class, 'search'])->name('gantt.search');
 
+Route::get('/invoice/subcontractors/show/{training}', [InvoiceController::class, 'show'])->name('invoices.subcontractors.show');
 Route::post('/invoice/subcontractors/store', [InvoiceController::class, 'store'])->name('invoices.store');
 Route::get('/invoice/subcontractors/{month}/{year}', [InvoiceController::class, 'subcontractors'])->name('invoices.subcontractors');
 
 Route::get('/invoice/company/bdc/{training}', [InvoiceCompanyController::class, 'showBdc'])->name('invoice.company.show.bdc');
 Route::get('/invoice/company/billing/{company}', [InvoiceCompanyController::class, 'billing'])->name('invoices.company.billing');
+Route::get('/invoice/company/paginated/{company}', [InvoiceCompanyController::class, 'paginated'])->name('invoice.company.paginated');
 Route::get('/invoice/company/pdf/{invoice}', [InvoiceCompanyController::class, 'showInvoice'])->name('invoice.company.show.invoice');
+
+
 
 Route::post('/invoice/company/', [InvoiceCompanyController::class, 'store'])->name('invoice.company.store');
 

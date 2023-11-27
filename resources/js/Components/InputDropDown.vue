@@ -64,7 +64,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <div class="border-b dark:bg-gray-900 dark:border-gray-700">
+    <div class="border-b">
         <div class="relative text-left inline-flex flex-col border-r">
             <input v-model="input" type="text" @focusin="openDropDown" @blur="closeDropDown" :placeholder="placeholder"
                    class="p-3 flex items-center outline-none">

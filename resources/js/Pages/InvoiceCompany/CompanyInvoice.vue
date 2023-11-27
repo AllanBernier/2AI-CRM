@@ -4,13 +4,14 @@ import {onMounted, ref} from "vue";
 import {useTrainingStore} from "@/Store/trainingStore.js";
 import SelectStatusModal from "@/Pages/InvoiceCompany/SelectStatusModal.vue";
 import VueBasicAlert from "vue-basic-alert";
+import InvoiceList from "@/Pages/InvoiceCompany/InvoiceList.vue";
 
 const trainingStore = useTrainingStore()
 const props = defineProps({company : Object})
 const trainings = ref({})
 const statusModal = ref(false)
 const selected_training_modal = ref({})
-const checked_trainings = ref({})
+const invoices = ref([]);
 
 const updateStatus = (value) => {
     statusModal.value = false;
@@ -27,8 +28,9 @@ const generateInvoice = () => {
     }
     axios.post(route('invoice.company.store'), data)
     .then( (res) => {
+        invoices.value.data.unshift(res.data.data)
         window.open(route('invoice.company.show.invoice', {invoice : res.data.data.id}), '_blank');
-        trainings.value = trainings.value.filter( t => t.checked === true);
+        trainings.value = trainings.value.filter( t => t.checked !== true);
     })
 }
 
@@ -37,6 +39,10 @@ const generateInvoice = () => {
 onMounted(() => {
     axios.get(route('invoices.company.billing', {company : props.company.id}))
         .then( (res) => trainings.value = res.data.data)
+
+    axios.get(route('invoice.company.paginated', {company : props.company.id}))
+        .then( (res) => invoices.value = res.data)
+
 })
 
 
@@ -163,6 +169,7 @@ onMounted(() => {
 
             </tbody>
         </table>
+        <invoice-list :invoices="invoices"/>
     </div>
 </template>
 

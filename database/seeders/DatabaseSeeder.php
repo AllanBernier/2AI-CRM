@@ -307,7 +307,7 @@ class DatabaseSeeder extends Seeder
             'subcontractor_id' => $chri_sub->id
         ]);
 
-        for ($i = 0; $i < 20; $i++) {
+        for ($i = 0; $i < 50; $i++) {
             $product = Product::select('id', 'company_id',)->inRandomOrder()->first();
             $date = Carbon::today()->addDays(rand(-150, 150));
 

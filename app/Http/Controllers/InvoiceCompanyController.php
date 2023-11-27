@@ -78,4 +78,12 @@ class InvoiceCompanyController extends Controller
         return response()->file(Storage::path( $invoice->file ));
     }
 
+    public function paginated(Company $company)
+    {
+
+
+        return new JsonResource(
+            Invoice::query()->where('company_id', $company->id)->paginate(5)
+        );
+    }
 }

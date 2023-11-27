@@ -79,3 +79,14 @@ test('i can show invoice pdf', function () {
 
     $response->assertStatus(200);
 });
+
+test('i can get paginated invoice by company', function () {
+    $m2i = Company::factory()->create(['name' => 'm2i']);
+    Invoice::factory(16)->create(['company_id' => $m2i->id]);
+
+    $response = get(route('invoice.company.paginated', $m2i->id));
+
+    expect($response->status())->toBe(200)
+        ->and($response->json('total'))->toBe(16);
+})->only();
+

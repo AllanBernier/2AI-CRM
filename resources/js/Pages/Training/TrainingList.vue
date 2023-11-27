@@ -57,8 +57,8 @@ watch(dateValue, debounce(function (value) {
         <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div class="py-2 inline-block w-full sm:px-6 lg:px-8">
                 <div class="table-wrp block max-h-[65vh]	">
-                    <table class="table-auto w-full text-sm text-left text-gray-500 dark:text-gray-400 max-h-">
-                        <thead class="z-20 sticky top-0 text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <table class="table-auto w-full text-sm text-left text-gray-500max-h-">
+                        <thead class="z-20 sticky top-0 text-xs text-gray-700 uppercase bg-gray-50">
                         <tr>
                             <create class="sticky z-40 left-0"/>
 
@@ -134,19 +134,19 @@ watch(dateValue, debounce(function (value) {
                         <select-subcontractor-action-modal v-if="subcontractorModal" @close="subcontractorModal = false" @action="updateSubcontractorAction"/>
 
                         <tbody>
-                            <tr class="border-b dark:bg-gray-900 dark:border-gray-700" v-for="training in trainingStore.trainings" :key="training.id" :class="trainingStore.bgColorClass(training)">
-                                <th scope="row" class="md:left-10 left-0 shadow-inner z-10 sticky border-r px-2 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                            <tr class="border-b" v-for="training in trainingStore.trainings" :key="training.id" :class="trainingStore.bgColorClass(training)">
+                                <th scope="row" class="md:left-10 left-0 shadow-inner z-10 sticky border-r px-2 font-medium text-gray-900 whitespace-nowrap"
                                     :class="trainingStore.bgColorClass(training)">
                                     <span v-html="training.name" contenteditable @blur="updateCol($event, training, 'name')"></span>
 
                                 </th>
-                                <th scope="row" class="border-r px-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <th scope="row" class="border-r px-2 font-medium text-gray-900 whitespace-nowrap">
                                     {{training.customer ? training.customer.company.name || 'N/A' : 'N/A'}}
                                 </th>
-                                <th scope="row" class="border-r px-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <th scope="row" class="border-r px-2 font-medium text-gray-900 whitespace-nowrap">
                                     <span v-html="training.num_session" contenteditable @blur="updateCol($event, training, 'num_session')"></span>
                                 </th>
-                                <th scope="row" class="border-r px-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <th scope="row" class="border-r px-2 font-medium text-gray-900 whitespace-nowrap">
                                     <vue-tailwind-datepicker
                                         v-slot="{ value, placeholder, clear }"
                                         v-model="dateValue"
@@ -167,13 +167,13 @@ watch(dateValue, debounce(function (value) {
                                         </button>
                                     </vue-tailwind-datepicker>
                                 </th>
-                                <th scope="row" class="border-r px-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <th scope="row" class="border-r px-2 font-medium text-gray-900 whitespace-nowrap">
                                     <span v-html="training.duree" contenteditable @blur="updateCol($event, training, 'duree')"></span> J
                                 </th>
-                                <th scope="row" class="border-r px-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <th scope="row" class="border-r px-2 font-medium text-gray-900 whitespace-nowrap">
                                     <p v-html="training.location" contenteditable @blur="updateCol($event, training, 'location')"></p>
                                 </th>
-                                <th scope="row" class="border-r px-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <th scope="row" class="border-r px-2 font-medium text-gray-900 whitespace-nowrap">
                                     <input-drop-down
                                         placeholder="+ Ajouter formateur"
                                         :values="subcontractorStore.subcontractors"
@@ -184,10 +184,10 @@ watch(dateValue, debounce(function (value) {
                                     />
 
                                 </th>
-                                <th scope="row" class="border-r px-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <th scope="row" class="border-r px-2 font-medium text-gray-900 whitespace-nowrap">
                                     {{training.subcontractor ? training.subcontractor.leader ? training.subcontractor.leader.first_name + ' ' + training.subcontractor.leader.last_name : training.subcontractor.first_name + ' ' + training.subcontractor.last_name : ''}}
                                 </th>
-                                <th scope="row" class="border-r px-2 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                                <th scope="row" class="border-r px-2 font-medium text-gray-900 whitespace-nowrap"
                                     @click="statusModal = true; selected_training_modal = training">
                                     <button class="w-full h-full" id="show-modal" @click="statusModal = true; selected_training_modal = training">{{training.status}}</button>
                                 </th>
@@ -204,7 +204,7 @@ watch(dateValue, debounce(function (value) {
 
                                     <button class="w-full h-full" id="show-modal" @click="subcontractorModal = true; selected_training_modal = training">{{training.action_subcontractor}}</button>
                                 </th>
-                                <th scope="row" class="border-r px-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <th scope="row" class="border-r px-2 font-medium text-gray-900 whitespace-nowrap">
                                     <input-drop-down
                                         placeholder="+ Ajouter client"
                                         :values="customerStore.customers"
@@ -214,35 +214,35 @@ watch(dateValue, debounce(function (value) {
                                         @select="(id) => trainingStore.updateCol(id,'customer_id', training)"
                                     />
                                 </th>
-                                <th scope="row" class="border-r px-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <th scope="row" class="border-r px-2 font-medium text-gray-900 whitespace-nowrap">
                                     <span v-html="training.tjm_subcontractor" contenteditable @blur="updateCol($event, training, 'tjm_subcontractor')"></span> €
                                 </th>
-                                <th scope="row" class="border-r px-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <th scope="row" class="border-r px-2 font-medium text-gray-900 whitespace-nowrap">
                                     <span v-html="training.travelling_expenses" contenteditable @blur="updateCol($event, training, 'travelling_expenses')"></span> €
                                 </th>
-                                <th scope="row" class="border-r px-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <th scope="row" class="border-r px-2 font-medium text-gray-900 whitespace-nowrap">
                                     <span v-html="training.tjm_client" contenteditable @blur="updateCol($event, training, 'tjm_client')"></span> €
                                 </th>
-                                <th scope="row" class="border-r px-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <th scope="row" class="border-r px-2 font-medium text-gray-900 whitespace-nowrap">
                                     <span v-html="training.text" contenteditable @blur="updateCol($event, training, 'text')"></span>
                                 </th>
-                                <th scope="row" class="border-r px-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <th scope="row" class="border-r px-2 font-medium text-gray-900 whitespace-nowrap">
                                     <span v-html="training.num_bdc" contenteditable @blur="updateCol($event, training, 'num_bdc')"></span>
                                 </th>
                                 <th>
                                     <input-b-d-c :training="training" />
                                 </th>
-                                <th scope="row" class="border-r px-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <th scope="row" class="border-r px-2 font-medium text-gray-900 whitespace-nowrap">
                                     {{ trainingStore.totalHT(training) }} €
                                 </th>
-                                <th scope="row" class="border-r px-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <th scope="row" class="border-r px-2 font-medium text-gray-900 whitespace-nowrap">
                                     {{ trainingStore.totalSubcontractor(training) }} €
                                 </th>
-                                <th scope="row" class="border-r px-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <th scope="row" class="border-r px-2 font-medium text-gray-900 whitespace-nowrap">
                                     {{ trainingStore.margeEur(training) }} €
                                 </th>
                                 <th scope="row"
-                                    class="border-r px-2 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                                    class="border-r px-2 font-medium text-gray-900 whitespace-nowrap"
                                     :class="trainingStore.totalPercent(training) > 30 ? 'text-green-500' : 'text-red-500'">
 
                                     {{ trainingStore.totalPercent(training) }} %

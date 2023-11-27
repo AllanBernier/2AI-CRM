@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\InvoiceStoreRequest;
 use App\Models\Subcontractor;
 use App\Models\Training;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -41,15 +42,36 @@ class InvoiceController extends Controller
 
     public function store(Request $request)
     {
-        if (!$request['file_content'] || !$request['trainings']){
+        if (!$request['trainings'] || !$request['invoice_number']){
             abort(403);
         }
-        $uuid = Str::uuid();
-        Storage::put($uuid , file_get_contents($request['file_content']));
-        Training::query()->whereIn('id', explode(",", $request['trainings']))->update(['invoice_file' => $uuid]);
 
-        return new JsonResource(['message' => 'file uploaded']);
+        $uuid = Str::uuid();
+        $trainings_query = Training::query()->whereIn('id', $request['trainings']);
+        $trainings_query->update(['invoice_file' => $uuid]);
+
+        $pdf = Pdf::loadView('pdf.invoice_subcontractor', [
+            'trainings' => $trainings_query->get()->toArray(),
+            'invoice_number' => $request['invoice_number']
+        ]);
+        Storage::put($uuid ,$pdf->download()->getOriginalContent());
+
+        return new JsonResource(['message' => 'file created']);
     }
+
+    public function show(Training $training)
+    {
+        if (!isset( $training->invoice_file )){
+            abort(403);
+        }
+        if (!Storage::fileExists( $training->invoice_file )){
+            abort(403);
+        }
+
+        return response()->file(Storage::path( $training->invoice_file ));
+
+    }
+
 
 }
 

@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -15,7 +16,8 @@ return new class extends Migration
             $table->ulid('id');
             $table->ulid('company_id')->nullable();
             $table->uuid('file')->nullable();
-
+            $table->integer('total')->default(0)->nullable();
+            $table->integer('num')->autoIncrement()->from(999);
             $table->timestamps();
         });
     }

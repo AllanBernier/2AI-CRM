@@ -13,6 +13,8 @@ class Invoice extends Model
     protected $fillable = [
         'company_id',
         'file',
+        'total',
+        'num',
     ];
 
     public function company()

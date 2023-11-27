@@ -11,7 +11,7 @@ const props = defineProps({company : Object})
 const trainings = ref({})
 const statusModal = ref(false)
 const selected_training_modal = ref({})
-const invoices = ref([]);
+const invoices = ref({});
 
 const updateStatus = (value) => {
     statusModal.value = false;
@@ -28,21 +28,25 @@ const generateInvoice = () => {
     }
     axios.post(route('invoice.company.store'), data)
     .then( (res) => {
-        invoices.value.data.unshift(res.data.data)
+        reloadInvoices()
         window.open(route('invoice.company.show.invoice', {invoice : res.data.data.id}), '_blank');
         trainings.value = trainings.value.filter( t => t.checked !== true);
     })
 }
 
+const reloadInvoices = () => {
+    axios.get(route('invoice.company.paginated', {company : props.company.id})).then( (res) => invoices.value = res.data)
+    console.log('reload')
+}
 
-
-onMounted(() => {
+const reloadTrainings = () => {
     axios.get(route('invoices.company.billing', {company : props.company.id}))
         .then( (res) => trainings.value = res.data.data)
+}
 
-    axios.get(route('invoice.company.paginated', {company : props.company.id}))
-        .then( (res) => invoices.value = res.data)
-
+onMounted(() => {
+    reloadTrainings();
+    reloadInvoices();
 })
 
 
@@ -169,7 +173,7 @@ onMounted(() => {
 
             </tbody>
         </table>
-        <invoice-list :invoices="invoices"/>
+        <invoice-list :invoices="invoices" @deletedInvoice="reloadTrainings(); reloadInvoices()"/>
     </div>
 </template>
 

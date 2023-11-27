@@ -76,6 +76,7 @@ Route::get('/invoice/company/bdc/{training}', [InvoiceCompanyController::class, 
 Route::get('/invoice/company/billing/{company}', [InvoiceCompanyController::class, 'billing'])->name('invoices.company.billing');
 Route::get('/invoice/company/paginated/{company}', [InvoiceCompanyController::class, 'paginated'])->name('invoice.company.paginated');
 Route::get('/invoice/company/pdf/{invoice}', [InvoiceCompanyController::class, 'showInvoice'])->name('invoice.company.show.invoice');
+Route::delete('/invoice/company/{invoice}', [InvoiceCompanyController::class, 'delete'])->name('invoice.company.destroy');
 
 
 

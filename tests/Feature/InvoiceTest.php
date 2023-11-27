@@ -46,7 +46,7 @@ test('i can link subcontractor invoice to multiple trainings', function () {
     expect($trainings[0]->invoice_file)->not->toBe(null)
         ->and($trainings[1]->invoice_file)->not->toBe(null);
     Storage::assertExists($trainings[0]->invoice_file);
-})->only();
+});
 
 
 test('i can retrieve subcontractor invoice from trainings', function () {
@@ -63,4 +63,4 @@ test('i can retrieve subcontractor invoice from trainings', function () {
     $response = get(route('invoices.subcontractors.show', ['training' => $training->id]));
 
     $response->assertStatus(200);
-})->only();
+});

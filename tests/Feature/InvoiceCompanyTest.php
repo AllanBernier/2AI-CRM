@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use function Pest\Laravel\delete;
 use function Pest\Laravel\get;
 use function Pest\Laravel\post;
 
@@ -88,5 +89,49 @@ test('i can get paginated invoice by company', function () {
 
     expect($response->status())->toBe(200)
         ->and($response->json('total'))->toBe(16);
-})->only();
+});
 
+
+test('i can delete invoice it also delete invoice attach', function () {
+    $m2i = Company::factory()->create(['name' => 'm2i']);
+    $barbara = Customer::factory()->create(['company_id' => $m2i]);
+    $trainings = Training::factory(3)->create(['customer_id' => $barbara->id]);
+    post(route('invoice.company.store'), ['trainings' => [ $trainings[0]->id, $trainings[1]->id, $trainings[2]->id]]);
+    $invoice = Invoice::first();
+
+    $response = delete(route('invoice.company.destroy', $invoice->id));
+
+    expect($response->status())->toBe(200)
+        ->and(Invoice::count())->toBe(0)
+        ->and(Training::first()->company_invoice_id)->toBe(null);
+
+});
+
+
+test('when creating invoice, total field is equal to sum of tjm_customer + travelling_expenses * duree of each trainings', function () {
+    Storage::fake();
+    $m2i = Company::factory()->create(['name' => 'm2i']);
+    $barbara = Customer::factory()->create(['company_id' => $m2i->id]);
+    $training_1 = Training::factory()->create(['customer_id' => $barbara->id, 'tjm_client' => 600, 'duree' => 3]); // 1800
+    $training_2 = Training::factory()->create(['customer_id' => $barbara->id, 'tjm_client' => 200, 'duree' => 2]); // 400
+    $training_3 = Training::factory()->create(['customer_id' => $barbara->id, 'tjm_client' => 100, 'duree' => 3, 'travelling_expenses' => 100]); // 600
+
+    $response = post(route('invoice.company.store'), ['trainings' => [
+        $training_1->id,
+        $training_2->id,
+        $training_3->id,
+    ]]);
+
+    expect($response->status())->toBe(201)
+        ->and(Invoice::first()->total)->toBe(2800);
+});
+
+test('when creating invoices, increments invoices number', function () {
+    $invoice_first = Invoice::factory()->create();
+    $invoice_second = Invoice::factory()->create();
+
+    $invoice_first->refresh();
+    $invoice_second->refresh();
+
+    expect($invoice_first->num)->toBe($invoice_second-> num -1);
+});

@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rules\In;
@@ -56,7 +57,12 @@ class InvoiceCompanyController extends Controller
         $query_trainings = Training::query()->whereIn('id', $request['trainings']);
 
         $trainings = $query_trainings->get();
-        $invoice = Invoice::create(['company_id' => $trainings[0]->customer->company->id, 'file' => Str::uuid()]);
+        $invoice = Invoice::create([
+            'company_id' => $trainings[0]->customer->company->id,
+            'file' => Str::uuid(),
+            'total' => Training::query()->whereIn('id', $request['trainings'])->select(DB::raw('sum((tjm_client + travelling_expenses) * duree) as total'))->first()->total
+        ]);
+
         $query_trainings->update(['company_invoice_id' => $invoice->id]);
 
         $invoice->load('company', 'trainings');
@@ -80,10 +86,17 @@ class InvoiceCompanyController extends Controller
 
     public function paginated(Company $company)
     {
-
-
         return new JsonResource(
-            Invoice::query()->where('company_id', $company->id)->paginate(5)
+            Invoice::query()->where('company_id', $company->id)->withCount('trainings')->paginate(5)
         );
     }
+
+    public function delete(Invoice $invoice)
+    {
+        $invoice->trainings()->update(['company_invoice_id' => null]);
+        $invoice->delete();
+        return new JsonResource($invoice);
+    }
+
 }
+
